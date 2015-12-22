@@ -333,7 +333,7 @@ class Pedidos extends Eloquent
 					}) 
 
 
-                 ->select(DB::raw('SUM(Pedidos.total)as total1'),'Pedidos.id_usuario','users.nombre')
+                 ->select(DB::raw('SUM(Pedidos.total)as total1'),'users.nombre','users.apellidos')
 
 
 
@@ -342,6 +342,32 @@ class Pedidos extends Eloquent
 
 					return $pedidos;
 		
+
+	}
+
+
+
+
+		public function scopeEnviosUser($pedidos,$id)
+	{
+		 $pedidos =DB::table('pedidos as pedidos')
+
+		 ->where('pedidos.id_usuario','=',$id)
+
+
+		->leftjoin('envios as envios',function($join){
+							$join->on('envios.id_pedido','=','pedidos.id');
+					}) 
+		
+		->leftjoin('usersHD as usersHD',function($join){
+							$join->on('usersHD.id','=','envios.id_usuario');
+					}) 
+
+
+                 ->select(DB::raw('usersHD.username, users.username, envios.estatus, envios.coordenadas_actuales'));
+
+
+					return $pedidos;
 
 	}
 }

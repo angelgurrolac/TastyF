@@ -1,23 +1,37 @@
 @include('Admin.recursos')
 <!DOCTYPE html>
-<html lang="en">
-<head><meta http-equiv="Content-Type" content="text/html; charset=gb18030">
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
      
      <title>Usuarios</title>
      <script type="text/javascript">
      $(document).ready(function(){
+
+            $('.users').fadeIn();
+            $('#usuariostotal').fadeOut();
+            $('#pedidos').fadeOut();
+
      $('#usuarios').click(function(){
             $('.users').fadeIn();
             $('#usuariostotal').fadeOut();
-          
+            $('#pedidos').fadeOut(); 
 
         }); 
      $('#numeroU').click(function(){
             $('.users').fadeOut();
             $('#usuariostotal').fadeIn();
+            $('#pedidos').fadeOut();
           
-
         });    
+      $('#gastoU').click(function(){
+            $('.users').fadeOut();
+            $('#usuariostotal').fadeOut();
+            $('#pedidos').fadeIn();
+          
+        }); 
+
      });
      </script>
 </head>
@@ -30,8 +44,7 @@
      
      <li><a style="cursor:pointer;" id="usuarios">Usuarios</a></li>
      <li><a style="cursor:pointer;" id="numeroU">Numero total de usuarios</a></li>
-     <li><a style="cursor:pointer;" id="gastoU">Gasto promedio</a></li>
-     <li><a style="cursor:pointer;" id="PorcentajeU">Porcentaje ha ordenado</a></li>
+     <li><a style="cursor:pointer;" id="gastoU">Total Gastado</a></li>
      
      </ul>
      <br>
@@ -41,7 +54,7 @@
           <th>Nombre</th>
           <th>Edad</th>
           <th>Sexo</th>
-          <th>Direcci贸n</th>
+          <th>Direcci髇</th>
           <th>Codigo Postal</th>
           <th>Correo</th>  
 
@@ -63,16 +76,16 @@
     
      </table>
       
-      <table id="usuariostotal"><h2 style="display:none;" >El n煤mero total de usuarios es: {{$numero}}</h2></table>
-       <table class="table table-bordered">
+      <table class="table table-bordered" >
+        <h2 id="usuariostotal">El n鷐ero total de usuarios es: {{$numero}}</h2>
+      </table>
+       <table id="pedidos" class="table table-bordered">
      <thead>
 
           <th>Nombre</th>
-          <th>Edad</th>
-          <th>Sexo</th>
-          <th>Dirección</th>
-          <th>Codigo Postal</th>
-          <th>Correo</th>  
+          <th>Apellidos</th>
+          <th>Total en Pedidos</th>
+          
 
      </thead>
      <tbody>
@@ -80,6 +93,8 @@
      <tr>
 
             <td>{{$value->nombre}} </td>
+            <td>{{$value->apellidos}} </td>
+            <td>{{$value->total1}} </td>
      
      </tr>
      @endforeach
