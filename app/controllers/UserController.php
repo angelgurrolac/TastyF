@@ -73,20 +73,18 @@ class UserController extends \BaseController {
 
     public function EstatusP(){
 
-        $usuario = User::where('username','=',Input::get('username'))->first();
-        // $pagado = Pedidos::userPagado($usuario->id)->first();
-        // $total = count($pagado);
-        // if($total>0){
-        //     $pedido = Pedidos::ultPedido($usuario->id,$pagado->id)->get();
-        //     return Response::json($pedido);
-        // }
+      /*  $usuario = User::where('username','=',Input::get('username'))->first();
+        $pagado = Pedidos::userPagado($usuario->id)->first();
+        $total = count($pagado);
+        if($total>0){
+            $pedido = Pedidos::ultPedido($usuario->id,$pagado->id)->get();
+            return Response::json($pedido);
+        }*/
         
-            
-        $validacion = Pedidos::whereRaw('id = (select max(`id`) from pedidos)')->get();
+        
+  $validacion = Pedidos::whereRaw('id = (select max(`id`) from pedidos)')->get();
         return json_encode($validacion);
     }
-
-
 
 
 

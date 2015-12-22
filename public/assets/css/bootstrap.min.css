@@ -1,4 +1,3 @@
-
 @media (max-width:768px) {
 	.panel-search{
 		margin-top: 25px;
@@ -10,11 +9,11 @@
 	height: 50px;
 }
 .admin{
-	background-color: #CC6C56;
-	color: #fff;
+	background-color: #000000;
+	color: #999999;
 }
 .navbar-admin {
-	background-color: #CC6C56;
+	background-color: #000000;
 	border-color: #e7e7e7;
 	color: #fff;
 	z-index: 1000;
@@ -716,16 +715,19 @@ a:hover {
 }
 .cbp-spmenu a {
 	display: block;
-	color: #fff;
+	color: #999999;
 	font-size: 1.1em;
 	font-weight: 300;
 }
 .cbp-spmenu a:hover {
-	background: #258ecd;
+	    text-decoration: none;
+       color: #fff;
+    background: rgba(255,255,255,0.2);
 }
 .cbp-spmenu a:active {
-	background: #afdefa;
-	color: #47a3da;
+	  text-decoration: none;
+       color: #fff;
+    background: rgba(255,255,255,0.2);
 }
 
 .cbp-spmenu-vertical {

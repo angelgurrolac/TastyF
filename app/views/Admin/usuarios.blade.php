@@ -70,7 +70,7 @@
           <th>Nombre</th>
           <th>Edad</th>
           <th>Sexo</th>
-          <th>Direcci√≥n</th>
+          <th>Direcci®Æn</th>
           <th>Codigo Postal</th>
           <th>Correo</th>  
 
@@ -78,9 +78,9 @@
      <tbody>
      @foreach($pedidos as $key => $value)  
      <tr>
-          <td>{{$value->nombre}} </td>
-      
-          
+
+            <td>{{$value->nombre}} </td>
+     
      </tr>
      @endforeach
      </tbody>

@@ -1,6 +1,10 @@
 <html>
-<head>
+<head><meta http-equiv="Content-Type" content="text/html; charset=gb18030">
+
+  
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
+  <link rel="stylesheet"  href="{{ URL::asset('assets/css/simple-sidebar.css') }}">
+  <link rel="stylesheet" href="{{ URL::asset('assets/css/jquery-ui.min.css') }}">
   <link rel="stylesheet" href="{{ URL::asset('assets/css/jquery-ui.min.css') }}">
   <script src="{{ asset('assets/js/jquery.js') }}"></script>
   <script src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>
@@ -40,7 +44,9 @@ $(function(){
 @endif
 <body>
   <nav class="admin cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
-  <li><a href="{{URL::to('/admin/pedidos') }}">Hogar</a></li>
+<div class="estilo-menu">
+<li><img style="margin-left:34%; padding:1%; " src="/assets/img/umami_logo.png" width="70"></li>
+  <li data-type="home-menu"><a  href="{{URL::to('/admin/pedidos') }}"><p>Hogar</p></a></li>
   <li> <a href="{{URL::to('/admin/alimentos') }}">Alimentos</a></li>
   <li><a href="{{URL::to('/admin/bebidas') }}">Bebidas</a></li>
   <li><a href="{{URL::to('/admin/restaurantes') }}">Restaurantes</a></li>
@@ -48,11 +54,13 @@ $(function(){
   <li><a href="{{URL::to('/admin/informes') }}">Informe</a></li>
   <li><a href="{{URL::to('/admin/estadisticas') }}">Estadisticas</a></li>
   <li><a href="{{URL::to('/admin/candidatos') }}">Candidatos</a></li>
-  <li><a href="{{URL::to('/admin/categorias') }}">Categorias</a></li>
+  <li><a href="{{URL::to('/admin/categorias') }}">Categorías</a></li>
   <li><a href="{{URL::to('/admin/publicidad') }}">Publicidad</a></li>
   <li><a href="{{URL::to('/logout') }}">Salir</a></li>
+</div>
   </nav>
   <nav class="navbar navbar-admin">
+
   <label class="navbar-nav navbar-left"><img id="icono_menu" src="/assets/img/menu.png"><label class="paginaactual"></label></label>
   <ul class="navbar-nav navbar-right">
    <li class="dropdown">

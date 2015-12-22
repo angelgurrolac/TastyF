@@ -66,7 +66,7 @@ public function publicidad()
 		}
 	}
 
-
+	
 	public function usuarios()
 	{
 		$usuarios = Usuarios::where('id_nivel', '!=', 1)->get();

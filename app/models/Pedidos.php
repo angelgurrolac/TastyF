@@ -324,8 +324,7 @@ class Pedidos extends Eloquent
 				->where('Pedidos.estatus','LIKE','pagada');
 				
 	}
-	
-	public function scopeUserMas(){
+		public function scopeUserMas(){
 		 $pedidos =DB::table('pedidos as Pedidos')
 
 
