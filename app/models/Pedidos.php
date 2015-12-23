@@ -348,26 +348,26 @@ class Pedidos extends Eloquent
 
 
 
-		public function scopeEnviosUser($pedidos,$id)
-	{
-		 $pedidos =DB::table('pedidos as pedidos')
+	// 	public function scopeEnviosUser($pedidos,$id)
+	// {
+	// 	 $pedidos =DB::table('users as users')
 
-		 ->where('pedidos.id_usuario','=',$id)
+	// 	 ->where('users.id','=',$id)
 
 
-		->leftjoin('envios as envios',function($join){
-							$join->on('envios.id_pedido','=','pedidos.id');
-					}) 
+	// 	->leftjoin('envios as envios',function($join){
+	// 						$join->on('envios.id_pedido','=','pedidos.id');
+	// 				}) 
 		
-		->leftjoin('usersHD as usersHD',function($join){
-							$join->on('usersHD.id','=','envios.id_usuario');
-					}) 
+	// 	->leftjoin('usersHD as usersHD',function($join){
+	// 						$join->on('usersHD.id','=','envios.id_usuario');
+	// 				}) 
 
 
-                 ->select(DB::raw('usersHD.username, users.username, envios.estatus, envios.coordenadas_actuales'));
+ //                 ->select(DB::raw('usersHD.username, users.username, envios.estatus, envios.coordenadas_actuales'));
 
 
-					return $pedidos;
+	// 				return $pedidos;
 
-	}
+	// }
 }
