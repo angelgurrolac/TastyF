@@ -7,34 +7,37 @@
 	
 </head>
 <body>
+	<div class="row" style="background-color:white;">
+		<div class="col-lg-2"></div>
+		<div class="col-lg-10">
 
 	 <div class="container marg">
     	<div class="panel panel-default">
-      		<div class="panel-heading">&nbsp;</div>
+      		<div class="panel-heading">Candidato</div>
      		<div class="panel-body ">
      	{{ Form::open(array('url' => '/admin/validar','id'=>'nueva','files'=>'true')) }}
      			{{Form::hidden('id',$candidato->id)}}
-		     	<div class="form-group col-lg-4">
+		     	<div class="form-group col-lg-6">
 		         {{ Form::label('nombre', 'Nombre') }}
 		         {{ Form::text('nombre', $candidato->nombre, array('class' => 'form-control','form'=>'nueva')) }}
 		       </div>		    
-		       <div class="form-group col-lg-4">
-		         {{ Form::label('telefono', 'Telefono') }}
+		       <div class="form-group col-lg-6">
+		         {{ Form::label('telefono', 'Teléfono') }}
 		         {{ Form::text('telefono', $candidato->telefono, array('class' => 'form-control','form'=>'nueva')) }}
 		       </div>
-		       <div class="form-group col-lg-4">
-		         {{ Form::label('direccion', 'direccion') }}
+		       <div class="form-group col-lg-6">
+		         {{ Form::label('direccion', 'Dirección') }}
 		         {{ Form::text('direccion', $candidato->direccion, array('class' => 'form-control','form'=>'nueva')) }}
 		       </div>
-		       <div class="form-group col-lg-4">
-		         {{ Form::label('hora_inicio', 'hora de apertura') }}
+		       <div class="form-group col-lg-6">
+		         {{ Form::label('hora_inicio', 'Hora de apertura') }}
 		         {{ Form::text('hora_inicio', $candidato->hora_inicio, array('class' => 'form-control','form'=>'nueva','placeholder'=>'09:00')) }}
 		       </div>
-		        <div class="form-group col-lg-4">
-		         {{ Form::label('hora_fin', 'hora de cierre') }}
+		        <div class="form-group col-lg-6">
+		         {{ Form::label('hora_fin', 'Hora de cierre') }}
 		         {{ Form::text('hora_fin', $candidato->hora_fin, array('class' => 'form-control','form'=>'nueva','placeholder'=>'17:00')) }}
 		       </div>
-		        <div class="form-group col-lg-4">
+		        <div class="form-group col-lg-6">
 		       		{{ Form::label('entrega', '¿Entrega a domicilio?') }}
 		       		@if(($candidato->domicilio)=='1')
 		        		 {{ Form::checkbox('domicilio', true , ['class' => 'field']) }}
@@ -49,11 +52,11 @@
 		       <br>
 		       <br>
 		       <br>
-		        <div class="form-group col-lg-4">
+		        <div class="form-group col-lg-6">
 		         {{ Form::label('user', 'Usuario') }}
 		         {{ Form::text('user', Input::old('user'), array('class' => 'form-control','form'=>'nueva')) }}
 		       </div>
-		        <div class="form-group col-lg-4">
+		        <div class="form-group col-lg-6">
 		         {{ Form::label('password', 'Contraseña') }}
 		         {{ Form::text('password', Input::old('password'), array('class' => 'form-control','form'=>'nueva')) }}
 		       </div>
@@ -67,9 +70,12 @@
 
 			  {{form::open(array('url' => 'admin/borrar_candidato','id'=>'delete')) }}
 					{{Form::hidden('id',$candidato->id)}}
-		       <a class="btn btn-danger " name="Eliminar" >Eliminar</a>
+		       <a style="diplay_inline-bloc;" class="btn btn-danger " name="Eliminar" >Eliminar</a>
 		         {{ Form::close() }}
 				     </div>
+     		</div>
+     	</div>
+     </div>
      		</div>
      	</div>
      </div>

@@ -6,13 +6,17 @@
 	<title>Publicidad</title>
 </head>
 <body>
+<div class="row" style="background-color:white;">
+		<div class="col-lg-2"></div>
+		<div class="col-lg-10">
 	  <div class="container marg">
     <div class="panel panel-default">
      <div class="panel-heading admin"><h4>Publicidad</h4></div>   
      		<div class="container">
      			<div class="col-md-3">
 				<br>
-			<a href="#"><img class="buttonagregar" data-target="#myModal" src="{{asset('assets/img/anclas/mas.png')}}">Agregar publicidad</a>
+			<a href="#" style="padding:2%;"><img class="buttonagregar" width="23px" data-target="#myModal" src="{{asset('assets/img/anclas/mas.png')}}">Agregar publicidad</a>
+			<br>
 				<!-- Modal -->
 						<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" >
 							<div class="modal-dialog modal-lg">
@@ -89,6 +93,9 @@
      		</div>
           <div class="panel-footer clearfix admin">
 
+	</div>     
+	</div>
+	</div>
 	</div>     
 	</div>
 	</div>

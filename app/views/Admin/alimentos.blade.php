@@ -6,18 +6,21 @@
 	<title>Alimentos</title>
 </head>
 <body>
+     <div class="row" style="background-color:white;">
+     <div class="col-lg-2"></div>
+     <div class="col-lg-10">
 
 	  <div class="container marg">
     <div class="panel panel-default">
-     <div class="panel-heading admin"><h4>Alimentos</h4></div>     
+     <div class="panel-heading admin"><h4><i class="fa fa-fw fa-cutlery"></i> Alimentos</h4></div>     
 
 	<div class="container">
 	<ul class="nav nav-tabs">
 	
-	<li><a href="{{URL::to('/admin/vistos') }}">Mas vistos</a></li>
-	<li><a href="{{URL::to('/admin/maspedidos') }}">Mas pedidos</a></li>
+	<li><a href="{{URL::to('/admin/vistos') }}">Más vistos</a></li>
+	<li><a href="{{URL::to('/admin/maspedidos') }}">Más pedidos</a></li>
 	<li><a href="{{URL::to('/admin/precios') }}">Por precio</a></li>
-	<li><a href="{{URL::to('/admin/porcategoria') }}">Por categoria</a></li>
+	<li><a href="{{URL::to('/admin/porcategoria') }}">Por categoría</a></li>
 	
 	</ul>
 	<br>
@@ -61,5 +64,9 @@
 	</div>     
 	</div>
 	</div>
+	</div>
+</div>
+
+</div>
 </body>
 </html>
