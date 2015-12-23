@@ -24,7 +24,7 @@
 			<label>Descripción</label>
 			<textarea name="descripcion" id=""  rows="10"></textarea>
 				  <label>Categoria  </label>
-	          {{ Form::select('categoria', (['0' => 'Elija una categoria'] + $categorias), null,['class' => 'form-control']) }}
+	          {{ Form::select('categoria', (['0' => 'Elija una categoria'] + $categorias), null,['class' => 'form-control','multiple' => 'MULTIPLE','style' => 'height: 60%;']) }}
     
 
 			</div>

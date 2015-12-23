@@ -73,8 +73,8 @@ class UserController extends \BaseController {
 
     public function EstatusP(){
 
-        $usuario = User::where('username','=',Input::get('username'))->first();
-        $resultado = Pedidos::EnviosUser($usuario->id)->get();
+        $usuario = User::where('username','=','45')->first();
+        $resultado = Envios::EnviosUser($usuario->id)->get();
     
        //      return Response::json($pedido);
        //  }

@@ -84,10 +84,49 @@
                                         <td>{{$value->nuevafecha}}</td>
                                    </tr>
 
+<<<<<<< HEAD
                               </tbody>
                          </table>
                          
                          @endforeach
+=======
+          </tbody>
+          </table>
+          
+     @endforeach
+        @foreach($efectivo as $key => $value)
+          <h4>efectivo</h4>
+                <br>
+          <table class="table table-bordered">
+          <thead>
+               <th>Nombre</th>
+               <th>Platillos Vendidos</th>
+               <th>Costo Promedio</th>
+               <th>No. ordenes</th>               
+               <th>Consultas</th>
+               <th>Comisión</th>          
+               <th>Total a depositar</th> 
+               <th>Numero de cuenta</th>
+               <th>Fecha a cobrar</th>
+               <th></th>
+          </thead>
+          <tbody>
+      
+          <tr>
+               <td>restaurante mike</td>
+           
+                    <td>{{$value->platillos_vendidos}}</td>
+              
+               <td>{{$value->costo_promedio}}</td>
+               <td>{{$value->no_ordenes}}</td>
+               
+               <td>{{$value->consultas}}</td>
+               <td>{{$value->comision}}</td>
+               <td>{{$value->total}}</td>
+               <td>4242424242424242</td>
+               <td>{{$value->nuevafecha}}</td>
+          </tr>
+>>>>>>> origin/master
 
                          <div class="panel-footer clearfix admin">
                              

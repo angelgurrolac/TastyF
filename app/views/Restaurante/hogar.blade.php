@@ -5,23 +5,61 @@
 
 	<meta charset="UTF-8" http-equiv="refresh" content="20">
 	<title>Hogar</title>
+	 <script type="text/javascript">
+     $(document).ready(function(){
+
+            $('#visitas').fadeIn();
+            $('#pedidos').fadeOut();
+            $('#reservaciones').fadeOut();
+
+     $('#hogarV').click(function(){
+            $('#visitas').fadeIn();
+            $('#pedidos').fadeOut();
+            $('#reservaciones').fadeOut(); 
+
+        }); 
+     $('#hogarP').click(function(){
+            $('#visitas').fadeOut();
+            $('#pedidos').fadeIn();
+            $('#reservaciones').fadeOut();
+          
+        });    
+      $('#hogarR').click(function(){
+            $('#visitas').fadeOut();
+            $('#pedidos').fadeOut();
+            $('#reservaciones').fadeIn();
+          
+        }); 
+
+     });
+     </script>
 </head>
 <body>
 	  <div class="container marg">
     <div class="panel panel-default">
 	
      <div class="panel-heading rest">{{ Session::get("nombre") }} Seccion:Hogar</div>
-	<h3>Visitas</h3>
-	<h5>Personas que han visto mi teléfono en la aplicación{{$restaurante->con_telefono}}</h5>
+
+
+      <ul class="nav nav-tabs">
+     
+     <li><a style="cursor:pointer;" id="hogarV">Visitas</a></li>
+     <li><a style="cursor:pointer;" id="hogarP">Pedidos</a></li>
+     <li><a style="cursor:pointer;" id="hogarR">Reservaciones</a></li>
+     
+     </ul>
+
+	<div id="visitas"><h3>Visitas</h3>
+	<h5>Personas que han visto mi teléfono en la aplicación {{$restaurante->con_telefono}}</h5>
 	<br>
 	<h5>Personas que han visto mi dirección en la aplicación {{$restaurante->con_direccion}}</h5>
 	<br>
-
-	<br>
-     @if(count($pedidos)>0)
+	</div>
+     
     	
-     		<table class="table table-bordered table-striped">
-     		<h4 align="top"> Pedidos </h4>
+     		<table id="pedidos" class="table table-bordered table-striped">
+     		@if(count($pedidos)>0)
+     		<caption align="top"> <h3>Pedidos</h3>  </caption>
      		<thead>
      			<th>Orden</th>
      			<th>Domicilio</th>
@@ -91,12 +129,9 @@
 			</table>
 			
      @endif
-     <br>
-     <br>
-     <br>
      	
-			<table class="table table-bordered table-condensed">
-     		<h4 align="top"> Reservaciones </h4>
+			<table id="reservaciones" class="table table-bordered table-condensed">
+     		<caption align="top"> <h3>Reservaciones</h3>  </caption>
      		<thead>
      			<th>Reservación</th>
      			<th>Personas</th>
