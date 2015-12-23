@@ -65,8 +65,8 @@ $(function(){
   <ul class="navbar-nav navbar-right">
    <li class="dropdown">
      <label class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-       <p class="overflow">
-         {{ Session::get('nombre') }}
+       <p style="color:white;" class="overflow">
+         {{ Session::get('nombre')}}
        </p> 
        
      </label>

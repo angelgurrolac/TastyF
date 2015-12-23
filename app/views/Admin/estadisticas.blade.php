@@ -77,7 +77,7 @@
                <td>{{$value->comision}}</td>
                <td>{{$value->total}}</td>
                <td>4242424242424242</td>
-               <td>{{$value->fecha}}</td>
+               <td>{{$value->nuevafecha}}</td>
           </tr>
 
           </tbody>

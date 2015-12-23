@@ -45,15 +45,10 @@
                          
                          @if($info->id_pedido == $value->id)     
                          
-                         
-                    
-                         
                               <tr>                               
                                    <td >{{$info->cantidad}}</td>
                               
                                    <td >{{$info->nombre}}</td>
-                              
-                           
                                    
                               </tr>
 
