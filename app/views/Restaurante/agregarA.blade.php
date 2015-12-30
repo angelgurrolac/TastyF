@@ -23,8 +23,11 @@
 			<input type="text" name="nombre" value="">
 			<label>Descripcion</label>
 			<textarea name="descripcion" id=""  rows="10"></textarea>
-			  <label>Categoria  </label>
-	           {{ Form::select('categoria', (['0' => 'Elija una o varias categorias'] + $categorias), null,['class' => 'form-control','multiple' => 'MULTIPLE','style' => 'height: 60%;']) }}
+			<br>
+			  <label>Categorias</label>
+	           {{ Form::select('categoria1', (['0' => 'Elija categoria primaria'] + $categorias), null,['class' => 'form-control']) }}
+	           <br>
+	           {{ Form::select('categoria2', (['0' => 'Elija categoria secundaria'] + $categorias), null,['class' => 'form-control']) }}
 			<br>
 			</div>
 			<div class="col-md-3 precios">

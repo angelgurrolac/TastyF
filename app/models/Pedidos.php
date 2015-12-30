@@ -348,26 +348,40 @@ class Pedidos extends Eloquent
 
 
 
-	// 	public function scopeEnviosUser($pedidos,$id)
-	// {
-	// 	 $pedidos =DB::table('users as users')
+		public function scopeEnviosUser($pedidos,$id)
+	{    
 
-	// 	 ->where('users.id','=',$id)
+		 $pedidos =DB::table('pedidos as p')
 
+		  
 
-	// 	->leftjoin('envios as envios',function($join){
-	// 						$join->on('envios.id_pedido','=','pedidos.id');
-	// 				}) 
+		  ->where('p.estatus', '=', 'pagada')
+
+		  ->where('p.id_usuario', '=', $id) 
 		
-	// 	->leftjoin('usersHD as usersHD',function($join){
-	// 						$join->on('usersHD.id','=','envios.id_usuario');
-	// 				}) 
+		  //->where('users.username','=', $id)
+
+		 ->leftjoin('users as u',function($join){
+							$join->on('u.id','=', 'p.id_usuario');
+					}) 
+		
+
+		->leftjoin('envios as e',function($join){
+							$join->on('e.id_pedido','=','p.id');
+					}) 
+		
+		->leftjoin('usersHD as h',function($join){
+							$join->on('e.id_usuarioHD','=','h.id');
+					})
+
+ 		
+                 
+                 ->select('h.username','e.estatus','e.coordenadas_actuales')
+
+				->orderBy('p.id','desc');
+					return $pedidos;
+
+	}
 
 
- //                 ->select(DB::raw('usersHD.username, users.username, envios.estatus, envios.coordenadas_actuales'));
-
-
-	// 				return $pedidos;
-
-	// }
 }

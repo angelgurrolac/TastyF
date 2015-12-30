@@ -79,7 +79,7 @@ public function publicidad()
 	public function estadisticas()
 	{
 		$restaurantes = Pedidos::estadisticas()->get(); 
-		$nuevafecha = date('Y-m-d', strtotime('+7 day')) ;
+		$nuevafecha = date('Y-m-d', strtotime('+7 day'));//arreglo para días 
 		$cantidad = Pedidos::cantidad()->get();
 		$credito = Estadisticas::where('tipo', '=','tarjeta')->get();
 		$efectivo = Estadisticas::where('tipo', '=','efectivo')->get();		

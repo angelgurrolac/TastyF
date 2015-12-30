@@ -19,6 +19,8 @@ class Productos extends Eloquent
 		->where('Productos.tipo','=', 'alimento')
 
 		->select('*','Productos.nombre as nombreP','Productos.id as idP')
+
+		->orderBy('idP','desc')
 		
 		
 		->get();

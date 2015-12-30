@@ -36,12 +36,23 @@
  </script>
 </head>
 <body>
-  <div class="row" style="background-color:white;">
-    <div class="col-lg-2"></div>
-    <div class="col-lg-10">
-      <h2><i class="fa fa-fw fa-users"></i> Usuarios</h2>
+  
+ <div class="row" style="background-color:white;">
+   <div class="col-lg-2"></div>
+   <div class="col-lg-10">
+    <br>
+    <br>
 
+    <div class="container-fluid">
 
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-heading admin">
+           <h3 class="panel-title"><i class="fa fa-fw fa-users"></i> Usuarios</h3>
+       </div>
+      
+      <div class="panel-body">
       <ul class="nav nav-tabs">
 
        <li><a style="cursor:pointer;" id="usuarios">Usuarios</a></li>
@@ -50,6 +61,9 @@
 
      </ul>
 
+     <br>
+
+     
      <div class="table-responsive">
      <table class="table table-bordered table-hover table-striped users">
        <thead>

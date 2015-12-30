@@ -73,8 +73,8 @@ class UserController extends \BaseController {
 
     public function EstatusP(){
 
-        $usuario = User::where('username','=','45')->first();
-        $resultado = Envios::EnviosUser($usuario->id)->get();
+        $usuario = User::where('username','=',Input::get('username'))->first();
+        $resultado = Pedidos::EnviosUser($usuario->id)->take(1)->get();
     
        //      return Response::json($pedido);
        //  }
@@ -83,10 +83,6 @@ class UserController extends \BaseController {
   // $validacion = usuariosHD::whereRaw('id = (select max(`id`) from usersHD)')->get();
         return json_encode($resultado);
     }
-
-
-
-
 
 
 	public function reservaciones(){

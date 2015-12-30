@@ -9,7 +9,7 @@
 	height: 50px;
 }
 .admin{
-	background-color: #000000;
+	background-color: #000000 !important;
 	color: #999999;
 }
 .navbar-admin {

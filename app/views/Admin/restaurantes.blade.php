@@ -6,14 +6,22 @@
 	<title>Restaurantes</title>
 </head>
 <body>
-	<div class="row" style="background-color:white;">
+		<div class="row" style="background-color:white;">
 		<div class="col-lg-2"></div>
 		<div class="col-lg-10">
-			<div class="container marg">
-				<div class="panel panel-default">
-					<div class="panel-heading admin"><h4><i class="fa fa-fw fa-cutlery"></i> Restaurantes</h4></div>     
-					<div class="container col-height">
-						<ul class="nav nav-tabs">
+ <br>
+    <br>
+
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-heading admin">
+              <h3 class="panel-title"><i class="fa fa-fw fa-cutlery"></i> Restaurantes</h3>
+            </div>
+            <div class="panel-body">
+             <ul class="nav nav-tabs">
 							
 							<li><a href="{{URL::to('/admin/vistos3') }}">Más vistos</a></li>
 							<li><a href="{{URL::to('/admin/ordenes') }}">Más ordenes</a></li>
@@ -25,31 +33,35 @@
 						</ul>
 						<br>
 						
-						
-						@if(count($restaurantes)>0)
 						<div class="row">
+						@if(count($restaurantes)>0)
+						
 							@foreach($restaurantes as $key => $value)
+<div class="col-sm-6">
+                <div class="panel panel-primary">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">{{$value->nombre}} </h3>
+                  </div>
+                  <div class="panel-body">
+                   <div class="row">
+                    <div class="col-md-1"></div>
 
-							<div class="col-md-5" style="border:1px solid;  margin:1%;" >
-								
-								<div class="col-md-12">
-									<img alt="img-perfil" style="width:100%; height:200px; margin:2%;"src="{{asset($value->imagenR)}}">
-								</div>
-								
-								
-								{{$value->nombre}}	
-								
-							</div>
+                    <div class="col-md-10">
+
+                      <img style="height:300px; width:300px;" class="center-block thumbnail img-rounded" src="{{asset($value->imagen)}}" alt="{{asset($value->imagen)}}">
+                      
+                    </div>
+                  </div>
+                  <div class="col-md-1"></div>
+
+                </div>
+              </div>
+            </div>
 							@endforeach
-						</div>
+					
 						@endif
 						
-					</div>
-
-
-					<div class="panel-footer clearfix admin">
-
-					</div>     
+					</div>   
 				</div>
 			</div>
 		</div>

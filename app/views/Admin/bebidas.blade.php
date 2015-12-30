@@ -9,12 +9,19 @@
 	<div class="row" style="background-color:white;">
 		<div class="col-lg-2"></div>
 		<div class="col-lg-10">
+ <br>
+    <br>
 
-			<div class="container marg">
-				<div class="panel panel-default">
-					<div class="panel-heading admin"><h4><i class="fa fa-fw fa-glass"></i> Bebidas</h4></div>     
-					<div class="container col-height ">
-						<ul class="nav nav-tabs">
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-heading admin">
+              <h3 class="panel-title"><i class="fa fa-fw fa-glass"></i> Alimentos</h3>
+            </div>
+            <div class="panel-body">
+             <ul class="nav nav-tabs">
 							
 							<li><a href="{{URL::to('/admin/vistos2') }}">Más vistos</a></li>
 							<li><a href="{{URL::to('/admin/maspedidos2') }}">Más pedidos</a></li>
@@ -23,47 +30,51 @@
 							
 						</ul>
 						<br>
-						
+						<div class="row">
 						
 						@if(count($bebidas)>0)
-						<div class="row">
+						
 							@foreach($bebidas as $key => $value)	 		
-							<div class="col-md-5" style="border:1px solid;  margin:1%;" >
-								@if($mensaje==1)
-								<h4>Visto {{$value->cantidad}} veces</h4>		
-								@elseif($mensaje==2)
-								<h4>Pedido {{$value->cantidad}} veces</h4>	
-								@endif
-								<br>
-								<br>		
-								<div class="col-md-7 ">
-									<img style="width:100%;margin:5%;" height="200px" src="{{asset($value->imagen)}}">
-								</div>
-								<div class="col-md-3">
-									<br>	
-									{{$value->nombre}} 	<br>
-									{{$value->descripcion}}
-									
-								</div>
-								<br/>
-								<div class="col-md-2">
-									{{$value->costo_unitario}}$
-									<input type="checkbox">
-								</div>
-								
-								
-								
-							</div>
-							@endforeach
+							
+
+							 <div class="col-sm-6">
+                <div class="panel panel-primary">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">{{$value->nombre}} </h3>
+                  </div>
+                  <div class="panel-body">
+                   <div class="row">
+                    <div class="col-md-1"></div>
+
+                    <div class="col-md-10">
+
+                      <img style="height:300px; width:300px;" class="center-block thumbnail img-rounded" src="{{asset($value->imagen)}}" alt="{{asset($value->imagen)}}">
+                      <div class="caption">
+                        <h3>Precio: ${{$value->costo_unitario}}</h3>
+                        <b>Descripción:</b>
+                        <p>{{$value->descripcion}}</p>
+                      </div>
+
+                      @if($mensaje==1)
+                      <h4>Visto: {{$value->cantidad}} veces</h4>		
+                      @elseif($mensaje==2)
+                      <h4>Pedido: {{$value->cantidad}} veces</h4>	
+                      @endif
+                    </div>
+                  </div>
+                  <div class="col-md-1"></div>
+
+                </div>
+              </div>
+            </div>
+            @endforeach
+
+            @endif
 						</div>
-						@endif
+						
 						
 					</div>
-
-
-					<div class="panel-footer clearfix admin">
-
-					</div>     
+    
 				</div>
 			</div>
 		</div>     

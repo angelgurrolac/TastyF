@@ -144,7 +144,8 @@ class RestauranteController extends \BaseController {
 		$producto->costo_unitario = Input::get('costo_unitario');
 		$producto->tipo = "alimento";
 		$producto->id_restaurante = Auth::user()->id_restaurante;		
-		$producto->id_categoria = Input::get('categoria');
+		$producto->id_categoria = Input::get('categoria1');
+		$producto->id_categoria2 = Input::get('categoria2');
 		$producto->hora_inicio = Input::get('hora_inicio'); 
 		$producto->hora_fin = Input::get('hora_fin');
 		$producto->save();

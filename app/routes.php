@@ -23,6 +23,7 @@ Route::post('/prospectos','RegistroController@create');
 Route::post('users/login', function()
 {
 	$remember = Input::get('remember');
+	$reg_id = Input::get('reg_id');
 		
 	$credentials = array(
 		'username' => Input::get('username'), 
@@ -37,6 +38,7 @@ Route::post('users/login', function()
 
 		$usuario = User::where('username','=',Input::get('username'))->first();
 		$usuario->estatus = 1;
+		$usuario->reg_id = $reg_id;
 		$usuario->save();
 		return Response::json('Logged in');
 	 	
@@ -117,7 +119,7 @@ Route::post('/users/enviarA','RepartidorController@enviarA');
 Route::post('/users/marcarE','RepartidorController@marcarE');
 Route::post('/users/miPedido','UserController@miPedido');
 Route::post('/users/entregado','UserController@entregado');
-Route::get('/users/estatusP','UserController@EstatusP');
+Route::post('/users/estatusP','UserController@EstatusP');
 
 
 Route::group(array('before' => array('auth', 'restaurante')), function()

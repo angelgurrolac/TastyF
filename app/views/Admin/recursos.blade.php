@@ -12,13 +12,22 @@
   <link rel="stylesheet" href="{{ URL::asset('assets/css/sb-admin.css') }}">
   <link rel="stylesheet" href="{{ URL::asset('assets/css/plugins/morris.css') }}">
   <link href="{{ URL::asset('assets/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" >
-  
   <link rel="stylesheet" href="{{ URL::asset('assets/pnotify.css') }}">
-
-  
-
   <script src="{{ URL::asset('assets/js/bootstrap-datetimepicker.min.js') }}"></script>
   <script src="{{ URL::asset('assets/pnotify.js') }}"></script>
+
+  
+<!-- jQuery -->
+  <script src="{{ URL::asset('assets/js/jquery.js') }}"></script>
+  <script src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>
+
+  <!-- Bootstrap Core JavaScript -->
+  <script src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
+
+  <!-- Morris Charts JavaScript -->
+  <script src="{{ URL::asset('assets/js/plugins/morris/raphael.min.js') }}"></script>
+  <script src="{{ URL::asset('assets/js/plugins/morris/morris.min.js') }}"></script>
+  <script src="{{ URL::asset('assets/js/plugins/morris/morris-data.js') }}"></script>
 </head>
 
 @if (Session::has('message'))
@@ -46,71 +55,35 @@
 </script>
 @endforeach
 @endif
+
+
 <body>
-<<<<<<< HEAD
-  <!-- nuevo -->
+   
+    <div id="wrapper">
 
-  <div id="wrapper">
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="{{URL::to('/admin/pedidos') }}"><img style="display:inline-block;" width="30" src="{{ URL::asset('assets/img/umami_logo.png') }}" alt="Logguito"><p style="display:inline-block; padding:2px; color:#F6A507;">TastyFoods</p></a>
-      </div>
-      <!-- Top Menu Items -->
-      <ul class="nav navbar-right top-nav">
-=======
-  <nav class="admin cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
-<div class="estilo-menu">
-<li><img style="margin-left:34%; padding:1%; " src="/assets/img/umami_logo.png" width="70"></li>
-  <li data-type="home-menu"><a  href="{{URL::to('/admin/pedidos') }}"><p>Hogar</p></a></li>
-  <li> <a href="{{URL::to('/admin/alimentos') }}">Alimentos</a></li>
-  <li><a href="{{URL::to('/admin/bebidas') }}">Bebidas</a></li>
-  <li><a href="{{URL::to('/admin/restaurantes') }}">Restaurantes</a></li>
-  <li><a href="{{URL::to('/admin/usuarios') }}">Usuarios</a></li>
-  <li><a href="{{URL::to('/admin/informes') }}">Informe</a></li>
-  <li><a href="{{URL::to('/admin/estadisticas') }}">Estadisticas</a></li>
-  <li><a href="{{URL::to('/admin/candidatos') }}">Candidatos</a></li>
-  <li><a href="{{URL::to('/admin/categorias') }}">Categorías</a></li>
-  <li><a href="{{URL::to('/admin/publicidad') }}">Publicidad</a></li>
-  <li><a href="{{URL::to('/logout') }}">Salir</a></li>
-</div>
-  </nav>
-  <nav class="navbar navbar-admin">
-
-  <label class="navbar-nav navbar-left"><img id="icono_menu" src="/assets/img/menu.png"><label class="paginaactual"></label></label>
-  <ul class="navbar-nav navbar-right">
-   <li class="dropdown">
-     <label class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-       <p style="color:white;" class="overflow">
-         {{ Session::get('nombre')}}
-       </p> 
->>>>>>> origin/master
-       
-        
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{ Session::get('nombre') }} <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li>
-              <a href="{{URL::to('/logout') }}"><i class="fa fa-fw fa-power-off"></i> Cerrar sesión</a>
-            </li>
-            
-            
-          </ul>
-        </li>
-      </ul>
-      <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                 <a class="navbar-brand" href="{{URL::to('/admin/pedidos') }}"><img style="display:inline-block;" width="30" src="{{ URL::asset('assets/img/umami_logo.png') }}" alt="Logguito"><p style="display:inline-block; padding:2px; color:#F6A507;">TastyFoods</p></a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{ Session::get('nombre') }} <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Salir</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
       <div class="collapse navbar-collapse navbar-ex1-collapse">
-        <ul class="nav navbar-nav side-nav">
+        <ul class="nav navbar-nav side-nav" style="overflow-y:hidden;">
+          <br>
           <li class="active">
-            <a href="{{URL::to('/admin/pedidos') }}"><i class="fa fa-fw fa-home"></i> Hogar</a>
+            <a href="{{URL::to('/admin/pedidos') }}"><i class="fa fa-fw fa-flag"></i> Pedidos</a>
           </li>
           <li>
             <a href="{{URL::to('/admin/alimentos') }}"><i class="fa fa-fw fa-cutlery"></i> Alimentos</a>
@@ -141,35 +114,17 @@
             <a href="{{URL::to('/admin/publicidad') }}"><i class="fa fa-fw fa-bookmark"></i> Publicidad</a>
           </li>
           <li>
-            <a href="{{URL::to('/logout') }}"><i class="fa fa-fw fa-bookmark"></i> Publicidad</a>
+            <a href="{{URL::to('/logout') }}"><i class="fa fa-fw fa-power-off"></i> Salir</a>
           </li>
         </ul>
       </div>
       <!-- /.navbar-collapse -->
-    </nav>
-
-    
-    <!-- /#page-wrapper -->
-
-  </div>
-  <!-- /#wrapper -->
-
-  <!-- jQuery -->
-  <script src="{{ URL::asset('assets/js/jquery.js') }}"></script>
-
-  <!-- Bootstrap Core JavaScript -->
-  <script src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
-
-  <!-- Morris Charts JavaScript -->
-  <script src="{{ URL::asset('assets/js/plugins/morris/raphael.min.js') }}"></script>
-  <script src="{{ URL::asset('assets/js/plugins/morris/morris.min.js') }}"></script>
-  <script src="{{ URL::asset('assets/js/plugins/morris/morris-data.js') }}"></script>
-
-  <!-- nuevo fin -->
-  
-
-
+        </nav>
+    </div>
+    <!-- /#wrapper -->
+ 
 </body>
+
 </html>
 
 
