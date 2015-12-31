@@ -8,37 +8,55 @@
 	
 </head>
 <body>
-	<div class="row" style="background-color:white;">
+			<div class="row" style="background-color:white;">
 		<div class="col-lg-2"></div>
 		<div class="col-lg-10">
-			<div class="container marg">
-				<div class="panel panel-default">
-					<div class="panel-heading admin"><h4>Categorías</h4></div>
-					<div class="panel-body ">
+ <br>
+    <br>
+
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-heading admin">
+              <h3 class="panel-title"><i class="fa fa-fw fa-check-square-o"></i> Categorías</h3>
+            </div>
+            <div class="panel-body">
+            	<div class="row">
 						{{ Form::open(array('url' => '/admin/activar','files'=>'true')) }}
 						@foreach($categorias as $key => $value)  
 						<div class="form-group col-lg-4">
 
-							{{ Form::text('nombre', $value->nombre, array('class' => 'text-borde')) }}
+							 <div class="checkbox">
+                                    
+                                       
+                                        @if($value->activa==0)
+										<input  style="display:inline-block;" tabindex="1" type="checkbox" name="categoria[{{$value->id}}]" id="{{$value->id}}" value="{{$value->activa}}" >   
+										@else
+										<input tabindex="1" type="checkbox" name="categoria[{{$value->id}}]" id="{{$value->id}}" value="{{$value->activa}}" checked="true">   
+										@endif
+										<h4>
+										 {{ Form::label('nombre', $value->nombre, array('class' => 'text-borde')) }}
+                                  		</h4>
+                                </div>
 
-							@if($value->activa==0)
-							<input style="display:inline-block;" tabindex="1" type="checkbox" name="categoria[{{$value->id}}]" id="{{$value->id}}" value="{{$value->activa}}" >   
-							@else
-							<input tabindex="1" type="checkbox" name="categoria[{{$value->id}}]" id="{{$value->id}}" value="{{$value->activa}}" checked="true">   
-							@endif
+							
 
 
 						</div>
 						@endforeach
-						<div class=" col-lg-12">
+						</div>
+
+						<div class="row">
+						<div class=" col-lg-4"></div>
+						<div class=" col-lg-4">
+							<br>
 							{{ Form::submit('Guardar', array('class' => 'btn btn-primary')) }}
 							{{ Form::close() }}
-
-
 							<br>
-							   
-
-						</div>
+							   </div>
+						<div class=" col-lg-4"></div></div>
 					</div>
 				</div>
 			</div>

@@ -52,7 +52,19 @@
                     <div class="col-md-10">
 
                       <img style="height:300px; width:300px;" class="center-block thumbnail img-rounded" src="{{asset($value->imagen)}}" alt="{{asset($value->imagen)}}">
-                      
+                      <div class="caption">
+                        @if($mensaje==2)
+                      <h4>Número total de ordenes: {{$cat->cantidad2}} </h4>
+                      @elseif($mensaje==3)
+                      <h4>Reservaciones: {{$cat->cantidad}} </h4>
+                      @elseif($mensaje==4)
+                      <h4>Ventas: {{$cat->cantidad}} </h4>
+                      @elseif($mensaje==5)
+                      <h4>Total de productos: {{$cat->cantidad}} </h4>
+                      @elseif($mensaje==6)
+                      <h4>Promedio en ordenes: ${{$cat->cantidad}} </h4>			
+                      @endif
+                  </div>
                     </div>
                   </div>
                   <div class="col-md-1"></div>

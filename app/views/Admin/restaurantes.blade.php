@@ -40,7 +40,7 @@
 <div class="col-sm-6">
                 <div class="panel panel-primary">
                   <div class="panel-heading">
-                    <h3 class="panel-title">{{$value->nombre}} </h3>
+                    <h3 class="panel-title">{{$value->nombre}}</h3>
                   </div>
                   <div class="panel-body">
                    <div class="row">
@@ -48,8 +48,13 @@
 
                     <div class="col-md-10">
 
-                      <img style="height:300px; width:300px;" class="center-block thumbnail img-rounded" src="{{asset($value->imagen)}}" alt="{{asset($value->imagen)}}">
-                      
+                      <img style="height:300px; width:300px;" class="center-block thumbnail img-rounded" src="{{asset($value->imagenR)}}" alt="{{asset($value->imagenR)}}">
+                      <div class="caption">
+
+                          @if($mensaje==1)
+                      <h4>Visto: {{$value->cantidad}} veces</h4>		
+                      @endif
+                      </div>
                     </div>
                   </div>
                   <div class="col-md-1"></div>

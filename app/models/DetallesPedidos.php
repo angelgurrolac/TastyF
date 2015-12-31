@@ -7,13 +7,19 @@ class DetallesPedidos extends Eloquent
 
 	public function scopeVistos(){
 		$productos =DB::table('detalles_pedidos')
+
 		->leftjoin('productos as productos',	function($join){
 							$join->on('detalles_pedidos.id_producto','=','productos.id');
 					}) 
-		->select(DB::raw('*','id_producto, SUM(cantidad) as cantidad '))
+	    ->leftjoin('restaurantes as Restaurantes',	function($join){
+				$join->on('Restaurantes.id','=','productos.id_restaurante');
+		})
+
+		->select(DB::raw('*','id_producto, SUM(cantidad) as cantidad'))
+		->select('*','Restaurantes.nombre as nombreR','Productos.nombre as nombre')
 		->where('productos.tipo','=','alimento')
 		->groupBy('id_producto')
-		->orderBy('cantidad','ASC');
+		->orderBy('cantidad','DESC');
 	
 		return $productos;
 	}
@@ -22,10 +28,14 @@ class DetallesPedidos extends Eloquent
 		->leftjoin('productos as productos',	function($join){
 							$join->on('detalles_pedidos.id_producto','=','productos.id');
 					}) 
+		  ->leftjoin('restaurantes as Restaurantes',	function($join){
+				$join->on('Restaurantes.id','=','productos.id_restaurante');
+		})
 		->select(DB::raw('*','id_producto, SUM(cantidad) as cantidad '))
+		->select('*','Restaurantes.nombre as nombreR','Productos.nombre as nombre')
 		->where('productos.tipo','=','bebida')
 		->groupBy('id_producto')
-		->orderBy('cantidad','ASC');
+		->orderBy('cantidad','DESC');
 	
 		return $productos;
 	}

@@ -214,13 +214,14 @@ class Pedidos extends Eloquent
 		public function scopePedidas(){
 		$productos =DB::table('pedidos')
 		
-		->select(DB::raw('id_restaurante, Count(id_restaurante) as cantidad '))
+		->select(DB::raw('id_restaurante, Count(id_restaurante) as cantidad2'))
 		
 		->groupBy('id_restaurante')
-		->orderBy('cantidad','DSC');
+		->orderBy('cantidad2','DESC');
 	
 		return $productos;
 	}
+
 		public function scopeTotal(){
 		$productos =DB::table('pedidos')
 		

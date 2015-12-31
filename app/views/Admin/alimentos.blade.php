@@ -44,7 +44,7 @@
                <div class="col-sm-6">
                 <div class="panel panel-yellow">
                   <div class="panel-heading">
-                    <h3 class="panel-title">{{$value->nombre}} </h3>
+                    <h3 class="panel-title">{{$value->nombre}}</h3>
                   </div>
                   <div class="panel-body">
                    <div class="row">
@@ -57,6 +57,9 @@
                         <h3>Precio: ${{$value->costo_unitario}}</h3>
                         <b>Descripción:</b>
                         <p>{{$value->descripcion}}</p>
+                        <b>Restaurante:</b>
+                        <p>{{$value->nombreR}}</p>
+                        
                       </div>
 
                       @if($mensaje==1)

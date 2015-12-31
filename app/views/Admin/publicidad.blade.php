@@ -6,15 +6,72 @@
 	<title>Publicidad</title>
 </head>
 <body>
-<div class="row" style="background-color:white;">
+		<div class="row" style="background-color:white;">
 		<div class="col-lg-2"></div>
 		<div class="col-lg-10">
-	  <div class="container marg">
-    <div class="panel panel-default">
-     <div class="panel-heading admin"><h4>Publicidad</h4></div>   
-     		<div class="container">
-     			<div class="col-md-3">
-				<br>
+ <br>
+    <br>
+
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-heading admin">
+              <h3 class="panel-title"><i class="fa fa-fw fa-bookmark"></i> Publicidad</h3>
+            </div>
+            <div class="panel-body">
+           
+						<br>
+						
+						<div class="row">
+
+						
+				
+				@foreach($publicidad as $key => $value)	 		
+							
+					
+							 <div class="col-sm-6">
+                <div class="panel panel-primary">
+                  
+                  <div class="panel-body">
+                   <div class="row">
+                    <div class="col-md-1"></div>
+
+                    <div class="col-md-10">
+                      <div class="caption">
+
+                      	<h3>Publicidad: {{$value->descripcion}} </h3>
+                      	<br>
+
+                      	<b>Día:</b>
+                        <p>{{$value->dia}}</p>
+                     	<b>Hora de inicio:</b>
+                        <p>{{$value->hora_inicio}}</p>
+                        <b>Hora de fin:</b>
+                        <p>{{$value->hora_fin}}</p>
+                        <br>
+
+                        {{Form::open(array('url'=>'/admin/editar', 'id' => $value->id))}}
+								
+								<a style="display:inline-block;" class="btn btn-success direccionar">Editar</a>
+								
+								<input type="hidden" name="producto_id" value="{{$value->id}}">
+								{{Form::close()}}
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            @endforeach
+
+
+
+
+
 			<a href="#" style="padding:2%;"><img class="buttonagregar" width="23px" data-target="#myModal" src="{{asset('assets/img/anclas/mas.png')}}">Agregar publicidad</a>
 			<br>
 				<!-- Modal -->
@@ -88,26 +145,29 @@
 						</div>
 			
 					
-				</div>
+				<!-- </div> -->
 				
-     		</div>
-          <div class="panel-footer clearfix admin">
-
-	</div>     
+     		</div>   
+				</div>
+			</div>
+		</div>
 	</div>
-	</div>
-	</div>     
-	</div>
-	</div>
+</div>
 </body>
 </html>
 <script>
 $(function() {
-  $('#datepick').datetimepicker({
-    language: 'es'
-  });
-});
 $('.buttonagregar').click(function(){
 	$('#myModal').modal('show');
+});
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.direccionar').click(function(){
+		var formulario = $(this).next('input').val();
+		$('#'+formulario).submit();
+	});
 });
 </script>

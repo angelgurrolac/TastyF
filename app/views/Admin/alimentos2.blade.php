@@ -46,6 +46,37 @@
                <div class="col-sm-6">
                 <div class="panel panel-yellow">
                   <div class="panel-heading">
+                    <h3 class="panel-title">{{$value->nombre}}</h3>
+                  </div>
+                  <div class="panel-body">
+                   <div class="row">
+                    <div class="col-md-1"></div>
+
+                    <div class="col-md-10">
+
+                      <img style="height:300px; width:300px;" class="center-block thumbnail img-rounded" src="{{asset($value->imagen)}}" alt="{{asset($value->imagen)}}">
+                      <div class="caption">
+                        <h3>Precio: ${{$value->costo_unitario}}</h3>
+                        <b>Descripción:</b>
+                        <p>{{$value->descripcion}}</p>
+                          <b>Restaurante:</b>
+                        <p>{{$value->nombreR}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-1"></div>
+
+                </div>
+              </div>
+            </div>
+							@endif
+
+
+							@if($value->id_categoria2==$cat->id)
+							
+               <div class="col-sm-6">
+                <div class="panel panel-yellow">
+                  <div class="panel-heading">
                     <h3 class="panel-title">{{$value->nombre}} </h3>
                   </div>
                   <div class="panel-body">

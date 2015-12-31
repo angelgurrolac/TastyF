@@ -158,6 +158,76 @@ class Productos extends Eloquent
 		->get();
 		return $productos;
 	}
+
+	public function scopealimentos($productos)
+	{
+		$productos =DB::table('productos as Productos')
+
+		->leftjoin('restaurantes as Restaurantes',	function($join){
+				$join->on('Restaurantes.id','=','Productos.id_restaurante');
+		})
+
+		->where('tipo','=','alimento')
+		->select('*','Restaurantes.nombre as nombreR','Productos.nombre as nombre');
+
+		return $productos;
+
+
+	}
+
+		public function scopealimentos2($productos)
+	{
+		$productos =DB::table('productos as Productos')
+
+		->leftjoin('restaurantes as Restaurantes',	function($join){
+				$join->on('Restaurantes.id','=','Productos.id_restaurante');
+		})
+
+		->where('tipo','=','alimento')
+		->select('*','Restaurantes.nombre as nombreR','Productos.nombre as nombre')
+
+		->orderBy('Productos.costo_unitario','DESC');
+
+		return $productos;
+
+
+	}
+
+	public function scopebebidas($productos)
+	{
+		$productos =DB::table('productos as Productos')
+
+		->leftjoin('restaurantes as Restaurantes',	function($join){
+				$join->on('Restaurantes.id','=','Productos.id_restaurante');
+		})
+
+		->where('tipo','=','bebida')
+		->select('*','Restaurantes.nombre as nombreR','Productos.nombre as nombre');
+
+		return $productos;
+
+
+	}
+
+
+		public function scopebebidas2($productos)
+	{
+		$productos =DB::table('productos as Productos')
+
+		->leftjoin('restaurantes as Restaurantes',	function($join){
+				$join->on('Restaurantes.id','=','Productos.id_restaurante');
+		})
+
+		->where('tipo','=','bebida')
+		->select('*','Restaurantes.nombre as nombreR','Productos.nombre as nombre')
+
+		->orderBy('Productos.costo_unitario','DESC');
+
+		return $productos;
+
+
+	}
+
 		public function scopeBuscar($coincidencias, $texto, $hora){
 		$coincidencias =DB::table('productos as Productos')
 

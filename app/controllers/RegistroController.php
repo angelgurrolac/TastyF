@@ -49,7 +49,7 @@ class RegistroController extends BaseController {
 		$user->reg_id = $reg_id;
 		$user->codigo_postal = Input::get('codigo_postal');
 		$user->save();
-		return Response::json('1',$user->username));		
+		return Response::json('1',$user->username);		
 		}
 	}
 	public function index()

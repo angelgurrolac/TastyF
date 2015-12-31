@@ -1,4 +1,4 @@
-<?php
+	<?php
 
 class RestauranteController extends \BaseController {
 
@@ -84,6 +84,8 @@ class RestauranteController extends \BaseController {
 	$categorias = Categorias::where('activa','=','1')->lists('nombre','id');		
 		return View::make('Restaurante.editarProducto',compact('producto','cat','categorias'));
 	}
+
+	
 	public function saveChanges()
 	{	$producto = Productos::find(Input::get('id'));
 		$image = Input::file('imgFile');
@@ -135,9 +137,13 @@ class RestauranteController extends \BaseController {
 			$producto->imagen = $image_final;
 			$image -> move('productos', $name_image );
 		}
-			
+		$nombre = Input::get('nombre');
+		
+		if($nombre==null){
+			$nombre = 'Sin Nombre';
+		}
 	
-		$producto->nombre = Input::get('nombre');
+		$producto->nombre = $nombre;
 		$producto->descripcion = Input::get('descripcion');
 		$producto->precio = Input::get('precio');
 		$producto->iva = Input::get('comision');
@@ -175,7 +181,8 @@ class RestauranteController extends \BaseController {
 		$producto->costo_unitario = Input::get('precio_final');
 		$producto->id_restaurante = Auth::user()->id_restaurante;
 		$producto->id_sabor = Input::get('sabor');
-		$producto->id_categoria = Input::get('categoria');
+		$producto->id_categoria = Input::get('categoria1');
+		$producto->id_categoria2 = Input::get('categoria2');
 		$producto->hora_inicio = Input::get('hora_inicio'); 
 		$producto->hora_fin = Input::get('hora_fin');
 		$producto->save();

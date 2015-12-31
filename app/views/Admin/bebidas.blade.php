@@ -52,7 +52,9 @@
                       <div class="caption">
                         <h3>Precio: ${{$value->costo_unitario}}</h3>
                         <b>Descripción:</b>
-                        <p>{{$value->descripcion}}</p>
+                        <p>{{$value->descripcion}}</p>   
+                        <b>Restaurante:</b>
+                        <p>{{$value->nombreR}}</p>
                       </div>
 
                       @if($mensaje==1)
