@@ -16,4 +16,6 @@ class Usuarios extends Eloquent
 		->get();
 		return $usuarios;
 	}
+
+	
 }

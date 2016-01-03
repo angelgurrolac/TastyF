@@ -6,14 +6,28 @@
 	<title>Pedidos</title>
 </head>
 <body>
-	  <div class="container marg">
-    <div class="panel panel-default">
-     <div class="panel-heading rest"><h4>{{ Session::get("nombre") }} Seccion:Pedidos</h4></div>   
-       @if(count($pedidos)>0)
+	     <div class="row" style="background-color:white;">
+   <div class="col-lg-2"></div>
+   <div class="col-lg-10">
+    <br>
+    <br>
+
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-heading admin">
+              <h3 class="panel-title"><i class="fa fa-fw fa-flag"></i> Pedidos</h3>
+            </div>
+            <div class="panel-body"> 
+            <hr>
+
      
-               <table class="table table-bordered table-striped">
-               <h4 align="top"> Pedidos </h4>
-               <thead>
+              <table id="pedidos" class="table table-bordered table-striped">
+        @if(count($pedidos)>0)
+        <!-- <caption align="top"> <h3>Pedidos</h3>  </caption> -->
+        <thead>
                     <th>Orden</th>
                     <th>Domicilio</th>
                     <th>Caracteristicas</th>
@@ -68,10 +82,20 @@
                </table>
                
      @endif
-     <div class="panel-footer clearfix rest">
-	
-	</div>     
+      
 	</div>
+
+
 	</div>
+    </div>
+  </div>
+</div>
+<!-- /.row -->
+
+</div>
+<!-- /.container-fluid -->
+</div>
+
+</div>
 </body>
 </html>

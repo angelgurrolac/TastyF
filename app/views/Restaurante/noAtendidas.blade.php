@@ -3,16 +3,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" http-equiv="refresh" content="20">
-  <title>Pedidos</title>
+  <title>No atendidas</title>
 </head>
 <body>
-    <div class="container marg">
-    <div class="panel panel-default">
-     <div class="panel-heading rest"><h4>{{ Session::get("nombre") }} Seccion:NoAtendidas</h4></div>   
-       @if(count($pedidos)>0)
+           <div class="row" style="background-color:white;">
+   <div class="col-lg-2"></div>
+   <div class="col-lg-10">
+    <br>
+    <br>
+
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-heading admin">
+              <h3 class="panel-title"><i class="fa fa-fw fa-hourglass-half"></i> Ordenes no atendidas</h3>
+            </div>
+            <div class="panel-body"> 
+            <hr>
+
      
-               <table class="table table-bordered table-striped">
-               <h4 align="top"> Pedidos </h4>
+              <table id="pedidos" class="table table-bordered table-striped">
+        @if(count($pedidos)>0)
                <thead>
                     <th>Orden</th>
                     <th>Domicilio</th>
@@ -63,6 +76,8 @@
                          {{ Form::hidden('idpedido',$value->id)}}
                      
                     </tr>
+
+                    <td></td>
                     
 
            </tbody>
@@ -72,10 +87,20 @@
                </table>
                
      @endif
-     <div class="panel-footer clearfix rest">
-  
-  </div>     
+        
   </div>
+
+
+ </div>
+    </div>
   </div>
+</div>
+<!-- /.row -->
+
+</div>
+<!-- /.container-fluid -->
+</div>
+
+</div>
 </body>
 </html>

@@ -4,16 +4,22 @@ class RegistroController extends BaseController {
 
 	public function registrar()
 	{
+		$username = Input::get('correo');
+		$usuarios = User::where('username','=',$username)->get();
 		$codigo = Input::get('codigo_postal');
 		if ($codigo > 34398 || $codigo < 34000)
 		{
 			return Response::json('0');		
-		}else{
+		}
+		if ($usuarios != null) {
+			return Response::json('0');
+		}
+		else{
 
 
 		$reg_id = Input::get('reg_id');
 		$user = New User();
-		$user->username = Input::get('correo');
+		$user->username = $username
 		$user->password = Hash::make(Input::get('password'));
 		$user->id_nivel = 3;
 		$user->nombre = Input::get('nombre');

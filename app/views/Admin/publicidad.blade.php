@@ -22,15 +22,21 @@
             </div>
             <div class="panel-body">
            
+						<hr>
+						<a style="display:inline-block;" class="btn btn-lg btn-primary buttonagregar" data-target="#myModal">Agregar publicidad</a>
 						<br>
+						<hr>
 						
 						<div class="row">
+
+							<h2>Publicidades actuales</h2>
+
 
 						
 				
 				@foreach($publicidad as $key => $value)	 		
 							
-					
+					{{Form::open(array('url' => '/admin/editar'))}}
 							 <div class="col-sm-6">
                 <div class="panel panel-primary">
                   
@@ -52,12 +58,24 @@
                         <p>{{$value->hora_fin}}</p>
                         <br>
 
-                        {{Form::open(array('url'=>'/admin/editar', 'id' => $value->id))}}
+                        <!-- {{Form::open(array('url'=>'/admin/editar', 'id' => $value->id,'style' => 'display:inline-block;'))}} -->
 								
-								<a style="display:inline-block;" class="btn btn-success direccionar">Editar</a>
-								
-								<input type="hidden" name="producto_id" value="{{$value->id}}">
-								{{Form::close()}}
+						<!-- <a name="editar" style="display:inline-block;" class="btn btn-success direccionar">Editar</a> -->
+						<!-- <input type="hidden" name="publicidad_id" value="{{$value->id}}"> -->
+						<!-- {{Form::close()}} -->
+
+						<!-- {{Form::open(array('url'=>'/admin/eliminarP', 'id' => $value->id,'style' => 'display:inline-block;'))}} -->
+						
+						<!-- <a name="eliminar" style="display:inline-block;" class="btn btn-danger direccionar2">Eliminar</a>	 -->
+								<!-- <input type="hidden" name="producto_id" value="{{$value->id}}"> -->
+						
+
+
+			    {{ Form::hidden('publicidad_id',$value->id)}}
+				{{ Form::submit('Editar', array('name'=> 'Editar','class' => 'btn btn-success')) }}</td>
+				{{ Form::submit('Eliminar', array('name'=> 'Eliminar','class' => 'btn btn-danger')) }}</td>													
+				
+				 {{Form::close()}}
 
                       </div>
                     </div>
@@ -71,8 +89,8 @@
 
 
 
-
-			<a href="#" style="padding:2%;"><img class="buttonagregar" width="23px" data-target="#myModal" src="{{asset('assets/img/anclas/mas.png')}}">Agregar publicidad</a>
+            
+			
 			<br>
 				<!-- Modal -->
 						<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" >
@@ -166,6 +184,10 @@ $('.buttonagregar').click(function(){
 <script type="text/javascript">
 $(document).ready(function(){
 	$('.direccionar').click(function(){
+		var formulario = $(this).next('input').val();
+		$('#'+formulario).submit();
+	});
+	$('.direccionar2').click(function(){
 		var formulario = $(this).next('input').val();
 		$('#'+formulario).submit();
 	});

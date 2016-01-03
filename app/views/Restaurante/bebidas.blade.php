@@ -6,53 +6,72 @@
 	<title>Bebidas</title>
 </head>
 <body>
-	  <div class="container marg">
-    <div class="panel panel-default">
-     <div class="panel-heading rest">{{ Session::get("nombre") }} Seccion:Bebidas</div>     
-	<div class="container col-height">
-	<br>
+	<div class="row" style="background-color:white;">
+   <div class="col-lg-2"></div>
+   <div class="col-lg-10">
+    <br>
+    <br>
 
-	<a href="/restaurante/agregarB"><img class="buttonagregar" data-target="#myModal" src="{{asset('assets/img/anclas/mas.png')}}">Agregar Bebidas</a>
-		@if(count($bebidas)>0)
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-heading admin">
+              <h3 class="panel-title"><i class="fa fa-fw fa-glass"></i> Bebidas</h3>
+            </div>
+	<div class="panel-body">
+	<hr>
+	<a href="/restaurante/agregarB" style="display:inline-block;" class="btn btn-lg btn-primary buttonagregar" data-target="#myModal">Agregar bebida</a>
+	<br>
+	<hr>@if(count($bebidas)>0)
 	<div class="row">
 	 	@foreach($bebidas as $key => $value)
-				<div class="col-md-5" style="border:1px solid;  margin:1%;" >
-						
-							<div class="col-md-7 ">
-								<img style="width:100%;margin:5%;" height="200px" src="{{asset($value->imagen)}}">
-							</div>
-							<div class="col-md-3">
-							<br>	
-								{{$value->nombre}} 	<br>
-								{{$value->descripcion}}
-								
-							</div>
-							<br/>
-							<div class="col-md-2">
-								{{$value->costo_unitario}}$
-								<br> 
-								{{Form::open(array('url'=>'/restaurante/editar', 'id' => $value->id))}}
-								<label class="glyphicon glyphicon-edit direccionar">Editar</label>
-								
+				 <div class="col-sm-6">
+                <div class="panel panel-primary">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">{{$value->nombre}}</h3>
+                  </div>
+                  <div class="panel-body">
+                   <div class="row">
+                    <div class="col-md-1"></div>
+
+                    <div class="col-md-10">
+
+                      <img style="height:300px; width:300px;" class="center-block thumbnail img-rounded" src="{{asset($value->imagen)}}" alt="{{asset($value->imagen)}}">
+                      <div class="caption">
+                        <h3>Precio: ${{$value->costo_unitario}}</h3>
+                        <b>Descripción:</b>
+                        <p>{{$value->descripcion}}</p>
+                         	{{Form::open(array('url'=>'/restaurante/editar', 'id' => $value->id))}}
+								{{ Form::submit('Editar', array('name'=> 'Editar','class' => 'btn btn-success direccionar')) }}
 								<input type="hidden" name="producto_id" value="{{$value->id}}">
 								{{Form::close()}}
-							</div>
-								
-								
-						
-					</div>
+                      </div>
+                    </div> 
+                    <div class="col-md-1"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
 		@endforeach
+
+		@endif
 		</div>
-	@endif
+	
 			
-	</div>
+	
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.row -->
 
+</div>
+<!-- /.container-fluid -->
 
-     <div class="panel-footer clearfix rest">
-
-	</div>     
-	</div>
-	</div>
+</div>
+</div>
 </body>
 </html>
 <script type="text/javascript">

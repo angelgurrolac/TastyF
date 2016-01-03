@@ -6,19 +6,32 @@
 	<title>Declinadas</title>
 </head>
 <body>
-	  <div class="container marg">
-    <div class="panel panel-default">
-     <div class="panel-heading rest"><h4>{{ Session::get("nombre") }} Seccion:Declinadas</h4></div>   
-       @if(count($pedidos)>0)
+	        <div class="row" style="background-color:white;">
+   <div class="col-lg-2"></div>
+   <div class="col-lg-10">
+    <br>
+    <br>
+
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-heading admin">
+              <h3 class="panel-title"><i class="fa fa-fw fa-file-excel-o"></i> Ordenes declinadas</h3>
+            </div>
+            <div class="panel-body"> 
+            <hr>
+
      
-               <table class="table table-bordered table-striped">
-               <h4 align="top"> Pedidos </h4>
+              <table id="pedidos" class="table table-bordered table-striped">
+        @if(count($pedidos)>0)
                <thead>
                     <th>Orden</th>
                     <th>Domicilio</th>
-                    <th>Caracteristicas</th>
+                    <th>Características</th>
                     <th>Total</th>      
-                    <th>Estatus</th> 
+                    <!-- <th>Estatus</th>  -->
                     <th>Nombre</th>      
                     <th>Cantidad</th>
                     <th>Producto</th>                                                
@@ -38,7 +51,7 @@
                          <td rowspan="{{$a}}">{{$value->domicilioP}}</td>
                          <td rowspan="{{$a}}">{{$value->caracteristica}}</td>
                          <td rowspan="{{$a}}">{{$value->total}}</td>
-                         <td rowspan="{{$a}}">{{$value->estatus}}</td>
+                         <!-- <td rowspan="{{$a}}">{{$value->estatus}}</td> -->
                           <td rowspan="{{$a}}">{{$value->nombreUsuario}}</td>
                          @foreach($detalles as $key => $info)
                          
@@ -56,6 +69,7 @@
                                    
                               </tr>
 
+
                               @endif     
                                    
                           @endforeach
@@ -63,6 +77,7 @@
                          {{ Form::hidden('idpedido',$value->id)}}
                      
                     </tr>
+                    <td></td>
                     
 
            </tbody>
@@ -72,10 +87,19 @@
                </table>
                
      @endif
-     <div class="panel-footer clearfix rest">
-	
-	</div>     
+      
 	</div>
-	</div>
+
+ </div>
+    </div>
+  </div>
+</div>
+<!-- /.row -->
+
+</div>
+<!-- /.container-fluid -->
+</div>
+
+</div>
 </body>
 </html>

@@ -1,87 +1,125 @@
-<html>
+<!doctype html>
+<html  lang="en" class="no-js"> 
 <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
-  <link rel="stylesheet" href="{{ URL::asset('assets/css/jquery-ui.min.css') }}">
-  <script src="{{ asset('assets/js/jquery.js') }}"></script>
-  <script src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>
+  <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' > -->
   <link rel="stylesheet" href="{{ URL::asset('assets/css/bootstrap.min.css') }}">
-  <script src="{{ asset('assets/js/classie.js') }}"></script>
-  <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+  <link rel="stylesheet" href="{{ URL::asset('assets/css/jquery-ui.min.css') }}">
+  <link rel="stylesheet" href="{{ URL::asset('assets/css/sb-admin.css') }}">
+  <link rel="stylesheet" href="{{ URL::asset('assets/css/plugins/morris.css') }}">
+  <link href="{{ URL::asset('assets/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" >
+  <link rel="stylesheet" href="{{ URL::asset('assets/pnotify.css') }}">
   <script src="{{ URL::asset('assets/js/bootstrap-datetimepicker.min.js') }}"></script>
-  <script src="{{ URL::asset('assets/js/modernizr.custom.js') }}"></script>
-    <script src="{{ URL::asset('assets/js/sumas.js') }}"></script>
-    <link rel="stylesheet" href="{{ URL::asset('assets/pnotify.css') }}">
-  <script src="{{ asset('assets/pnotify.js') }}"></script>
+  <script src="{{ URL::asset('assets/pnotify.js') }}"></script>
+
+  
+<!-- jQuery -->
+  <script src="{{ URL::asset('assets/js/jquery.js') }}"></script>
+  <script src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>
+
+  <!-- Bootstrap Core JavaScript -->
+  <script src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
 </head>
 
 @if (Session::has('message'))
 <script>
-$(function(){
-  new PNotify({
-    title: '{{ Session::get("message") }}',
-    type: 'success'
+  $(function(){
+    new PNotify({
+      title: '{{ Session::get("message") }}',
+      type: 'success'
+    });
   });
-});
 </script>
 @endif
 <?php  $var = $errors->all()?> 
 @if(!empty($var))
+
 @foreach ($errors->all() as $error)
 <script>
-$(function(){
-  new PNotify({
-    text: '{{$error}}',
-    type: 'error'
+  $(function(){
+    new PNotify({
+      text: '{{$error}}',
+      type: 'error'
+    });
   });
-});
 
 </script>
 @endforeach
 @endif
-<body>
-  <nav class="anclas cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
-    <a href="{{URL::to('/restaurante/hogar') }}">Hogar</a>
-     <a href="{{URL::to('/restaurante/alimentos') }}">Alimentos</a>
-    <a href="{{URL::to('/restaurante/bebidas') }}">Bebidas</a>
-    <a href="{{URL::to('/restaurante/pedidos') }}">Pedidos</a>
-    <a href="{{URL::to('/restaurante/declinadas') }}">Declinadas</a>
-    <a href="{{URL::to('/restaurante/noAtendidas') }}">No Atendidas</a>
-    <a href="{{URL::to('/restaurante/informes') }}">Informes</a>
-    <a href="{{URL::to('/restaurante/datos') }}">No de cuenta</a>
-    <a href="{{URL::to('/restaurante/estadisticas') }}">Estadisticas</a>
-    <a href="{{URL::to('/restaurante/facturas') }}">Facturas</a>
-    <a href="{{URL::to('/logout') }}">Salir</a>
-  </nav>
-  <nav class="navbar navbar-anclas">
-  <label class="navbar-nav navbar-left"><img id="icono_menu" src="/assets/img/menu.png"><label class="paginaactual"></label></label>
-  <ul class="navbar-nav navbar-right">
-   <li class="dropdown">
-     <label class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-       <p class="overflow">
-         {{ Session::get('nombre') }}
-       </p> 
-       
-     </label>
-     <ul class="dropdown-menu" role="menu">
-      <li><a class="cerrarSession">Cerrar Sesión</a></li>
-    </ul>
-  </li>
-</ul>
 
-</nav>
-<script>
-  var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
-showLeft = document.getElementById( 'icono_menu' ),
-body = document.body;
-showLeft.onclick = function() {
-  if (showLeft.classList.contains('open')) {
-   $("#icono_menu").attr("src", "/assets/img/menu.png");
- }else{
-   $("#icono_menu").attr("src", "/assets/img/menux.png");
- };
- classie.toggle(showLeft ,'open');
- classie.toggle( menuLeft, 'cbp-spmenu-open' );
-};
-</script>
+
+<body>
+   
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                 <a class="navbar-brand" href="{{URL::to('/admin/pedidos') }}"><img style="display:inline-block;" width="30" src="{{ URL::asset('assets/img/umami_logo.png') }}" alt="Logguito"><p style="display:inline-block; padding:2px; color:#F6A507;">TastyFoods</p></a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{ Session::get('nombre') }} <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Salir</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+     <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav side-nav" style="overflow-y:hidden;">
+          <br>
+          <li class="active">
+            <a href="{{URL::to('/restaurante/hogar') }}"><i class="fa fa-fw fa-flag"></i> Pedidos y reservaciones</a>
+          </li>
+          <li>
+            <a href="{{URL::to('/restaurante/alimentos') }}"><i class="fa fa-fw fa-cutlery"></i> Alimentos</a>
+          </li>
+          <li>
+            <a href="{{URL::to('/restaurante/bebidas') }}"><i class="fa fa-fw fa-glass"></i> Bebidas</a>
+          </li>
+          <li>
+            <a href="{{URL::to('/restaurante/pedidos') }}"><i class="fa fa-fw fa-cutlery"></i> Pedidos</a>
+          </li>
+          <li>
+            <a href="{{URL::to('/restaurante/declinadas') }}"><i class="fa fa-fw fa-file-excel-o"></i> Ordenes declinadas</a>
+          </li>
+          <li>
+            <a href="{{URL::to('/restaurante/noAtendidas') }}"><i class="fa fa-fw fa-hourglass-half"></i> Ordenes no atendidas</a>
+          </li>
+          
+          <li>
+            <a href="{{URL::to('/restaurante/informes') }}"><i class="fa fa-fw fa-file-text-o"></i> Informes</a>
+          </li>
+          <li>
+            <a href="{{URL::to('/restaurante/datos') }}"><i class="fa fa-fw fa-credit-card"></i> No. de cuenta</a>
+          </li>
+          <li>
+            <a href="{{URL::to('/restaurante/estadisticas') }}"><i class="fa fa-fw fa-line-chart"></i> Estadisticas</a>
+          </li>
+          <li>
+            <a href="{{URL::to('/restaurante/facturas') }}"><i class="fa fa-fw fa-bookmark"></i> Facturas</a>
+          </li>
+          <li>
+            <a href="{{URL::to('/logout') }}"><i class="fa fa-fw fa-power-off"></i> Salir</a>
+          </li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+        </nav>
+    </div>
+    <!-- /#wrapper -->
+ 
 </body>
+
+</html>
+
 

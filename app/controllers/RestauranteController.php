@@ -11,11 +11,9 @@ class RestauranteController extends \BaseController {
 	{
 		
 		$pedidos = Pedidos::pedidos(Auth::user()->id_restaurante);
-
 		$detalles = Pedidos::consulta()->get();
 		$restaurante = Restaurantes::find(Auth::user()->id_restaurante);
 		$reservaciones = Reservaciones::res(Auth::user()->id_restaurante);
-		
 		$detallesR = Reservaciones::consulta()->get();
 		return View::make('Restaurante.hogar',compact('pedidos','detalles','reservaciones','detallesR','restaurante'));
 	}
@@ -85,7 +83,7 @@ class RestauranteController extends \BaseController {
 		return View::make('Restaurante.editarProducto',compact('producto','cat','categorias'));
 	}
 
-	
+
 	public function saveChanges()
 	{	$producto = Productos::find(Input::get('id'));
 		$image = Input::file('imgFile');
@@ -206,7 +204,7 @@ class RestauranteController extends \BaseController {
 	{
 		$pedidos = Pedidos::pedidosTres(Auth::user()->id_restaurante);
 			$detalles = Pedidos::consultaDos()->get();
-		return View::make('Restaurante.pedidos',compact('pedidos','detalles'));
+		return View::make('Restaurante.declinadas',compact('pedidos','detalles'));
 	}			
 	public function informes()
 	{

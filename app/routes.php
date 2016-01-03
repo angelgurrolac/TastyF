@@ -183,4 +183,5 @@ Route::get('/admin/productos','AdminController@productos');
 Route::get('/admin/op','AdminController@op');
 Route::post('/admin/editar','AdminController@editar');
 Route::post('/admin/saveChanges','AdminController@saveChanges');
+
 });

@@ -93,7 +93,7 @@
             <a href="{{URL::to('/admin/usuarios') }}"><i class="fa fa-fw fa-users"></i> Usuarios</a>
           </li>
           <li>
-            <a href="{{URL::to('/admin/informes') }}"><i class="fa fa-fw fa-file-text-o"></i> Informe</a>
+            <a href="{{URL::to('/admin/informes') }}"><i class="fa fa-fw fa-file-text-o"></i> Informes</a>
           </li>
           
           <li>

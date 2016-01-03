@@ -37,19 +37,19 @@
                     <div class="col-md-10">
                       <div class="caption">
                       	{{Form::open(array('url'=>'/admin/saveChanges','files'=>'true'))}}
-                      	<input type="text" name="descripcion" value="{{$publicidad->descripcion}}">
+                      	<b>Nombre de la publicidad:</b>
+                      	<input class="form-control" type="text" name="descripcion" value="{{$publicidad->descripcion}}">
                       	<br>
-
-                      	<b>Día:</b>
-                        <p>{{$publicidad->dia}}</p>
+                      	<!-- <b>Día:</b> -->
+                        <!-- <input  data-format="yyyy/MM/dd" class="form-control" type="date" name="date" value="{{$publicidad->dia}}"> -->
                      	<b>Hora de inicio:</b>
-                        <p>{{$publicidad->hora_inicio}}</p>
+                        <input class="form-control" type="text" name="hora_inicio" value="{{$publicidad->hora_inicio}}">
                         <b>Hora de fin:</b>
-                        <p>{{$publicidad->hora_fin}}</p>
+                        <input class="form-control" type="text" name="hora_fin" value="{{$publicidad->hora_fin}}">
                         <br>
 
                         <input type="hidden" name="id" value="{{$publicidad->id}}">
-			{{Form::submit('Guardar cambios',array('class'=>'btn btn-primary'))}}
+			            {{Form::submit('Guardar cambios',array('class'=>'btn btn-primary'))}}
 
                         {{Form::close()}}
 
@@ -84,4 +84,9 @@ $(function() {
 $('.buttonagregar').click(function(){
 	$('#myModal').modal('show');
 });
+</script>
+<script>
+	$('#imgFile').change(function(){
+		$('#blah')[0].src = window.URL.createObjectURL(this.files[0])
+	});
 </script>

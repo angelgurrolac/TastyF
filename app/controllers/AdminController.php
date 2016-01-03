@@ -15,9 +15,10 @@ class AdminController extends \BaseController {
 		return View::make('Admin.pedidos',compact('pedidos'));
 	}
 public function publicidad()
-	{
-
-		$publicidad = Publicidad::All();
+	{	
+		date_default_timezone_set('America/Mexico_City');
+		$fecha = date('Y-m-d');
+		$publicidad = Publicidad::where('dia','>=',$fecha)->get();
 		return View::make('Admin.publicidad',compact('publicidad'));
 		//return View::make('Admin.publicidad');
 	}
@@ -280,17 +281,36 @@ public function publicidad()
 
 
 	public function editar(){
-		$publicidad = Publicidad::find(Input::get('producto_id'));
-		return View::make('Admin.publicidad2',compact('publicidad'));
+
+		if(Input::has('Editar'))
+		{	
+			$publicidad = Publicidad::find(Input::get('publicidad_id'));
+		    return View::make('Admin.publicidad2',compact('publicidad'));
+
+		}
+		if(Input::has('Eliminar'))
+		{	
+		$publicidad=Publicidad::where('id','=',Input::get('publicidad_id'))->get();
+			$publicidad[0]->delete();
+			return Redirect::to('admin/publicidad')->with('message','Publicidad eliminada con éxito');
+        }
+
+	
 	}
 
 	public function savechanges(){
 		$publicidad = Publicidad::find(Input::get('id'));
+		// $date1 = DateTime::createFromFormat('d/m/Y', Input::get('date'));
+		// $date1=$date1->format('Y-m-d');
+		
 		$publicidad->descripcion = Input::get('descripcion');
+		// $publicidad->dia = $date1;
+		$publicidad->hora_inicio = Input::get('hora_inicio');
+		$publicidad->hora_fin = Input::get('hora_fin');
 		$publicidad->save();
 
-		return Redirect::to('admin/publicidad')->with('message','Cambios con exito');
-
+		return Redirect::to('admin/publicidad')->with('message','Cambios con éxito');
+			
 	}
 
 
