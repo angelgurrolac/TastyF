@@ -12,19 +12,19 @@ class RegistroController extends BaseController {
 			return Response::json('0');		
 		}
 		if ($usuarios != null) {
-			return Response::json('0');
+			return Response::json('2');
 		}
 		else{
 
 
 		$reg_id = Input::get('reg_id');
 		$user = New User();
-		$user->username = $username
+		$user->username = $username;
 		$user->password = Hash::make(Input::get('password'));
 		$user->id_nivel = 3;
 		$user->nombre = Input::get('nombre');
 		$user->apellidos = Input::get('apellidos');		
-		$user->correo = Input::get('correo');
+		$user->correo = $username;
 		$user->edad = Input::get('edad');
 		$user->sexo = Input::get('sexo');
 		$user->reg_id = $reg_id;

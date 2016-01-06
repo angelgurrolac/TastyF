@@ -45,6 +45,7 @@
                     <div class="col-md-1"></div>
 
                     <div class="col-md-10">
+                    	<img style="height:300px; width:300px;" class="center-block thumbnail img-rounded" src="{{asset($value->imagen)}}" alt="{{asset($value->imagen)}}">
                       <div class="caption">
 
                       	<h3>Publicidad: {{$value->descripcion}} </h3>
@@ -55,7 +56,9 @@
                      	<b>Hora de inicio:</b>
                         <p>{{$value->hora_inicio}}</p>
                         <b>Hora de fin:</b>
-                        <p>{{$value->hora_fin}}</p>
+                        <p>{{$value->hora_fin}}</p> 
+                        <b>Contador de vistas:</b>
+                        <p>{{$value->contador}}</p>
                         <br>
 
                         <!-- {{Form::open(array('url'=>'/admin/editar', 'id' => $value->id,'style' => 'display:inline-block;'))}} -->

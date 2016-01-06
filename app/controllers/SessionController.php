@@ -4,16 +4,16 @@ class SessionController extends \BaseController {
 
 	public function getSession(){
 		$username = Input::get('username');
-		$password = Input::get('password');		
-		$reg_id = Input::get('password');		
+		$password = Input::get('password');
+
 		if (Auth::attempt(['username' => $username, 'password' => $password]))
 		{
             // Aquí también pueden devolver una llamada a otro controlador o
             // devolver una vista
 
- 			$user = New User();
- 			$user->reg_id = $reg_id;
- 			$user->save();
+ 			// $user = User::find(Input::get('username'));		
+ 			// $user->reg_id = Input::get('reg_id');
+ 			// $user->save();
 			$nivel=Auth::user()->id_nivel;
 			
 			if ($nivel=='1') {

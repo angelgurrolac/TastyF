@@ -60,7 +60,7 @@
      </ul>
 
 
-			<?php
+	<!-- 		<?php
 // Establecer la zona horaria predeterminada a usar. Disponible desde PHP 5.1
 date_default_timezone_set('America/Mexico_City');
 
@@ -76,7 +76,7 @@ echo $nuevafecha;
 
 
 ?>
-     
+      -->
     	
      		<table id="pedidos" class="table table-bordered table-striped">
      		@if(count($pedidos)>0)
