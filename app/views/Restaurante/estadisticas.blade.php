@@ -3,20 +3,32 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Estadisticas</title>
+	<title>Finanzas</title>
 </head>
 <body>
 
-	  <div class="container marg">
-    <div class="panel panel-default">
-     <div class="panel-heading rest"><h4>{{ Session::get("nombre") }} Seccion:Pedidos</h4></div>   
+---
+
+<div class="row" style="background-color:white;">
+
+          <div class="col-lg-2"></div>
+          <div class="col-lg-10">
+
+       <div class="container marg">
+       <h1>Finanzas</h1>
+   
+     
    
      <br>
-   @foreach($credito as $key => $val)
-             <h4>tarjeta</h4>
-                <br>
-          <table class="table table-bordered">
-          <thead>
+ @foreach($credito as $key => $val)
+
+        <div class="panel panel-default">
+     <div class="panel-heading admin"><h4>Tarjeta</h4></div>
+
+     <div class="table-responsive">
+     <table class="table table-bordered table-hover table-striped users">
+          
+        <thead>
                <th>Nombre</th>
                <th>Platillos Vendidos</th>
                <th>Costo Promedio</th>
@@ -31,7 +43,7 @@
           <tbody>
       
           <tr>
-               <td>{{$restaurante->nombre}}</td>
+                <td>{{$restaurante->nombre}}</td>
                    <td>{{$val->platillos_vendidos}}</td>
                <td>{{$val->costo_promedio}}</td>
                <td>{{$val->no_ordenes}}</td>
@@ -44,15 +56,30 @@
           </tr>
 
           </tbody>
-          </table>
+          
+          
+     </table>     
+     <div class="panel-footer clearfix admin">
+     
+     </div>     
+     </div>
+     </div>
+    
           
      @endforeach
+
+
+
         @foreach($efectivo as $key => $value)
-          <h4>efectivo</h4>
-                <br>
-          <table class="table table-bordered">
-          <thead>
-               <th>Nombre</th>
+
+      
+        <div class="panel panel-default">
+     <div class="panel-heading admin"><h4>Efectivo</h4></div>
+
+     <div class="table-responsive">
+     <table class="table table-bordered table-hover table-striped users">
+           <thead>
+              <th>Nombre</th>
                <th>Platillos Vendidos</th>
                <th>Costo Promedio</th>
                <th>No. ordenes</th>               
@@ -66,7 +93,7 @@
           <tbody>
       
           <tr>
-               <td>{{$restaurante->nombre}}</td>
+                <td>{{$restaurante->nombre}}</td>
            
                     <td>{{$value->platillos_vendidos}}</td>
               
@@ -81,13 +108,24 @@
           </tr>
 
           </tbody>
-          </table>
+          
+          
+     </table>     
+     <div class="panel-footer clearfix admin">
+     
+     </div>     
+     </div>
+     </div>
+     
           
      @endforeach
-     <div class="panel-footer clearfix rest">
-	
-	</div>     
-	</div>
-	</div>
+
+   
+   
+     </div>     
+     </div>
+     </div>     
+---
+
 </body>
 </html>

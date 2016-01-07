@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+   <script src="{{ URL::asset('assets/js/diseno-tabla.js') }}"></script>
+
 
 	<meta charset="UTF-8" http-equiv="refresh" content="20">
 	<title>Hogar</title>
@@ -78,23 +80,21 @@ echo $nuevafecha;
 ?>
       -->
     	
-     		<table id="pedidos" class="table table-bordered table-striped">
+     		<table id="pedidos" class="table  table-hover table-bordered table-striped">
      		@if(count($pedidos)>0)
      		<caption align="top"> <h3>Pedidos</h3>  </caption>
-     		<thead>
-     			<th>Acciones</th>
-     			<th>Acciones</th>
-     			<th>Orden</th>
-     			<th>Domicilio</th>
-     			<th>Caracteristicas</th>
-     			<th>Cantidad</th>
-
-     			<th>Producto</th>
-     			<th>Importe</th>
-     			<th>Iva</th>
-     			<th>Costo Unitario</th>
-     			
-     			<th>Total</th>     	
+     		<thead class="at">
+     			<th width="200" heigth="200">Acciones</th>
+     			<th width="200" heigth="200">Acciones</th>
+     			<th width="200" heigth="200">Orden</th>
+     			<th width="200" heigth="200">Domicilio</th>
+     			<th width="200" heigth="200">Características</th>
+     			<th width="200" heigth="200">Cantidad</th>
+     			<th width="200" heigth="200">Producto</th>
+     			<th width="200" heigth="200">Importe</th>
+     			<th width="200" heigth="200">IVA</th>
+     			<th width="200" heigth="200">Costo Unitario</th>
+     			<th width="200" heigth="200">Total</th>     	
      		  	
 
      		</thead>
@@ -107,19 +107,19 @@ echo $nuevafecha;
 				<?php $a++; ?>
 				@endif     
 		     @endforeach
-		     		<tbody>
+		     		<tbody class="at acomodo-tabla">
 				<tr>
 					{{ Form::hidden('idpedido',$value->id)}}
-					<td rowspan="{{$a}}">{{ Form::submit('Confirmar', array('name'=> 'Confirmar','class' => 'btn btn-primary')) }}</td>
-					<td rowspan="{{$a}}">{{ Form::submit('Declinar', array('name'=> 'Declinar','class' => 'btn btn-danger')) }}</td>													
-					<td rowspan="{{$a}}">{{$value->id}}</td>
+					<td width="200" heigth="200" rowspan="{{$a}}">{{ Form::submit('Confirmar', array('name'=> 'Confirmar','class' => 'btn btn-primary')) }}</td>
+					<td  width="200" heigth="200" rowspan="{{$a}}">{{ Form::submit('Declinar', array('name'=> 'Declinar','class' => 'btn btn-danger')) }}</td>													
+					<td width="200" heigth="200"rowspan="{{$a}}">{{$value->id}}</td>
 
 			
 					@if($notificacion < $value->created_at && $nuevafecha > $value->created_at)	
-				<td rowspan="{{$a}}">{{$value->created_at}}</td>
+				<td width="200" heigth="200"rowspan="{{$a}}">{{$value->created_at}}</td>
 				@endif   
-					<td rowspan="{{$a}}">{{$value->domicilioP}}</td>
-					<td rowspan="{{$a}}">{{$value->caracteristica}}</td>
+					<td width="200" heigth="200" rowspan="{{$a}}">{{$value->domicilioP}}</td>
+					<td width="200" heigth="200" rowspan="{{$a}}">{{$value->caracteristica}}</td>
 
 						</tr>
 
@@ -132,18 +132,18 @@ echo $nuevafecha;
 				
 					
 						<tr>							
-			     			<td >{{$info->cantidad}}</td>
+			     			<td width="200" heigth="200" >{{$info->cantidad}}</td>
 			     		
-			     			<td >{{$info->nombre}}</td>
+			     			<td width="200" heigth="200" >{{$info->nombre}}</td>
 			     				
-			     			<td >{{$info->precio}}</td>
+			     			<td width="200" heigth="200">{{$info->precio}}</td>
 			     				
-			     			<td >{{$info->iva}}</td>
+			     			<td width="200" heigth="200">{{$info->iva}}</td>
 			     				
-			     			<td >{{$info->costo_unitario}}</td>		
+			     			<td width="200" heigth="200">{{$info->costo_unitario}}</td>		
 							<?php $total = $info->cantidad *  $info->costo_unitario; ?>
 
-			     			<td>{{$total}}</td>	     		
+			     			<td width="200" heigth="200" >{{$total}}</td>	     		
 			     			
 			     		</tr>
 
@@ -152,7 +152,7 @@ echo $nuevafecha;
 					 @endforeach
 					
 					
-					<td></td>
+					
 				
 
 		 </tbody>
@@ -165,15 +165,15 @@ echo $nuevafecha;
      	
 			<table id="reservaciones" class="table table-bordered table-condensed">
      		<caption align="top"> <h3>Reservaciones</h3>  </caption>
-     		<thead>
+     		<thead class="at">
      			
-     			<th>Acciones</th> 	
-     			<th>Acciones</th> 
-     			<th>Reservación</th>
-     			<th>Personas</th>
-     			<th>Hora de llegada</th>     			
-     			<th>Cantidad</th>
-     			<th>Producto</th> 	
+     			<th width="200" heigth="200">Acciones</th> 	
+     			<th width="200" heigth="200">Acciones</th> 
+     			<th width="200" heigth="200">Reservación</th>
+     			<th width="200" heigth="200">Personas</th>
+     			<th width="200" heigth="200">Hora de llegada</th>     			
+     			<th width="200" heigth="200">Cantidad</th>
+     			<th width="200" heigth="200">Producto</th> 	
      				
      		</thead>   
      		  @if(count($reservaciones)>0)     
@@ -185,26 +185,26 @@ echo $nuevafecha;
 				<?php $b++; $nada=null ?>
 				@endif     
 		     @endforeach
-		     <tbody>
+		     <tbody class="at acomodo-tabla">
 				<tr>
 					{{ Form::hidden('idreservacion',$r->id)}}
-					<td rowspan="{{$b}}">{{ Form::submit('Confirmar', array('name'=> 'Confirmar','class' => 'btn btn-primary')) }}</td>
-					<td rowspan="{{$b}}">{{ Form::submit('Declinar', array('name'=> 'Declinar','class' => 'btn btn-danger')) }}</td>													
-					<td rowspan="{{$b}}">{{$r->id}}</td>
-					<td rowspan="{{$b}}">{{$r->mesa}}</td>
-					<td rowspan="{{$b}}">{{$r->hora}}</td>
+					<td width="200" heigth="200"rowspan="{{$b}}">{{ Form::submit('Confirmar', array('name'=> 'Confirmar','class' => 'btn btn-primary')) }}</td>
+					<td width="200" heigth="200"rowspan="{{$b}}">{{ Form::submit('Declinar', array('name'=> 'Declinar','class' => 'btn btn-danger')) }}</td>													
+					<td width="200" heigth="200"rowspan="{{$b}}">{{$r->id}}</td>
+					<td width="200" heigth="200"rowspan="{{$b}}">{{$r->mesa}}</td>
+					<td width="200" heigth="200"rowspan="{{$b}}">{{$r->hora}}</td>
 					@foreach($detallesR as $key => $info)					
 			
 					@if($info->id_reservacion == $r->id)																				
 													
 			     		<tr>
 			     	        @if(is_null($info->cantidad))
-			     	        <td >Sin pedido</td>			     				
-			     	        <td >Sin pedido</td>			     				
+			     	        <td width="200" heigth="200">Sin pedido</td>			     				
+			     	        <td width="200" heigth="200" >Sin pedido</td>			     				
 			     			
 			     	        @endif
-			     			<td >{{$info->cantidad}}</td>			     				
-			     			<td >{{$info->nombre}}</td>			     							     	  				     			
+			     			<td width="200" heigth="200">{{$info->cantidad}}</td>			     				
+			     			<td width="200" heigth="200">{{$info->nombre}}</td>			     							     	  				     			
 			     		     							     	  				     			
 			     		</tr>	
 

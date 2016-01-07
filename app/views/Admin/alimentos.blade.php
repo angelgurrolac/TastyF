@@ -56,7 +56,7 @@
                       <div class="caption">
                         <h3>Precio: ${{$value->costo_unitario}}</h3>
                         <b>Descripción:</b>
-                        <p>{{$value->descripcion}}</p>
+                        <p style="text-align:justify;">{{$value->descripcion}}</p>
                         <b>Restaurante:</b>
                         <p>{{$value->nombreR}}</p>
                         

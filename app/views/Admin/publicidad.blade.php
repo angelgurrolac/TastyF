@@ -110,7 +110,7 @@
 												
 													<th>
 														<div class="form-group">
-															 {{ Form::label('ingresar una pequeña descripcion') }}																		
+															 {{ Form::label( 'descripcion', 'Ingresar una pequeña descripción', array ('class' => 'estilo-form')) }}																		
 															{{ Form::text('descripcion', Input::old('descripcion'), array('class' => 'form-control', 'id' => 'nombre')) }}
 															{{ Form::text('nombre2', Input::old('nombre2'), array('class' => 'form-control hidden', 'id' => 'nombre2')) }}
 
@@ -122,7 +122,7 @@
 													<div class="form-group">
          <div id="datepick" class="input-append date" >
           <span class="add-on">
-           {{Form::text('date',Input::old('date'),array('tipo_de_serviciocomplete'=>'off','data-format'=>'dd/MM/yyyy') )}}
+           {{Form::input('date','date1',Input::old('date'),array('tipo_de_serviciocomplete'=>'off','data-format'=>'dd/MM/yyyy') )}}
            <span class="glyphicon glyphicon-calendar"></span>
          </span>
        </div>
@@ -133,14 +133,16 @@
 											</tr>
 											<tr>
 													<th>
-													 {{ Form::label('hora_inicio', 'hora a la que comenzara a aparecer la imagen') }}
+													
+													  {{ Form::label( 'hora-inicial', 'Hora a la que comenzara a aparecer la imagen', array ('class' => 'estilo-form')) }}	
 		         <br>
-		         {{ Form::text('hora_inicio', Input::old('hora_inicio'), array('placeholder'=>'09:00')) }}
+		         {{ Form::input('time', 'hora_inicio', Input::old('hora_inicio'), array('placeholder'=>'09:00')) }}
 		    	<br/>
 		    
-		         {{ Form::label('hora_fin', 'hora a la que dejara de aparecer la imagen') }}
+		         
+		         {{ Form::label( 'hora-final', 'Hora a la que dejara de aparecer la imagen', array ('class' => 'estilo-form')) }}	
 		         <br>
-		         {{ Form::text('hora_fin', Input::old('hora_fin'), array('placeholder'=>'17:00')) }}		    
+		         {{ Form::input('time', 'hora_fin', Input::old('hora_fin'), array('placeholder'=>'17:00')) }}		    
 				<br>
 				</th>
 												</tr>

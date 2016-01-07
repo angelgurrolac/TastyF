@@ -16,6 +16,7 @@
   <script src="{{ URL::asset('assets/js/bootstrap-datetimepicker.min.js') }}"></script>
   <script src="{{ URL::asset('assets/pnotify.js') }}"></script>
 
+
   
 <!-- jQuery -->
   <script src="{{ URL::asset('assets/js/jquery.js') }}"></script>
@@ -68,7 +69,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{ Session::get('nombre') }} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Salir</a>
+                            <a href="{{URL::to('/logout') }}"><i class="fa fa-fw fa-power-off"></i> Salir</a>
                         </li>
                     </ul>
                 </li>
@@ -93,7 +94,7 @@
             <a href="{{URL::to('/restaurante/declinadas') }}"><i class="fa fa-fw fa-file-excel-o"></i> Ordenes declinadas</a>
           </li>
           <li>
-            <a href="{{URL::to('/restaurante/noAtendidas') }}"><i class="fa fa-fw fa-hourglass-half"></i> Ordenes no atendidas</a>
+            <a href="{{URL::to('/restaurante/noAtendidas') }}"><i class="fa fa-fw fa-minus-square-o"></i> Ordenes no atendidas</a>
           </li>
           
           <li>
@@ -103,7 +104,7 @@
             <a href="{{URL::to('/restaurante/datos') }}"><i class="fa fa-fw fa-credit-card"></i> No. de cuenta</a>
           </li>
           <li>
-            <a href="{{URL::to('/restaurante/estadisticas') }}"><i class="fa fa-fw fa-line-chart"></i> Estadisticas</a>
+            <a href="{{URL::to('/restaurante/estadisticas') }}"><i class="fa fa-money"></i> Finanzas</a>
           </li>
           <li>
             <a href="{{URL::to('/restaurante/facturas') }}"><i class="fa fa-fw fa-bookmark"></i> Facturas</a>

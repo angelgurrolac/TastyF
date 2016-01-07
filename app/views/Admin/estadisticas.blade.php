@@ -3,20 +3,31 @@
 <html lang="en">
 <head>
      <meta charset="UTF-8">
-     <title>Estadisticas</title>
+     <title>Finanzas</title>
 </head>
 <body>
 
+
+<div class="row" style="background-color:white;">
+
+          <div class="col-lg-2"></div>
+          <div class="col-lg-10">
+
        <div class="container marg">
-    <div class="panel panel-default">
-     <div class="panel-heading admin"><h4>Pedidos</h4></div>   
+       <h1>Finanzas</h1>
+   
+     
    
      <br>
  @foreach($credito as $key => $val)
-             <h4>tarjeta</h4>
-                <br>
-          <table class="table table-bordered">
-          <thead>
+
+        <div class="panel panel-default">
+     <div class="panel-heading admin"><h4>Tarjeta</h4></div>
+
+     <div class="table-responsive">
+     <table class="table table-bordered table-hover table-striped users">
+          
+        <thead>
                <th>Nombre</th>
                <th>Platillos Vendidos</th>
                <th>Costo Promedio</th>
@@ -44,14 +55,29 @@
           </tr>
 
           </tbody>
-          </table>
+          
+          
+     </table>     
+     <div class="panel-footer clearfix admin">
+     
+     </div>     
+     </div>
+     </div>
+    
           
      @endforeach
+
+
+
         @foreach($efectivo as $key => $value)
-          <h4>efectivo</h4>
-                <br>
-          <table class="table table-bordered">
-          <thead>
+
+      
+        <div class="panel panel-default">
+     <div class="panel-heading admin"><h4>Efectivo</h4></div>
+
+     <div class="table-responsive">
+     <table class="table table-bordered table-hover table-striped users">
+           <thead>
                <th>Nombre</th>
                <th>Platillos Vendidos</th>
                <th>Costo Promedio</th>
@@ -81,14 +107,23 @@
           </tr>
 
           </tbody>
-          </table>
           
-     @endforeach
-
+          
+     </table>     
      <div class="panel-footer clearfix admin">
      
      </div>     
      </div>
      </div>
+     
+          
+     @endforeach
+
+   
+   
+     </div>     
+     </div>
+     </div>     
+     
 </body>
 </html>

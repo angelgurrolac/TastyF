@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script src="{{ URL::asset('assets/js/diseno-tabla.js') }}"></script>
 	<meta charset="UTF-8" http-equiv="refresh" content="20">
 	<title>Pedidos</title>
 </head>
@@ -27,7 +28,7 @@
               <table id="pedidos" class="table table-bordered table-striped">
         @if(count($pedidos)>0)
         <!-- <caption align="top"> <h3>Pedidos</h3>  </caption> -->
-        <thead>
+        <thead class="at">
                     <th>Orden</th>
                     <th>Domicilio</th>
                     <th>Caracteristicas</th>
@@ -47,7 +48,7 @@
                     <?php $a++; ?>
                     @endif     
                @endforeach
-                         <tbody>
+                         <tbody class="at acomodo-tabla">
                     <tr>
                          <td rowspan="{{$a}}">{{$value->id}}</td>
                          <td rowspan="{{$a}}">{{$value->domicilioP}}</td>

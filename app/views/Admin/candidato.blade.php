@@ -72,7 +72,7 @@
 		       </div>
 		        <div class="form-group col-lg-6">
 		         {{ Form::label('password', 'Contraseña') }}
-		         {{ Form::text('password', Input::old('password'), array('class' => 'form-control','form'=>'nueva','placeholder' => 'Ingrese su contraseña')) }}
+		         {{ Form::input('password', 'password', Input::old('password'), array('class' => 'form-control','form'=>'nueva','placeholder' => 'Ingrese su contraseña')) }}
 		       </div>
 	        	</div>
 		        

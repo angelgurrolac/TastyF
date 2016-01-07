@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="{{ URL::asset('assets/pnotify.css') }}">
   <script src="{{ URL::asset('assets/js/bootstrap-datetimepicker.min.js') }}"></script>
   <script src="{{ URL::asset('assets/pnotify.js') }}"></script>
+ 
 
   
 <!-- jQuery -->
@@ -68,7 +69,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{ Session::get('nombre') }} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Salir</a>
+                            <a href="{{URL::to('/logout') }}"><i class="fa fa-fw fa-power-off"></i> Salir</a>
                         </li>
                     </ul>
                 </li>
@@ -97,7 +98,7 @@
           </li>
           
           <li>
-            <a href="{{URL::to('/admin/estadisticas') }}"><i class="fa fa-fw fa-line-chart"></i> Estadíticas</a>
+            <a href="{{URL::to('/admin/estadisticas') }}"><i class="fa fa-money"></i>  Finanzas</a>
           </li>
           <li>
             <a href="{{URL::to('/admin/candidatos') }}"><i class="fa fa-fw fa-users"></i> Candidatos</a>

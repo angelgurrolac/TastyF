@@ -26,7 +26,8 @@
      		<div class="row">
      			@if($restaurante->cuenta=='')
 		     	<div class="form-group col-md-8">
-		         {{ Form::label('cuenta', 'Aqui puede registrar el numero de cuenta al que le hara los depositos el administrador') }}
+		         {{ Form::label('cuenta', 'Aquí puede registrar el número de cuenta al que le hara los depositos el administrador', array ('class' => 'estilo-form')) }}
+
 		         <br>
 		         {{ Form::text('cuenta', Input::old('cuenta'), array('class' => 'form-control col-md-4','form'=>'nueva')) }}
 		         <br>
@@ -39,7 +40,7 @@
 		       
 		       @else
 		       <div class="form-group col-md-8">
-		        {{ Form::label('cuenta', 'Aqui puede cambiar el numero de cuenta al que le hara los depositos el administrador') }}
+		        {{ Form::label('cuenta', 'Aquí puede cambiar el número de cuenta al que le hara los depositos el administrador') }}
 		        <br>
 		        {{ Form::text('cuenta', $restaurante->cuenta, array('class' => 'form-control col-md-4','form'=>'nueva')) }}
 		        <br>

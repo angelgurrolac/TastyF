@@ -43,9 +43,9 @@
                       	<!-- <b>Día:</b> -->
                         <!-- <input  data-format="yyyy/MM/dd" class="form-control" type="date" name="date" value="{{$publicidad->dia}}"> -->
                      	<b>Hora de inicio:</b>
-                        <input class="form-control" type="text" name="hora_inicio" value="{{$publicidad->hora_inicio}}">
+                        <input class="form-control" type="time" name="hora_inicio" value="{{$publicidad->hora_inicio}}">
                         <b>Hora de fin:</b>
-                        <input class="form-control" type="text" name="hora_fin" value="{{$publicidad->hora_fin}}">
+                        <input class="form-control" type="time" name="hora_fin" value="{{$publicidad->hora_fin}}">
                         <br>
 
                         <input type="hidden" name="id" value="{{$publicidad->id}}">

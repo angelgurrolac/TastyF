@@ -169,11 +169,11 @@ public function publicidad()
 				$publicidad->imagen = $image_final;
 				$image -> move('publicidad', $name_image );
 			}
-		$date = DateTime::createFromFormat('d/m/Y', Input::get('date'));
-		$date=$date->format('Y-m-d');
+		// $date = DateTime::createFromFormat('d/m/Y', Input::get('date1'));
+		// $date=$date->format('Y-m-d');
 		
 		$publicidad->descripcion = Input::get('descripcion');
-		$publicidad->dia = $date;
+		$publicidad->dia = Input::get('date1');
 		$publicidad->hora_inicio = Input::get('hora_inicio');
 		$publicidad->hora_fin = Input::get('hora_fin');
 		$publicidad->save();

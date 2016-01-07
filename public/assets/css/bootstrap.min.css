@@ -8792,3 +8792,16 @@ display:none
 	left: auto;
 	right: 7px;
 }
+
+
+.acomodo-tabla
+{
+
+	 height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.at
+{
+	display: block; 
+}

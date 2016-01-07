@@ -18,7 +18,7 @@
         <div class="col-lg-12">
           <div class="panel panel-default">
             <div class="panel-heading admin">
-              <h3 class="panel-title"><i class="fa fa-fw fa-hourglass-half"></i> Ordenes no atendidas</h3>
+              <h3 class="panel-title"><i class="fa fa-fw fa-minus-square-o"></i> Ordenes no atendidas</h3>
             </div>
             <div class="panel-body"> 
             <hr>
