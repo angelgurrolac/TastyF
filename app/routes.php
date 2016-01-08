@@ -120,6 +120,8 @@ Route::post('/users/marcarE','RepartidorController@marcarE');
 Route::post('/users/miPedido','UserController@miPedido');
 Route::post('/users/entregado','UserController@entregado');
 Route::post('/users/estatusP','UserController@EstatusP');
+Route::post('/users/ultphd','UserController@ultphd');
+Route::post('/users/envres','UserController@envres');
 
 
 Route::group(array('before' => array('auth', 'restaurante')), function()

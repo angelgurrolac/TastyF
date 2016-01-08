@@ -583,4 +583,29 @@ class UserController extends \BaseController {
         $restaurantes->save();
         return Response::json('success');
     }
+
+    public function ultphd()
+    {
+        $usuario = User::where('username','=',Input::get('username'))->first();
+        $pedido = Pedidos::ultphd($usuario)->take(1)->get();
+        return json_encode($pedido);
+    }
+
+    public function envres()
+    {
+
+        if (Input::get('si'))
+        {
+        $envios = Envios::find(Input::get('id'));
+        $envios->estatus = 'recibido';
+        $envios->save();
+        return Response::json('success si');
+        }
+        if (Input::get('no')) {
+        $envios = Envios::find(Input::get('id'));
+        $envios->estatus = 'confirmado';
+        $envios->save();
+        return Response::json('success no');
+        }
+    }
 }

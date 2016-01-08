@@ -385,4 +385,33 @@ class Pedidos extends Eloquent
 	}
 
 
+	public function scopeultphd($pedidos,$usuario)
+	{
+		 $pedidos =DB::table('pedidos as p')
+
+		 ->leftjoin('envios as e',function($join){
+							$join->on('e.id_pedido','=','p.id');
+					})
+
+		 ->leftjoin('users as u',function($join){
+							$join->on('p.id_usuario','=','u.id');
+					})
+
+		 ->where('e.estatus', '=' , 'entregado')
+
+		 ->where('u.username', '=', $usuario)
+
+		 ->orderBy('p.id','desc')
+		 
+		 ->select('p.id','e.id','p.id_usuario','u.username');
+
+
+
+
+		 return $pedidos;
+
+
+	}
+
+
 }
