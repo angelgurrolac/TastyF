@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8" http-equiv="refresh" content="20">
   <title>No atendidas</title>
+  <script src="{{ URL::asset('assets/js/diseno-tabla.js') }}"></script>
 </head>
 <body>
            <div class="row" style="background-color:white;">
@@ -25,17 +26,19 @@
 
      
               <table id="pedidos" class="table table-bordered table-striped">
-        @if(count($pedidos)>0)
-               <thead>
-                    <th>Orden</th>
-                    <th>Domicilio</th>
-                    <th>Caracteristicas</th>
-                    <th>Total</th>      
-                    <th>Estatus</th> 
-                    <th>Nombre</th>      
-                    <th>Cantidad</th>
-                    <th>Producto</th>                                                
+        
+               <thead class="at">
+                    <th style="width:70px; heigth:200px;">Orden</th>
+                    <th style="width:252px; heigth:200px;">Domicilio</th>
+                    <th style="width:188px; heigth:200px;">Caracteristicas</th>
+                    <th style="width:100px; heigth:200px;">Total</th>      
+                    <th style="width:144px; heigth:200px;">Nombre</th>      
+                    <th style="width:100px; heigth:200px;">Cantidad</th>
+                    <th style="width:144px; heigth:200px;">Producto</th>                                                
                </thead>
+
+                 <tbody class="at acomodo-tabla">
+               @if(count($pedidos)>0)
      
            @foreach($pedidos as $key => $value)
            {{Form::open(array('url' => '/condec'))}}
@@ -45,14 +48,14 @@
                     <?php $a++; ?>
                     @endif     
                @endforeach
-                         <tbody>
+                       
                     <tr>
-                         <td rowspan="{{$a}}">{{$value->id}}</td>
-                         <td rowspan="{{$a}}">{{$value->domicilioP}}</td>
-                         <td rowspan="{{$a}}">{{$value->caracteristica}}</td>
-                         <td rowspan="{{$a}}">{{$value->total}}</td>
-                         <td rowspan="{{$a}}">{{$value->estatus}}</td>
-                          <td rowspan="{{$a}}">{{$value->nombreUsuario}}</td>
+                         <td style="width:70px; heigth:200px;" rowspan="{{$a}}">{{$value->id}}</td>
+                         <td style="width:252px; heigth:200px;" rowspan="{{$a}}">{{$value->domicilioP}}</td>
+                         <td style="width:188px; heigth:200px;" rowspan="{{$a}}">{{$value->caracteristica}}</td>
+                         <td style="width:100px; heigth:200px;" rowspan="{{$a}}">{{$value->total}}</td>
+                         <!-- <td rowspan="{{$a}}">{{$value->estatus}}</td> -->
+                          <td style="width:144px; heigth:200px;" rowspan="{{$a}}">{{$value->nombreUsuario}}</td>
                          @foreach($detalles as $key => $info)
                          
                          @if($info->id_pedido == $value->id)     
@@ -61,9 +64,9 @@
                     
                          
                               <tr>                               
-                                   <td >{{$info->cantidad}}</td>
+                                   <td style="width:100px; heigth:200px;">{{$info->cantidad}}</td>
                               
-                                   <td >{{$info->nombre}}</td>
+                                   <td style="width:144px; heigth:200px;">{{$info->nombre}}</td>
                               
                            
                                    
@@ -80,13 +83,15 @@
                     <td></td>
                     
 
-           </tbody>
+          
                      {{Form::close()}}
            @endforeach
+            @endif
+             </tbody>
      
                </table>
                
-     @endif
+    
         
   </div>
 

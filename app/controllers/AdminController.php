@@ -47,27 +47,37 @@ public function publicidad()
 	}		
 	public function informes()
 	{
+		
 		$id= Auth::user()->id_restaurante;
-		$pedidos=Pedidos::pagadasAdmin()->count();
-	
-
+		$pedidos=Pedidos::PagadasAdmin()->count();
+		$pedidos2=Pedidos::PagadasAdminSemana()->count();
+		$pedidos3=Pedidos::PagadasAdminMes()->count();
 		
 		if($pedidos==0){
+ 		return View::make('Admin.informes2');	
+ 	 	}
+ 		if($pedidos2==0){
  			return View::make('Admin.informes2');	
  		}
 
  		else{
-		$VT = Pedidos::pagadasAdmin()->sum('total');
-				
-		
-		
-		$NuOrdenes = Pedidos::pagadasAdmin()->count();
-
-		$OM = Pedidos::pagadasAdmin()->max('total');
-		$MO = Pedidos::pagadasAdmin()->min('total');
-		$OP = Pedidos::pagadasAdmin()->avg('total');
+		$VT = Pedidos::PagadasAdmin()->sum('total');
+		$VT2 = Pedidos::PagadasAdminSemana()->sum('total');
+		$VT3 = Pedidos::PagadasAdminMes()->sum('total');
+		$NuOrdenes = Pedidos::PagadasAdmin()->count();
+		$NuOrdenes2 = Pedidos::PagadasAdminSemana()->count();
+		$NuOrdenes3 = Pedidos::PagadasAdminMes()->count();
+		$OM = Pedidos::PagadasAdmin()->max('total');
+		$OM2 = Pedidos::PagadasAdminSemana()->max('total');
+		$OM3 = Pedidos::PagadasAdminMes()->max('total');
+		$MO = Pedidos::PagadasAdmin()->min('total');
+		$MO2 = Pedidos::PagadasAdminSemana()->min('total');
+		$MO3 = Pedidos::PagadasAdminMes()->min('total');
+		$OP = Pedidos::PagadasAdmin()->avg('total');
+		$OP2 = Pedidos::PagadasAdminSemana()->avg('total');
+		$OP3 = Pedidos::PagadasAdminMes()->avg('total');
 	
-		return View::make('Admin.informes',compact('VT','IMPORTE','NuOrdenes','OM','MO','OP'));
+		return View::make('Admin.informes',compact('IMPORTE','VT3','NuOrdenes3','OM3','MO3','OP3','VT','NuOrdenes','OM','MO','OP','VT2','NuOrdenes2','OM2','MO2','OP2'));
 		}
 	}
 
@@ -91,6 +101,7 @@ public function publicidad()
 		
 	
 		return View::make('Admin.estadisticas',compact('restaurantes','cantidad','nuevafecha','efectivo','credito'));
+		 	 
 	}
 	public function candidatos(){
 		$candidatos = Restaurantes::where('validado','=','0')->get();

@@ -45,7 +45,8 @@
                         <b>Descripción:</b>
                         <p>{{$value->descripcion}}</p>
                          	{{Form::open(array('url'=>'/restaurante/editar', 'id' => $value->id))}}
-								{{ Form::submit('Editar', array('name'=> 'Editar','class' => 'btn btn-success direccionar')) }}
+							  {{ Form::submit('Editar', array('name'=> 'Editar','class' => 'btn btn-success direccionar')) }} 
+                {{ Form::submit('Eliminar', array('name'=> 'Eliminar','class' => 'btn btn-danger')) }}</td> 
 								<input type="hidden" name="producto_id" value="{{$value->id}}">
 								{{Form::close()}}
                       </div>

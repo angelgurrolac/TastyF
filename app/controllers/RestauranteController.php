@@ -76,11 +76,22 @@ class RestauranteController extends \BaseController {
 		
 	}
 	public function editar(){
-		$producto = Productos::find(Input::get('producto_id'));
-		$cat =  Categorias::find($producto->id_categoria);
+		
+		if(Input::has('Editar'))
+		{
 
-	$categorias = Categorias::where('activa','=','1')->lists('nombre','id');		
-		return View::make('Restaurante.editarProducto',compact('producto','cat','categorias'));
+			$producto = Productos::find(Input::get('producto_id'));
+			$cat =  Categorias::find($producto->id_categoria);
+	    	$categorias = Categorias::where('activa','=','1')->lists('nombre','id');		
+			return View::make('Restaurante.editarProducto',compact('producto','cat','categorias'));
+
+		}
+		elseif (Input::has('Eliminar')) 
+		{
+			$producto = Productos::find(Input::get('producto_id'));
+			$producto->delete();
+			return Redirect::to('/restaurante/alimentos')->with('success','Alimento eliminado con éxito');
+		}
 	}
 
 

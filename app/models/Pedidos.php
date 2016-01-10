@@ -80,14 +80,41 @@ class Pedidos extends Eloquent
 		
 		return $pagadas;
 	}
+
+
+
 		public function scopePagadasAdmin($pagadas){
 		$pagadas = DB::table('pedidos')
 			->where('estatus','=','pagada')										
-			->leftjoin('detalles_pedidos as detalles',	function($join){
-							$join->on('detalles.id_pedido','=','pedidos.id');
-					});
+			->where(DB::raw('LEFT(pedidos.created_at,10)'), '=', DB::raw('CURDATE()'));
+
 		return $pagadas;
 	}
+
+
+		public function scopePagadasAdminMes($pagadas){
+		$pagadas = DB::table('pedidos')
+			->where('estatus','=','pagada')										
+			// ->where(DB::raw('LEFT(pedidos.created_at,10)'), '=', DB::raw('CURDATE()'));
+			->where('pedidos.created_at' , 'BETWEEN' ,  
+			DB::raw('DATE_FORMAT(CURRENT_DATE - INTERVAL 1 MONTH, "%Y-%m-01") AND 
+			LAST_DAY(CURRENT_DATE - INTERVAL 1 MONTH) ')
+			);
+		return $pagadas;
+	}
+
+	public function scopePagadasAdminSemana($pagadas){
+		$pagadas = DB::table('pedidos')
+			->where('estatus','=','pagada')										
+			->where('pedidos.created_at' , 'BETWEEN' ,  
+			DB::raw('CURDATE() - INTERVAL DAYOFWEEK(CURDATE())+6 DAY AND 
+			CURDATE() - INTERVAL DAYOFWEEK(CURDATE())-1 DAY ')
+			);
+		return $pagadas;
+	}
+
+
+
 	public function scopeVendidos($id)
 	{
 		$pagadas = DB::table('pedidos')

@@ -587,25 +587,32 @@ class UserController extends \BaseController {
     public function ultphd()
     {
         $usuario = User::where('username','=',Input::get('username'))->first();
-        $pedido = Pedidos::ultphd($usuario)->take(1)->get();
+        $pedido = Pedidos::ultphd($usuario->username)->take(1)->get();
         return json_encode($pedido);
     }
 
     public function envres()
     {
+        $usuario = User::where('username','=',Input::get('username'))->first();
+        $confirmacion = Input::get('confirmacion');
 
-        if (Input::get('si'))
+        if ($confirmacion == 'si')
         {
         $envios = Envios::find(Input::get('id'));
         $envios->estatus = 'recibido';
         $envios->save();
         return Response::json('success si');
         }
-        if (Input::get('no')) {
+        if ($confirmacion == 'no')
+         {
         $envios = Envios::find(Input::get('id'));
         $envios->estatus = 'confirmado';
         $envios->save();
         return Response::json('success no');
+        }
+        else
+        {
+            return Response::json('error');
         }
     }
 }

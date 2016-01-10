@@ -13,7 +13,7 @@
           <div class="col-lg-2"></div>
           <div class="col-lg-10">
 
-       <div class="container marg">
+       <div class="container ">
        <h1>Finanzas</h1>
    
      
@@ -42,7 +42,7 @@
           <tbody>
       
           <tr>
-               <td>restaurante mike</td>
+               <td>{{$val->Nombre}}</td>
                    <td>{{$val->platillos_vendidos}}</td>
                <td>{{$val->costo_promedio}}</td>
                <td>{{$val->no_ordenes}}</td>

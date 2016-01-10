@@ -26,7 +26,7 @@
 
      
               <table id="pedidos" class="table table-bordered table-striped">
-        @if(count($pedidos)>0)
+      
         <!-- <caption align="top"> <h3>Pedidos</h3>  </caption> -->
         <thead class="at">
                     <th>Orden</th>
@@ -37,8 +37,10 @@
                     <th>Nombre</th>      
                     <th>Cantidad</th>
                     <th>Producto</th> 
-                    <th>Enviar con repartidores externos</th>                                               
+                    <th>Enviar con HD</th>                                               
                </thead>
+            <tbody class="at acomodo-tabla">
+                 @if(count($pedidos)>0)
      
            @foreach($pedidos as $key => $value)
            {{Form::open(array('url' => '/condec'))}}
@@ -48,7 +50,7 @@
                     <?php $a++; ?>
                     @endif     
                @endforeach
-                         <tbody class="at acomodo-tabla">
+                       
                     <tr>
                          <td rowspan="{{$a}}">{{$value->id}}</td>
                          <td rowspan="{{$a}}">{{$value->domicilioP}}</td>
@@ -76,13 +78,15 @@
                     </tr>
                     
 
-           </tbody>
+      
                      {{Form::close()}}
            @endforeach
+            @endif
+                 </tbody>
      
                </table>
                
-     @endif
+    
       
 	</div>
 
