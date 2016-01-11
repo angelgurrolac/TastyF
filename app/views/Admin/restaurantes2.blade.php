@@ -41,11 +41,11 @@
 							@foreach($restaurantes as $key => $value)
 							@if($value->id==$cat->id_restaurante)
 							<div class="col-sm-6">
-                <div class="panel panel-primary">
+                <div class="panel panel-primary" style="margin-left:1em;">
                   <div class="panel-heading">
                     <h3 class="panel-title">{{$value->nombre}} </h3>
                   </div>
-                  <div class="panel-body">
+                  <div class="panel-body" style="margin-left:1em;">
                    <div class="row">
                     <div class="col-md-1"></div>
 

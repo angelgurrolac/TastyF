@@ -16,8 +16,8 @@
 
       <div class="row">
         <div class="col-lg-12">
-          <div class="panel panel-default">
-            <div class="panel-heading admin">
+        <div class="panel panel-default" >
+            <div class="panel-heading admin" >
               <h3 class="panel-title"><i class="fa fa-fw fa-cutlery"></i> Alimentos</h3>
             </div>
             <div class="panel-body">
@@ -42,11 +42,11 @@
 
 
                <div class="col-sm-6">
-                <div class="panel panel-yellow">
+                <div class="panel panel-yellow" style="margin-left:1em;">
                   <div class="panel-heading">
                     <h3 class="panel-title">{{$value->nombre}}</h3>
                   </div>
-                  <div class="panel-body">
+                  <div class="panel-body" style="margin-left:1em;">
                    <div class="row">
                     <div class="col-md-1"></div>
 

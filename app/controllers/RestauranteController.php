@@ -98,7 +98,8 @@ class RestauranteController extends \BaseController {
 	public function saveChanges()
 	{	$producto = Productos::find(Input::get('id'));
 		$image = Input::file('imgFile');
-		$cat = Input::get('categoria');
+		$cat = Input::get('categoria1');
+		$cat2 = Input::get('categoria2');
 		if($image!=null){
 			$producto->imagen = $image_final;
 			$name_image = $image -> getClientOriginalName();	
@@ -116,6 +117,9 @@ class RestauranteController extends \BaseController {
 		$producto->id_sabor = Input::get('sabor');
 		if($cat != 0){
 			$producto->id_categoria = $cat;
+		}
+		if($cat2 != 0){
+			$producto->id_categoria2 = $cat2;
 		}
 		$producto->hora_inicio = Input::get('hora_inicio'); 
 		$producto->hora_fin = Input::get('hora_fin');
@@ -187,7 +191,6 @@ class RestauranteController extends \BaseController {
 		$producto->iva = Input::get('comision');
 		$producto->costo_unitario = Input::get('costo_unitario');
 		$producto->tipo = "bebida";
-		$producto->costo_unitario = Input::get('precio_final');
 		$producto->id_restaurante = Auth::user()->id_restaurante;
 		$producto->id_sabor = Input::get('sabor');
 		$producto->id_categoria = Input::get('categoria1');
@@ -196,7 +199,7 @@ class RestauranteController extends \BaseController {
 		$producto->hora_fin = Input::get('hora_fin');
 		$producto->save();
 
-		return Redirect::to('restaurante/alimentos')->with('message','Cambios con exito');
+		return Redirect::to('restaurante/bebidas')->with('message','Cambios con exito');
 
 	}
 	public function pedidos()

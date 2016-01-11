@@ -85,7 +85,7 @@ echo $nuevafecha;
 
 
 	<table id="reservaciones" class="table table-hover table-bordered table-striped">
-     		<caption align="top"> <h3>Reservaciones</h3>  </caption>
+     		<caption align="top"> <h3 style="margin-left:1em;">Reservaciones</h3>  </caption>
      		<thead class="at">
      			<th style="width:144px; heigth:200px;">Acciones</th> 	
      			<th style="width:144px; heigth:200px;">Acciones</th> 
@@ -151,7 +151,7 @@ echo $nuevafecha;
 
 
 
-	<div id="visitas"><h3>Visitas</h3>
+	<div style="margin-left:1em;" id="visitas"><h3>Visitas</h3>
 	<h5>Personas que han visto mi teléfono en la aplicación {{$restaurante->con_telefono}}</h5>
 	<br>
 	<h5>Personas que han visto mi dirección en la aplicación {{$restaurante->con_direccion}}</h5>
@@ -163,7 +163,7 @@ echo $nuevafecha;
 
 	<table id="pedidos" class="table table-hover table-bordered table-striped">
 
-		<caption align="top"> <h3>Pedidos</h3>  </caption>
+		<caption align="top"> <h3 style="margin-left:1em;">Pedidos</h3>  </caption>
 		<thead class="at">
 			<th style="width:106px; heigth:200px;">Acciones</th>
 			<th style="width:95px; heigth:200px;">Acciones</th>

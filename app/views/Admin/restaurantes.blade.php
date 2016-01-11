@@ -38,7 +38,7 @@
 						
 							@foreach($restaurantes as $key => $value)
 <div class="col-sm-6">
-                <div class="panel panel-primary">
+                <div class="panel panel-primary" style="margin-left:1em;">
                   <div class="panel-heading">
                     <h3 class="panel-title">{{$value->nombre}}</h3>
                   </div>

@@ -111,7 +111,7 @@
 													<th>
 														<div class="form-group">
 															 {{ Form::label( 'descripcion', 'Ingresar una pequeña descripción', array ('class' => 'estilo-form')) }}																		
-															{{ Form::text('descripcion', Input::old('descripcion'), array('class' => 'form-control', 'id' => 'nombre')) }}
+															{{ Form::text('descripcion', Input::old('descripcion'), array('class' => 'form-control', 'id' => 'nombre','required')) }}
 															{{ Form::text('nombre2', Input::old('nombre2'), array('class' => 'form-control hidden', 'id' => 'nombre2')) }}
 
 														</div>
@@ -122,7 +122,7 @@
 													<div class="form-group">
          <div id="datepick" class="input-append date" >
           <span class="add-on">
-           {{Form::input('date','date1',Input::old('date'),array('tipo_de_serviciocomplete'=>'off','data-format'=>'dd/MM/yyyy') )}}
+           {{Form::input('date','date1',Input::old('date'),array('tipo_de_serviciocomplete'=>'off','data-format'=>'dd/MM/yyyy','required') )}}
            <span class="glyphicon glyphicon-calendar"></span>
          </span>
        </div>
@@ -136,13 +136,13 @@
 													
 													  {{ Form::label( 'hora-inicial', 'Hora a la que comenzara a aparecer la imagen', array ('class' => 'estilo-form')) }}	
 		         <br>
-		         {{ Form::input('time', 'hora_inicio', Input::old('hora_inicio'), array('placeholder'=>'09:00')) }}
+		         {{ Form::input('time', 'hora_inicio', Input::old('hora_inicio'), array('placeholder'=>'09:00','required')) }}
 		    	<br/>
 		    
 		         
 		         {{ Form::label( 'hora-final', 'Hora a la que dejara de aparecer la imagen', array ('class' => 'estilo-form')) }}	
 		         <br>
-		         {{ Form::input('time', 'hora_fin', Input::old('hora_fin'), array('placeholder'=>'17:00')) }}		    
+		         {{ Form::input('time', 'hora_fin', Input::old('hora_fin'), array('placeholder'=>'17:00','required')) }}		    
 				<br>
 				</th>
 												</tr>
@@ -151,7 +151,8 @@
 												<td>{{ Form::label('Imagen') }}</td>
 												<td>
 													<div class="form-group">   
-														{{ Form::file('imagen') }}
+														
+														{{ Form::file('imagen', array('required'))  }}
 													</div>
 												</td>
 											</tr>

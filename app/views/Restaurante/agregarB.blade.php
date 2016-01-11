@@ -4,6 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Agregar</title>
+	<script src="{{ URL::asset('assets/js/sumas.js') }}"></script>
 </head>
 <body>
 		  <div class="row" style="background-color:white;">
@@ -24,7 +25,7 @@
 		{{Form::open(array('url'=>'/restaurante/addB','files'=>'true'))}}
 			<div class="col-md-6" style="height:50%;">
 				<br>
-			     <img id="blah" style="width:100%;"  src="" />
+			     <img id="blah" style="width:100%;"  src="" required />
 				<input type="file" name="imgFile" id="imgFile" value="">
 					
 			</div>
@@ -32,11 +33,11 @@
 			<div class="col-md-3">
 			<label>Nombre</label>
 			<br>
-			<input class="form-control" type="text" name="nombre" value="">
+			<input class="form-control" type="text" name="nombre" value="" required>
 			<label>Descripción</label>
-			<textarea class="form-control" name="descripcion" id=""  rows="10"></textarea>
+			<textarea class="form-control" name="descripcion" id=""  rows="10" required></textarea>
 				 <br>
-			  <label>Categorias</label>
+			  <label>Categorías</label>
 	           {{ Form::select('categoria1', (['0' => 'Elija categoria primaria'] + $categorias), null,['class' => 'form-control']) }}
 	           <br>
 	           {{ Form::select('categoria2', (['0' => 'Elija categoria secundaria'] + $categorias), null,['class' => 'form-control']) }}
@@ -46,7 +47,7 @@
 			<div class="col-md-3 precios">
 				<label >Precio</label>
 				<br>
-				<input class="form-control" class="inicial" name="precio" value="" type="text">
+				<input class="form-control inicial" name="precio" value="" type="number" required>
 				<br>
 				<label >Costo por transacción</label>
 				<br>
@@ -54,23 +55,23 @@
 				<br>
 				<label for="">Comisión</label>
 				<br>
-				<input  type="hidden" name="comision" class="comision"   >
+				<input  type="hidden" name="comision" class="comision">
 				<label name="comision2" class="comision2" ></label>
 				<br>
 				<label for="">Precio final</label>
 				<br>
-				<input type="hidden" name="costo_unitario" class="costo_unitario"   >
+				<input type="hidden" name="costo_unitario" class="costo_unitario">
 				<label name="costo_unitario2" class="costo_unitario2" ></label>
 				<br>
 				<br>			
-		         {{ Form::label('hora_inicio', 'hora a la que se comienza a preparar') }}
+		         {{ Form::label('hora_inicio', 'Hora a la que se comienza a preparar') }}
 		         <br>
-		         {{ Form::text('hora_inicio', Input::old('hora_inicio'), array('placeholder'=>'09:00','class'=>'form-control')) }}
+		         {{ Form::input('time', 'hora_inicio', Input::old('hora_inicio'), array('placeholder'=>'09:00','class'=>'form-control', 'required')) }}
 		    	<br/>
 		    
-		         {{ Form::label('hora_fin', 'hora a la que se deja de preparar') }}
+		         {{ Form::label('hora_fin', 'Hora a la que se deja de preparar') }}
 		         <br>
-		         {{ Form::text('hora_fin', Input::old('hora_fin'), array('placeholder'=>'17:00','class'=>'form-control')) }}
+		         {{ Form::input('time', 'hora_fin', Input::old('hora_fin'), array('placeholder'=>'17:00','class'=>'form-control', 'required')) }}
 				<br>
 				<br>
 				<input type="hidden" name="id" value="">

@@ -7,6 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
   <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' > -->
+  <script src="{{ URL::asset('assets/js/sumas.js') }}"></script>
   <link rel="stylesheet" href="{{ URL::asset('assets/css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ URL::asset('assets/css/jquery-ui.min.css') }}">
   <link rel="stylesheet" href="{{ URL::asset('assets/css/sb-admin.css') }}">
@@ -17,10 +18,14 @@
   <script src="{{ URL::asset('assets/pnotify.js') }}"></script>
 
 
-  
+ 
 <!-- jQuery -->
   <script src="{{ URL::asset('assets/js/jquery.js') }}"></script>
   <script src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>
+
+
+
+  <script src="{{ asset('assets/js/ modernizr.custom') }}"></script>
 
   <!-- Bootstrap Core JavaScript -->
   <script src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
@@ -53,7 +58,7 @@
 @endif
 
 
-<body>
+<body style="overflow-x:hidden;">
    
     <div id="wrapper">
 
@@ -61,6 +66,12 @@
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
+              <button style="border-color:white;" type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
                  <a class="navbar-brand" href="{{URL::to('/admin/pedidos') }}"><img style="display:inline-block;" width="30" src="{{ URL::asset('assets/img/umami_logo.png') }}" alt="Logguito"><p style="display:inline-block; padding:2px; color:#F6A507;">TastyFoods</p></a>
             </div>
             <!-- Top Menu Items -->
@@ -107,7 +118,7 @@
             <a href="{{URL::to('/restaurante/estadisticas') }}"><i class="fa fa-money"></i> Finanzas</a>
           </li>
           <li>
-            <a href="{{URL::to('/restaurante/facturas') }}"><i class="fa fa-fw fa-bookmark"></i> Facturas</a>
+            <a href="{{URL::to('/restaurante/facturas') }}"><i class="fa fa-files-o"></i> Facturas</a>
           </li>
           <li>
             <a href="{{URL::to('/logout') }}"><i class="fa fa-fw fa-power-off"></i> Salir</a>

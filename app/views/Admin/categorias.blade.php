@@ -14,7 +14,7 @@
  <br>
     <br>
 
-    <div class="container-fluid">
+    <div class="container merge">
 
       <div class="row">
         <div class="col-lg-12">
@@ -22,8 +22,8 @@
             <div class="panel-heading admin">
               <h3 class="panel-title"><i class="fa fa-fw fa-check-square-o"></i> Categorías</h3>
             </div>
-            <div class="panel-body">
-            	<div class="row">
+            <div class="panel-body" style="margin-left:2em;">
+                    	<div class="row">
 						{{ Form::open(array('url' => '/admin/activar','files'=>'true')) }}
 						@foreach($categorias as $key => $value)  
 						<div class="form-group col-lg-4">
@@ -57,6 +57,7 @@
 							<br>
 							   </div>
 						<div class=" col-lg-4"></div></div>
+				
 					</div>
 				</div>
 			</div>

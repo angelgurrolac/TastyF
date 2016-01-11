@@ -14,7 +14,7 @@
           <div class="col-lg-2"></div>
           <div class="col-lg-10">
 
-       <div class="container marg">
+       <div class="container">
        <h1>Finanzas</h1>
    
      

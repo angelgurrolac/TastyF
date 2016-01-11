@@ -38,7 +38,7 @@
 
                     <div class="col-md-10">
                     	 <img style="height:300px; width:300px;" class="center-block thumbnail img-rounded" src="{{asset($value->imagenR)}}" alt="{{asset($value->imagenR)}}">
-                      <div class="caption">
+                      <div class="caption" style="margin-left:1em;">
                         <h3>Dirección: {{$value->direccion}}</h3>
                         <b>Teléfono:</b>
                         <p>{{$value->telefono}}</p>

@@ -7,7 +7,7 @@
 		 	var comision2 = $(this).parents('.precios').find('.comision2');	
 		 	var total = $(this).parents('.precios').find('.costo_unitario');	
 		 	var total2 = $(this).parents('.precios').find('.costo_unitario2');	
-		 	var iva = valor * .15;
+		 	var iva = valor * .16;
 		 	var precio = iva + 2.5;
 		 	var precioF = precio + Number(valor);	
 		 	$(comision).val(iva.toFixed(2));

@@ -9,7 +9,8 @@
  <div class="row" style="background-color:white;">
   <div class="col-lg-2"></div>
   <div class="col-lg-10">
-    <div class="container marg">
+    <div class="container">
+    <br>
       <div class="panel panel-default">
        <div class="panel-heading admin"><h4>Informes Diarios</h4></div>
        <div class="table-responsive">

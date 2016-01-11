@@ -22,14 +22,14 @@
             </div>
 	<div class="panel-body">
 	<hr>
-	<a href="/restaurante/agregarA" style="display:inline-block;" class="btn btn-lg btn-primary buttonagregar" data-target="#myModal">Agregar alimento</a>
+	<a style="margin-left:1em;" href="/restaurante/agregarA" style="display:inline-block;" class="btn btn-lg btn-primary buttonagregar" data-target="#myModal">Agregar alimento</a>
 	<br>
 	<hr>
 	@if(count($alimentos)>0)
 	<div class="row">
 	 	@foreach($alimentos as $key => $value)
 			 <div class="col-sm-6">
-                <div class="panel panel-yellow">
+                <div class="panel panel-yellow" style="margin-left:1em;">
                   <div class="panel-heading">
                     <h3 class="panel-title">{{$value->nombre}}</h3>
                   </div>
@@ -40,7 +40,7 @@
                     <div class="col-md-10">
 
                       <img style="height:300px; width:300px;" class="center-block thumbnail img-rounded" src="{{asset($value->imagen)}}" alt="{{asset($value->imagen)}}">
-                      <div class="caption">
+                      <div class="caption" style="margin-left:1em;">
                         <h3>Precio: ${{$value->costo_unitario}}</h3>
                         <b>Descripción:</b>
                         <p>{{$value->descripcion}}</p>

@@ -18,7 +18,7 @@
         <div class="col-lg-12">
           <div class="panel panel-default">
             <div class="panel-heading admin">
-              <h3 class="panel-title"><i class="fa fa-fw fa-glass"></i> Alimentos</h3>
+              <h3 class="panel-title"><i class="fa fa-fw fa-glass"></i> Bebidas</h3>
             </div>
             <div class="panel-body">
              <ul class="nav nav-tabs">
@@ -38,11 +38,11 @@
 							
 
 							 <div class="col-sm-6">
-                <div class="panel panel-primary">
+                <div class="panel panel-primary " style="margin-left:1em;">
                   <div class="panel-heading">
                     <h3 class="panel-title">{{$value->nombre}} </h3>
                   </div>
-                  <div class="panel-body">
+                  <div class="panel-body" style="margin-left:1em;">
                    <div class="row">
                     <div class="col-md-1"></div>
 

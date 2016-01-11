@@ -21,23 +21,23 @@
 				{{ Form::open(array('url' => '/prospectos','id'=>'nueva','files'=>'true')) }}
 				<div class="form-group col-lg-6">
 					{{ Form::label('nombre', 'Nombre') }}
-					{{ Form::text('nombre', Input::old('nombre'), array('class' => 'form-control','form'=>'nueva')) }}
+					{{ Form::text('nombre', Input::old('nombre'), array('class' => 'form-control','form'=>'nueva', 'required')) }}
 				</div>		    
 				<div class="form-group col-lg-6">
 					{{ Form::label('telefono', 'Teléfono') }}
-					{{ Form::text('telefono', Input::old('telefono'), array('class' => 'form-control','form'=>'nueva')) }}
+					{{ Form::text('telefono', Input::old('telefono'), array('class' => 'form-control','form'=>'nueva', 'required', 'pattern'=>'"^[9|8|7|6|5]\d{9}$"', 'maxlength'=>'10','placeholder'=>'(000) 000 00 00')) }}
 				</div>
 				<div class="form-group col-lg-6">
 					{{ Form::label('direccion', 'Dirección') }}
-					{{ Form::text('direccion', Input::old('direccion'), array('class' => 'form-control','form'=>'nueva')) }}
+					{{ Form::text('direccion', Input::old('direccion'), array('class' => 'form-control','form'=>'nueva', 'required')) }}
 				</div>
 				<div class="form-group col-lg-6">
 					{{ Form::label('hora_inicio', 'Hora de apertura') }}
-					{{ Form::text('hora_inicio', Input::old('hora_inicio'), array('class' => 'form-control','form'=>'nueva','placeholder'=>'09:00')) }}
+					{{ Form::input('time', 'hora_inicio', Input::old('hora_inicio'), array('class' => 'form-control','form'=>'nueva','placeholder'=>'09:00', 'required')) }}
 				</div>
 				<div class="form-group col-lg-6">
 					{{ Form::label('hora_fin', 'Hora de cierre') }}
-					{{ Form::text('hora_fin', Input::old('hora_fin'), array('class' => 'form-control','form'=>'nueva','placeholder'=>'17:00')) }}
+					{{ Form::input( 'time',' hora_fin', Input::old('hora_fin'), array('class' => 'form-control','form'=>'nueva','placeholder'=>'17:00', 'required')) }}
 				</div>
 				<div class="form-group col-lg-6">
 					<br>
@@ -48,7 +48,7 @@
 				<div class="form-group col-lg-12">
 					<img id="blah" class="img-responsive" width="204" height="136" src="" />
 					<br>
-					<input type="file" name="imgFile" id="imgFile" value="">
+					<input type="file" name="imgFile" id="imgFile" value="" required>
 				</div>
 
 
@@ -70,4 +70,10 @@
 	$('#imgFile').change(function(){
 		$('#blah')[0].src = window.URL.createObjectURL(this.files[0])
 	});
+</script>
+<script >
+$(document).ready(function()
+{
+	$('.mascara-tel').mask('000-000-00-00');
+});
 </script>

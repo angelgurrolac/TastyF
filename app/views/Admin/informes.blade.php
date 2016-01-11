@@ -50,7 +50,7 @@ echo $dias[date('w')]." ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y'
           
           <tr><td>No. de ordenes</td><td>{{$NuOrdenes2}}</td>     </tr>
           <tr><td>Costo Máximo de ordenes</td><td>{{$OM2}}</td>   </tr>
-          <tr><td>Costo Mánino de ordenes</td><td>{{$MO2}}</td>   </tr>
+          <tr><td>Costo Mínimo de ordenes</td><td>{{$MO2}}</td>   </tr>
           <tr><td>Costo Promedio de ordenes</td><td>{{$OP2}}</td> </tr>
 
          

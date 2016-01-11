@@ -21,7 +21,7 @@
             <div class="panel-heading admin">
               <h3 class="panel-title"><i class="fa fa-fw fa-users"></i> Candidato</h3>
             </div>
-            <div class="panel-body">
+            <div class="panel-body" style="margin-left:1em;">
             	<div class="row">
      	        {{ Form::open(array('url' => '/admin/validar','id'=>'nueva','files'=>'true')) }}
      			{{Form::hidden('id',$candidato->id)}}

@@ -20,7 +20,7 @@
             <div class="panel-heading admin">
               <h3 class="panel-title"><i class="fa fa-fw fa-credit-card"></i> Número de cuenta</h3>
             </div>
-            <div class="panel-body ">
+            <div class="panel-body" style="margin-left:1em;">
             	<hr>
      		{{ Form::open(array('url' => '/restaurante/datos','id'=>'nueva','files'=>'true')) }}
      		<div class="row">

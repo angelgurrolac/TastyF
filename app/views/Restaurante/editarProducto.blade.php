@@ -48,7 +48,7 @@
 			<div class="col-md-3 precios">
 				<label >Precio</label>
 				<br>
-				<input class="form-control" name="precio" class="inicial" value="{{$producto->precio}}" type="text">
+				<input class="form-control inicial" name="precio"  value="{{$producto->precio}}" type="text">
 				<br>
 				<label >Costo por transacción</label>
 				<br>
