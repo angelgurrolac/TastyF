@@ -76,15 +76,15 @@ Route::post('users/loginM', function()
 
 Route::post('/users/uu', 'UserController@UserMas');
 Route::post('/users/pedidos', 'UserController@pedidos');
-Route::get('/users/productos', 'UserController@productos');
+Route::post('/users/productos', 'UserController@productos');
 Route::post('/users/reservaciones', 'UserController@reservaciones');
 Route::post('/users/tarjeta', 'UserController@tarjeta');
 Route::get('/users/alimentos','UserController@alimentos');
 Route::get('/users/bebidas','UserController@bebidas');
 Route::post('/users/platilloEsp','UserController@platilloEsp');
 Route::post('/users/addAlim','UserController@addPlatillo');
-Route::get('/users/restaurantes','UserController@restaurantes');
-Route::get('/users/allCat','UserController@allCat');
+Route::post('/users/restaurantes','UserController@restaurantes');
+Route::post('/users/allCat','UserController@allCat');
 Route::post('/users/factura','UserController@factura');
 Route::post('/users/categorias','UserController@categorias');
 Route::post('/users/tarjetas','UserController@tarjetas');
@@ -122,6 +122,7 @@ Route::post('/users/entregado','UserController@entregado');
 Route::post('/users/estatusP','UserController@EstatusP');
 Route::post('/users/ultphd','UserController@ultphd');
 Route::post('/users/envres','UserController@envres');
+Route::post('/users/allen','UserController@allen');
 
 
 Route::group(array('before' => array('auth', 'restaurante')), function()

@@ -21,7 +21,7 @@ class UserController extends \BaseController {
 	}
 	public function restaurantes()
 	{
-			
+        $usuario = User::where('username','=',Input::get('username'))->firs();
 		$restaurantes=Restaurantes::all();
 		return json_encode($restaurantes);
 		
@@ -98,6 +98,7 @@ class UserController extends \BaseController {
 		$cantidades = json_decode($cantidad);			
 		$reservacion = new Reservaciones;
 		$reservacion->mesa = Input::get('mesa');
+        $reservacion->total = Input::get('total');
 		$reservacion->hora = Input::get('hora');
         $reservacion->fecha = $date;
 		$reservacion->id_restaurante = $restaurante;
@@ -434,6 +435,7 @@ class UserController extends \BaseController {
 
     public function allCat()
     {
+        $usuario = User::where('username','=',Input::get('username'))->first();
     	$categorias = Categorias::where('activa','=','1')->get();
     	return Response::json($categorias);
     }
@@ -451,6 +453,7 @@ class UserController extends \BaseController {
     }
     public function productos()
     {
+        $usuario = User::where('username','=',Input::get('username'))->first();
     		date_default_timezone_set('America/Mexico_City');
 			$hora = date('H:i:s');
 			$productos=Productos::productos($hora);			
@@ -614,5 +617,15 @@ class UserController extends \BaseController {
         {
             return Response::json('error');
         }
+    }
+
+    public function allen ()
+    {
+        $restaurante = Restaurantes::where('id','=',Input::get('id_restaurante'))->get();
+        $envios = Envios::todosenvios($restaurante->id)->get();
+        return json_encode($envios);
+
+
+
     }
 }

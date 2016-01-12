@@ -1,66 +1,4 @@
 @include('Restaurante.recursos')
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<script src="{{ URL::asset('assets/js/diseno-tabla.js') }}"></script>
-
-
-	<meta charset="UTF-8" http-equiv="refresh" content="20">
-	<title>Hogar</title>
-	<script type="text/javascript">
-	$(document).ready(function(){
-
-		$('#visitas').fadeOut();
-		$('#pedidos').fadeIn();
-		$('#reservaciones').fadeOut();
-
-		$('#hogarV').click(function(){
-			$('#visitas').fadeIn();
-			$('#pedidos').fadeOut();
-			$('#reservaciones').fadeOut(); 
-
-		}); 
-		$('#hogarP').click(function(){
-			$('#visitas').fadeOut();
-			$('#pedidos').fadeIn();
-			$('#reservaciones').fadeOut();
-
-		});    
-		$('#hogarR').click(function(){
-			$('#visitas').fadeOut();
-			$('#pedidos').fadeOut();
-			$('#reservaciones').fadeIn();
-
-		}); 
-
-	});
-	</script>
-</head>
-<body>
-	<div class="row" style="background-color:white;">
-		<div class="col-lg-2"></div>
-		<div class="col-lg-10">
-			<br>
-			<br>
-
-			<div class="container-fluid">
-
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="panel panel-default">
-							<div class="panel-heading admin">
-								<h3 class="panel-title"><i class="fa fa-fw fa-flag"></i> Pedidos y reservaciones</h3>
-							</div>
-							<div class="panel-body">
-
-								<ul class="nav nav-tabs">
-
-									<li><a style="cursor:pointer;" id="hogarP">Pedidos</a></li>
-									<li><a style="cursor:pointer;" id="hogarV">Visitas</a></li>
-									<li><a style="cursor:pointer;" id="hogarR">Reservaciones</a></li>
-
-								</ul>
-
 
 	<!-- 		<?php
 // Establecer la zona horaria predeterminada a usar. Disponible desde PHP 5.1
@@ -79,207 +17,237 @@ echo $nuevafecha;
 
 ?>
 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
+	<script src="{{ URL::asset('assets/js/diseno-tabla.js') }}"></script>
+	<meta charset="UTF-8" http-equiv="refresh" content="20">
+	<title>Pedidos y reservaciones</title>
+	<script type="text/javascript">
+		$(document).ready(function(){
 
-<div class="table-responsive">
+			$('#visitas').fadeOut();
+			$('#pedidos').fadeIn();
+			$('#reservaciones').fadeOut();
 
+			$('#hogarV').click(function(){
+				$('#visitas').fadeIn();
+				$('#pedidos').fadeOut();
+				$('#reservaciones').fadeOut(); 
 
-	<table id="reservaciones" class="table table-hover table-bordered table-striped">
-     		<caption align="top"> <h3 style="margin-left:1em;">Reservaciones</h3>  </caption>
-     		<thead class="at">
-     			<th style="width:144px; heigth:200px;">Acciones</th> 	
-     			<th style="width:144px; heigth:200px;">Acciones</th> 
-     			<th style="width:144px; heigth:200px;">Reservación</th>
-     			<th style="width:144px; heigth:200px;">Personas</th>
-     			<th style="width:144px; heigth:200px;">Hora de llegada</th>     			
-     			<th style="width:144px; heigth:200px;">Cantidad</th>
-     			<th style="width:144px; heigth:200px;">Producto</th> 	
-     				
-     		</thead>  
-     		 <tbody class="at acomodo-tabla"> 
-     		  @if(count($reservaciones)>0)     
-		 @foreach($reservaciones as $r)
-		 {{Form::open(array('url' => '/rescon'))}}
-			<?php $b = 1; ?>
-			@foreach($detallesR as $key => $info)					
-				@if($info->id_reservacion == $r->id)	
-				<?php $b++; $nada=null ?>
-				@endif     
-		     @endforeach
-				<tr>
+			}); 
+			$('#hogarP').click(function(){
+				$('#visitas').fadeOut();
+				$('#pedidos').fadeIn();
+				$('#reservaciones').fadeOut();
 
-					{{ Form::hidden('idreservacion',$r->id)}}
-					<td style="width:144px; heigth:200px;" rowspan="{{$b}}">{{ Form::submit('Confirmar', array('name'=> 'Confirmar','class' => 'btn btn-primary')) }}</td>
-					<td style="width:144px; heigth:200px;" rowspan="{{$b}}">{{ Form::submit('Declinar', array('name'=> 'Declinar','class' => 'btn btn-danger')) }}</td>													
-					<td style="width:144px; heigth:200px;" rowspan="{{$b}}">{{$r->id}}</td>
-					<td style="width:144px; heigth:200px;" rowspan="{{$b}}">{{$r->mesa}}</td>
-					<td style="width:144px; heigth:200px;" rowspan="{{$b}}">{{$r->hora}}</td>
-					@foreach($detallesR as $key => $info)					
+			});    
+			$('#hogarR').click(function(){
+				$('#visitas').fadeOut();
+				$('#pedidos').fadeOut();
+				$('#reservaciones').fadeIn();
+
+			}); 
+
+		});
+	</script>
+</head>
+<body>
+	<div class="row" style="background-color:white;">
+		<div class="col-lg-2"></div>
+		<div class="col-lg-10">
 			
-					@if($info->id_reservacion == $r->id)																				
+
+			<div class="container ">
+
+				<div class="row">
+					<div class="col-lg-12">
+					<br>
+
+						<ul class="nav nav-tabs">
+							<li><a style="cursor:pointer;" id="hogarP">Pedidos</a></li>
+							<li><a style="cursor:pointer;" id="hogarV">Vistas</a></li>
+							<li><a style="cursor:pointer;" id="hogarR">Reservaciones</a></li>
+						</ul>
+						<br>
+
+
+						<div class="row">
+
+							<!-- Pedidos -->
+							<div id="pedidos" class="panel panel-green" style="border-color:gray;">
+								<div class="panel-heading" style="background-color:gray; border-color:gray;">
+									<h3 class="panel-title"><i class="fa fa-fw fa-flag"></i> Pedidos</h3>
+								</div>
+								@if(count($pedidos)>0)
+								@foreach($pedidos as $key => $value)
+								{{Form::open(array('url' => '/condec'))}}
+								<?php $a = 1; ?>
+								@foreach($detalles as $key => $info)					
+								@if($info->id_pedido == $value->id)	
+								<?php $a++; ?>
+								@endif     
+								@endforeach
+								{{ Form::hidden('idpedido',$value->id)}}
+								<div class="panel-body" >
+									<div class="col-lg-6">
+										
+										<p class="titulos-pedidos">Orden:</p> <p class="res-pedidos">{{$value->id}}</p><br>
+										@if($notificacion < $value->created_at && $nuevafecha > $value->created_at)	
+										<p>{{$value->created_at}}</p>
+										@endif 
+										<p class="titulos-pedidos">Domicilio:</p> <p class="res-dire">{{$value->domicilioP}}</p>
+										<p class="titulos-pedidos">Características:</p> <p class="res-pedidos">{{$value->caracteristica}}</p><br>
+
+									</div>
+
+									<div class="col-lg-6">
+										<div class="table-responsive" style="margin:1%;">
+											<table class="table table-bordered table-hover table-striped">
+												<thead>
+													<tr>
+														<th>Cantidad</th>
+														<th>Producto</th>
+														<th>Importe</th>
+														<th>IVA</th>
+														<th>Costo unitario</th>
+														<th>Total</th>
+													</tr>
+												</thead>
+
+												<tbody>
+													@foreach($detalles as $key => $info)
+													@if($info->id_pedido == $value->id)
+
+													<tr>
+														<td>{{$info->cantidad}}</td>
+														<td>{{$info->nombre}}</td>
+														<td>{{$info->precio}}</td>
+														<td>{{$info->iva}}</td>
+														<td>{{$info->costo_unitario}}</td>
+														<?php $total = $info->cantidad *  $info->costo_unitario; ?> 
+														<td>{{$total}}</td>
+													</tr>
+													@endif     
+													@endforeach
+
+												</tbody>
+											</table>
+										</div>
+										<div class="panel-footer" style="border-style: none;">
+											{{ Form::submit('Confirmar', array('name'=> 'Confirmar','class' => 'btn btn-primary')) }}
+											{{ Form::submit('Declinar', array('name'=> 'Declinar','class' => 'btn btn-danger')) }}
+
+										</div>
+									</div>
+								</div>
+								<hr class="color-linea">
+								{{Form::close()}}
+								@endforeach
+								@endif
+							</div>
+							<!-- Fin pedidos -->
+
+							<!-- 	Visitas -->
+							<div id="visitas" class="panel panel-green" style="border-color:gray;">
+								<div class="panel-heading" style="background-color:gray; border-color:gray;">
+									<h3 class="panel-title"><i class="fa fa-eye"></i> Vistas</h3>
+								</div>
+								
+								<div class="panel-body" >
+
+									<p class="titulos-pedidos">Personas que han visto mi número de teléfono en la aplicación:</p><p class="res-pedidos"> {{$restaurante->con_telefono}}</p>
+									<br>
+									<p class="titulos-pedidos">Personas que han visto mi dirección en la aplicación:</p> <p class="res-pedidos">{{$restaurante->con_direccion}}</p>
+									<br>
+								</div>
+							</div>
+							<!-- Fin de visitas -->
+
+							<!-- Reservaciones -->
+							<div id="reservaciones" class="panel panel-green" style="border-color:gray;">
+								<div class="panel-heading" style="background-color:gray; border-color:gray;">
+									<h3 class="panel-title"><i class="fa fa-fw fa-flag"></i> Reservaciones</h3>
+								</div>
+								@if(count($reservaciones)>0)     
+								@foreach($reservaciones as $r)
+								{{Form::open(array('url' => '/rescon'))}}
+								<?php $b = 1; ?>
+								@foreach($detallesR as $key => $info)					
+								@if($info->id_reservacion == $r->id)	
+								<?php $b++; $nada=null ?>
+								@endif     
+								@endforeach
+								{{ Form::hidden('idreservacion',$r->id)}}
+								<div class="panel-body" >
+									<div class="col-lg-6">
+										
+										<p class="titulos-pedidos">Reservación:</p> <p class="res-pedidos">{{$r->id}}</p><br>
+										
+										<p class="titulos-pedidos">Personas:</p> <p class="res-pedidos">{{$r->mesa}}</p><br>
+										<p class="titulos-pedidos">Hora de llegada:</p> <p class="res-pedidos">{{$r->hora}}</p><br>
+
+									</div>
+
+									<div class="col-lg-6">
+										<div class="table-responsive" style="margin:1%;">
+											<table class="table table-bordered table-hover table-striped">
+												<thead>
+													<tr>
+														<th>Cantidad</th>
+														<th>Producto</th>
+												</thead>
+
+												<tbody>
+													@foreach($detallesR as $key => $info)
+													@if($info->id_reservacion == $r->id)
+
+													<tr>
+													@if($info->nombre == "")
+													<td>hola</td>
+													<td>hola</td>
+													@else
+													<td>{{$info->cantidad}}</td>
+													<td>{{$info->nombre}}</td>
+													@endif
+
 													
-			     		<tr>
-			     	        @if(is_null($info->nombre))
-			     	        <td style="width:144px; heigth:200px;">Sin pedido</td>			     				
-			     	        <td style="width:144px; heigth:200px;" >Sin pedido</td>			     				
-			     			
-			     	        @endif
-			     			<td style="width:144px; heigth:200px;">{{$info->cantidad}}</td>			     				
-			     			<td style="width:144px; heigth:200px;">{{$info->nombre}}</td>			     							     	  				     			
-			     		     							     	  				     			
-			     		</tr>	
 
-		     			@endif     
-		     	
-					 @endforeach
+
+													</tr>
+
+													@endif
+													 
+													@endforeach
 					
-				
-					
-				
-				</tr>
-				
-           <td></td>
-		 	
-			{{Form::close()}}
-		 @endforeach
-	    @endif
-	    </tbody>
-			</table>
+													
 
+												</tbody>
+											</table>
+										</div>
+										<div class="panel-footer" style="border-style: none;">
+											{{ Form::submit('Confirmar', array('name'=> 'Confirmar','class' => 'btn btn-primary')) }}
+					                        {{ Form::submit('Declinar', array('name'=> 'Declinar','class' => 'btn btn-danger')) }}
 
+										</div>
+									</div>
+								</div>
+								<hr class="color-linea">
+									{{Form::close()}}
+									@endforeach
+									@endif
+							</div>
+							<!-- Fin Reservaciones -->
+						</div>
+					</div>
+				</div>
+				<!-- /.row -->
 
-
-
-
-	<div style="margin-left:1em;" id="visitas"><h3>Visitas</h3>
-	<h5>Personas que han visto mi teléfono en la aplicación {{$restaurante->con_telefono}}</h5>
-	<br>
-	<h5>Personas que han visto mi dirección en la aplicación {{$restaurante->con_direccion}}</h5>
-	<br>
-	</div>
-
-
-
-
-	<table id="pedidos" class="table table-hover table-bordered table-striped">
-
-		<caption align="top"> <h3 style="margin-left:1em;">Pedidos</h3>  </caption>
-		<thead class="at">
-			<th style="width:106px; heigth:200px;">Acciones</th>
-			<th style="width:95px; heigth:200px;">Acciones</th>
-			<th style="width:90px; heigth:200px;" >Orden</th>
-			<th style="width:90px; heigth:200px;">Domicilio</th>
-			<th style="width:90px; heigth:200px;">Características</th>
-			<th style="width:90px; heigth:200px;">Cantidad</th>
-			<th style="width:90px; heigth:200px;">Producto</th>
-			<th style="width:90px; heigth:200px;">Importe</th>
-			<th style="width:90px; heigth:200px;">IVA</th>
-			<th style="width:90px; heigth:200px;">Costo Unitario</th>
-			<th style="width:90px; heigth:200px;">Total</th>     	
-			 	
-
-
-		</thead>
-
-		<tbody class="at acomodo-tabla">
-			@if(count($pedidos)>0)
-			@foreach($pedidos as $key => $value)
-			{{Form::open(array('url' => '/condec'))}}
-			<?php $a = 1; ?>
-			@foreach($detalles as $key => $info)					
-			@if($info->id_pedido == $value->id)	
-			<?php $a++; ?>
-			@endif     
-			@endforeach
-			<tr>
-				{{ Form::hidden('idpedido',$value->id)}}
-				<td style="width:70px; heigth:200px;" rowspan="{{$a}}">{{ Form::submit('Confirmar', array('name'=> 'Confirmar','class' => 'btn btn-primary')) }}</td>
-				<td style="width:90px; heigth:200px;" rowspan="{{$a}}">{{ Form::submit('Declinar', array('name'=> 'Declinar','class' => 'btn btn-danger')) }}</td>													
-				
-				<td style="width:90px; heigth:200px;" rowspan="{{$a}}">{{$value->id}}</td>
-
-
-				@if($notificacion < $value->created_at && $nuevafecha > $value->created_at)	
-				<td rowspan="{{$a}}">{{$value->created_at}}</td>
-				@endif   
-				<td style="width:90px; heigth:200px;" rowspan="{{$a}}">{{$value->domicilioP}}</td>
-				<td style="width:121px; heigth:200px;" rowspan="{{$a}}">{{$value->caracteristica}}</td>
-
-
-
-
-
-				
-
-				<!-- <tr>-->
-
-				@foreach($detalles as $key => $info)
-
-				@if($info->id_pedido == $value->id)	
-				<tr>
-					<td style="width:90px; heigth:200px;" >{{$info->cantidad}}	</td>
-					<td style="width:90px; heigth:200px;" >{{$info->nombre}}	</td>
-					<td style="width:90px; heigth:200px;" >{{$info->precio}}	</td>
-					<td style="width:90px; heigth:200px;" >{{$info->iva}}	</td>
-					<td style="width:90px; heigth:200px;" >{{$info->costo_unitario}}</td>
-					<?php $total = $info->cantidad *  $info->costo_unitario; ?> 
-					<td style="width:90px; heigth:200px;" >{{$total}}	</td>
-				</tr>
-
-					@endif     
-
-					@endforeach
-
-					
-</tr>
-
-				
-				<td></td>
-
-
-			     			<!-- <td >{{$info->nombre}}</td>
-			     				
-			     			<td>{{$info->precio}}</td>
-			     				
-			     			<td>{{$info->iva}}</td>
-			     				
-			     			<td>{{$info->costo_unitario}}</td>		
-							<?php $total = $info->cantidad *  $info->costo_unitario; ?>
-
-							<td >{{$total}}</td>	 -->     		
-
-							<!-- </tr> -->
-
-
-							{{Form::close()}}
-							@endforeach
-							@endif
-
-
-
-						</tbody>
-
-
-					</table>
-
-
-
-
-
-
-
-				</div>  
 			</div>
+			<!-- /.container-fluid -->
 		</div>
-	</div>
-</div>
-</div>
-<!-- /.row -->
-
-</div>
-<!-- /.container-fluid -->
-</div>
 
 
-</body>
-</html>
+	</body>
+	</html>
