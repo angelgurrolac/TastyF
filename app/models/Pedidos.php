@@ -73,10 +73,35 @@ class Pedidos extends Eloquent
 		->get();
 		return $pedidos;
 	}
+
+
 	public function scopePagadas($pagadas,$id){
 		$pagadas = DB::table('pedidos')
 			->where('estatus','=','pagada')							
-			->where('id_restaurante','=', $id); 
+			->where('id_restaurante','=', $id)
+			->where(DB::raw('LEFT(created_at,10)'), '=', DB::raw('CURDATE()'));
+		
+		return $pagadas;
+	}
+	public function scopePagadasSemana($pagadas,$id){
+		$pagadas = DB::table('pedidos')
+			->where('estatus','=','pagada')							
+			->where('id_restaurante','=', $id)
+			->where('created_at' , 'BETWEEN' ,  
+			DB::raw('CURDATE() - INTERVAL DAYOFWEEK(CURDATE())+6 DAY AND 
+			CURDATE() - INTERVAL DAYOFWEEK(CURDATE())-1 DAY ')
+			);
+		
+		return $pagadas;
+	}
+	public function scopePagadasMes($pagadas,$id){
+		$pagadas = DB::table('pedidos')
+			->where('estatus','=','pagada')							
+			->where('id_restaurante','=', $id)
+			->where('created_at' , 'BETWEEN' ,  
+			DB::raw('DATE_FORMAT(CURRENT_DATE - INTERVAL 1 MONTH, "%Y-%m-01") AND 
+			LAST_DAY(CURRENT_DATE - INTERVAL 1 MONTH) ')
+			);
 		
 		return $pagadas;
 	}
@@ -269,11 +294,12 @@ class Pedidos extends Eloquent
 	
 		return $productos;
 	}
-		public function scopeEstadisticas($restaurantes)
+		public function scopeestadisticasT($restaurantes)
 	{
 		$restaurantes =DB::table('pedidos as Pedidos')
 		
 		->where('Pedidos.estatus','LIKE','pagada')
+		->where('Pedidos.tipo','LIKE','tarjeta')
 
 
 		->leftjoin('restaurantes as Restaurantes',	function($join){
@@ -281,16 +307,17 @@ class Pedidos extends Eloquent
 		})
 
 				
-		->select(DB::raw('Pedidos.id_restaurante'),
-			  DB::raw('SUM(Pedidos.total) as total'),
-
-			 'Restaurantes.nombre',			  
-			  DB::raw('AVG(Pedidos.total) as promedio'),
+		->select(DB::raw('DAYNAME(Restaurantes.created_at) as dia'),
+			  'Pedidos.id_restaurante',
+			  'Restaurantes.nombre as Nombre',
 			  'Restaurantes.pagadas as ordenes',
 			  'Restaurantes.confirmadas as reservaciones',
+			  'Restaurantes.cuenta as cuenta',
+			  DB::raw('SUM(Pedidos.total) as total'),
+			  DB::raw('ROUND(AVG(Pedidos.total),2) as promedio'),
 			  DB::raw('(Restaurantes.con_telefono + Restaurantes.con_direccion) as consultas'),
 			  DB::raw('(SUM(Pedidos.total) * .15) as comision'),
-			  DB::raw('(SUM(Pedidos.total) - (SUM(Pedidos.total) * .15)  - (Restaurantes.con_telefono + Restaurantes.con_direccion)) as totalF,Restaurantes.cuenta'))
+			  DB::raw('(SUM(Pedidos.total) - (SUM(Pedidos.total) * .15)  - (Restaurantes.con_telefono + Restaurantes.con_direccion)) as totalF'))
 	
 
 		->groupBy('Pedidos.id_restaurante');
@@ -298,6 +325,115 @@ class Pedidos extends Eloquent
 		
 		return $restaurantes;
 	}
+
+
+
+
+	public function scopeestadisticasRestaurante($restaurantes,$id)
+	{
+		$restaurantes =DB::table('pedidos as Pedidos')
+		
+		->where('Pedidos.estatus','LIKE','pagada')
+		->where('Pedidos.tipo','LIKE','tarjeta')
+		->where('Restaurantes.id','=',$id)
+
+
+		->leftjoin('restaurantes as Restaurantes',	function($join){
+					$join->on('Restaurantes.id','=','Pedidos.id_restaurante');
+		})
+
+				
+		->select(DB::raw('DAYNAME(Restaurantes.created_at) as dia'),
+			  'Pedidos.id_restaurante',
+			  'Restaurantes.nombre as Nombre',
+			  'Restaurantes.pagadas as ordenes',
+			  'Restaurantes.confirmadas as reservaciones',
+			  'Restaurantes.cuenta as cuenta',
+			  DB::raw('SUM(Pedidos.total) as total'),
+			  DB::raw('ROUND(AVG(Pedidos.total),2) as promedio'),
+			  DB::raw('(Restaurantes.con_telefono + Restaurantes.con_direccion) as consultas'),
+			  DB::raw('(SUM(Pedidos.total) * .15) as comision'),
+			  DB::raw('(SUM(Pedidos.total) - (SUM(Pedidos.total) * .15)  - (Restaurantes.con_telefono + Restaurantes.con_direccion)) as totalF'))
+	
+
+		->groupBy('Pedidos.id_restaurante');
+		
+		
+		return $restaurantes;
+	}
+
+
+	public function scopeestadisticasRestauranteE($restaurantes,$id)
+	{
+		$restaurantes =DB::table('pedidos as Pedidos')
+		
+		->where('Pedidos.estatus','LIKE','pagada')
+		->where('Pedidos.tipo','LIKE','efectivo')
+		->where('Restaurantes.id','=',$id)
+
+
+		->leftjoin('restaurantes as Restaurantes',	function($join){
+					$join->on('Restaurantes.id','=','Pedidos.id_restaurante');
+		})
+
+				
+		->select(DB::raw('DAYNAME(Restaurantes.created_at) as dia'),
+			  'Pedidos.id_restaurante',
+			  'Restaurantes.nombre as Nombre',
+			  'Restaurantes.pagadas as ordenes',
+			  'Restaurantes.confirmadas as reservaciones',
+			  'Restaurantes.cuenta as cuenta',
+			  DB::raw('SUM(Pedidos.total) as total'),
+			  DB::raw('ROUND(AVG(Pedidos.total),2) as promedio'),
+			  DB::raw('(Restaurantes.con_telefono + Restaurantes.con_direccion) as consultas'),
+			  DB::raw('(SUM(Pedidos.total) * .15) as comision'),
+			  DB::raw('(SUM(Pedidos.total) - (SUM(Pedidos.total) * .15)  - (Restaurantes.con_telefono + Restaurantes.con_direccion)) as totalF'))
+	
+
+		->groupBy('Pedidos.id_restaurante');
+		
+		
+		return $restaurantes;
+	}
+
+
+
+
+
+
+	public function scopeestadisticasE($restaurantes)
+	{
+		$restaurantes =DB::table('pedidos as Pedidos')
+		
+		->where('Pedidos.estatus','LIKE','pagada')
+		->where('Pedidos.tipo','LIKE','efectivo')
+
+
+		->leftjoin('restaurantes as Restaurantes',	function($join){
+					$join->on('Restaurantes.id','=','Pedidos.id_restaurante');
+		})
+
+				
+		->select(DB::raw('DAYNAME(Restaurantes.created_at) as dia'),
+			  'Pedidos.id_restaurante',
+			  'Restaurantes.nombre as Nombre',
+			  'Restaurantes.pagadas as ordenes',
+			  'Restaurantes.confirmadas as reservaciones',
+			  'Restaurantes.cuenta as cuenta',
+			  DB::raw('SUM(Pedidos.total) as total'),
+			  DB::raw('ROUND(AVG(Pedidos.total),2) as promedio'),
+			  DB::raw('(Restaurantes.con_telefono + Restaurantes.con_direccion) as consultas'),
+			  DB::raw('(SUM(Pedidos.total) * .15) as comision'),
+			  DB::raw('(SUM(Pedidos.total) - (SUM(Pedidos.total) * .15)  - (Restaurantes.con_telefono + Restaurantes.con_direccion)) as totalF'))
+	
+
+		->groupBy('Pedidos.id_restaurante');
+		
+		
+		return $restaurantes;
+	}
+
+
 			public function scopeEstadisticasDos($id)
 	{
 		$restaurantes =DB::table('pedidos as Pedidos')

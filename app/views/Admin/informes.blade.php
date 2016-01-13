@@ -23,8 +23,6 @@ echo $dias[date('w')]." ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y'
      <table class="table table-bordered table-hover table-striped users">
      	
      	<tr><td>Ventas totales</td><td>${{$VT}}</td></tr>
-     	<!-- <tr><td>Importe</td><td>${{$VT}}</td></tr> -->
-     	
      	<tr><td>No. de ordenes</td><td>{{$NuOrdenes}}</td>	</tr>
      	<tr><td>Costo Máximo de ordenes</td><td>{{$OM}}</td>	</tr>
      	<tr><td>Costo Mínino de ordenes</td><td>{{$MO}}</td>	</tr>
@@ -46,8 +44,6 @@ echo $dias[date('w')]." ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y'
          
          
               <tr><td>Ventas totales</td><td>${{$VT2}}</td></tr>
-          <tr><td>Importe</td><td>${{$VT2}}</td></tr>
-          
           <tr><td>No. de ordenes</td><td>{{$NuOrdenes2}}</td>     </tr>
           <tr><td>Costo Máximo de ordenes</td><td>{{$OM2}}</td>   </tr>
           <tr><td>Costo Mínimo de ordenes</td><td>{{$MO2}}</td>   </tr>
@@ -125,9 +121,7 @@ if ($nuevafecha == 'Dec') {
      <div class="table-responsive">
      <table class="table table-bordered table-hover table-striped users">
           
-              <tr><td>Ventas totales</td><td>${{$VT3}}</td></tr>
-          <tr><td>Importe</td><td>${{$VT3}}</td></tr>
-          
+          <tr><td>Ventas totales</td><td>${{$VT3}}</td></tr>
           <tr><td>No. de ordenes</td><td>{{$NuOrdenes3}}</td>     </tr>
           <tr><td>Costo Máximo de ordenes</td><td>{{$OM3}}</td>   </tr>
           <tr><td>Costo Mínino de ordenes</td><td>{{$MO3}}</td>   </tr>

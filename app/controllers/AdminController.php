@@ -53,14 +53,14 @@ public function publicidad()
 		$pedidos2=Pedidos::PagadasAdminSemana()->count();
 		$pedidos3=Pedidos::PagadasAdminMes()->count();
 		
-		if($pedidos==0){
- 		return View::make('Admin.informes2');	
- 	 	}
- 		if($pedidos2==0){
- 			return View::make('Admin.informes2');	
- 		}
+		// if($pedidos==0){
+ 	// 	return View::make('Admin.informes2');	
+ 	//  	}
+ 	// 	if($pedidos2==0){
+ 	// 		return View::make('Admin.informes2');	
+ 	// 	}
 
- 		else{
+ 		// else{
 		$VT = Pedidos::PagadasAdmin()->sum('total');
 		$VT2 = Pedidos::PagadasAdminSemana()->sum('total');
 		$VT3 = Pedidos::PagadasAdminMes()->sum('total');
@@ -78,7 +78,7 @@ public function publicidad()
 		$OP3 = Pedidos::PagadasAdminMes()->avg('total');
 	
 		return View::make('Admin.informes',compact('IMPORTE','VT3','NuOrdenes3','OM3','MO3','OP3','VT','NuOrdenes','OM','MO','OP','VT2','NuOrdenes2','OM2','MO2','OP2'));
-		}
+		// }
 	}
 
 	
@@ -93,16 +93,18 @@ public function publicidad()
 
 	public function estadisticas()
 	{
-		$restaurantes = Pedidos::estadisticas()->get(); 
-		$nuevafecha = date('Y-m-d', strtotime('+7 day'));//arreglo para días 
-		$cantidad = Pedidos::cantidad()->get();
-		$credito = Estadisticas::where('tipo', '=','tarjeta')->get();
-		$efectivo = Estadisticas::where('tipo', '=','efectivo')->get();		
+		$restaurantes = Pedidos::estadisticasT()->get(); 
+		$restaurantes2 = Pedidos::estadisticasE()->get(); 
+		// // $nuevafecha = date('Y-m-d', strtotime('+7 day'));//arreglo para días 
+		// $cantidad = Pedidos::cantidad()->get();
+		// $credito = Estadisticas::where('tipo', '=','tarjeta')->get();
+		// $efectivo = Estadisticas::where('tipo', '=','efectivo')->get();		
 		
 	
-		return View::make('Admin.estadisticas',compact('restaurantes','cantidad','nuevafecha','efectivo','credito'));
+		return View::make('Admin.estadisticas',compact('restaurantes','restaurantes2'));
 		 	 
 	}
+	
 	public function candidatos(){
 		$candidatos = Restaurantes::where('validado','=','0')->get();
 		return View::make('Admin.candidatos',compact('candidatos'));

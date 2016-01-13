@@ -76,8 +76,8 @@ echo $nuevafecha;
 						<div class="row">
 
 							<!-- Pedidos -->
-							<div id="pedidos" class="panel panel-green" style="border-color:gray;">
-								<div class="panel-heading" style="background-color:gray; border-color:gray;">
+							<div id="pedidos" class="panel panel-green" style="border-color:black;">
+								<div class="panel-heading" style="background-color:black; border-color:black;">
 									<h3 class="panel-title"><i class="fa fa-fw fa-flag"></i> Pedidos</h3>
 								</div>
 								@if(count($pedidos)>0)
@@ -150,8 +150,8 @@ echo $nuevafecha;
 							<!-- Fin pedidos -->
 
 							<!-- 	Visitas -->
-							<div id="visitas" class="panel panel-green" style="border-color:gray;">
-								<div class="panel-heading" style="background-color:gray; border-color:gray;">
+							<div id="visitas" class="panel panel-green" style="border-color:black;">
+								<div class="panel-heading" style="background-color:black; border-color:black;">
 									<h3 class="panel-title"><i class="fa fa-eye"></i> Vistas</h3>
 								</div>
 								
@@ -166,8 +166,8 @@ echo $nuevafecha;
 							<!-- Fin de visitas -->
 
 							<!-- Reservaciones -->
-							<div id="reservaciones" class="panel panel-green" style="border-color:gray;">
-								<div class="panel-heading" style="background-color:gray; border-color:gray;">
+							<div id="reservaciones" class="panel panel-green" style="border-color:black;">
+								<div class="panel-heading" style="background-color:black; border-color:black;">
 									<h3 class="panel-title"><i class="fa fa-fw fa-flag"></i> Reservaciones</h3>
 								</div>
 								@if(count($reservaciones)>0)     

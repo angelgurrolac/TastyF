@@ -22,7 +22,7 @@
               <h3 class="panel-title"><i class="fa fa-fw fa-cutlery"></i> Editar</h3>
             </div>    
 		<div class="panel-body">
-		{{Form::open(array('url'=>'/restaurante/saveChanges','files'=>'true'))}}
+		{{Form::open(array('url'=>'/restaurante/saveChanges2','files'=>'true'))}}
 			<div class="col-md-6">
 				<br>
 			     <img id="blah" style="width:100%;" src="{{asset($producto->imagen)}}" alt="your image" />

@@ -123,6 +123,7 @@ Route::post('/users/estatusP','UserController@EstatusP');
 Route::post('/users/ultphd','UserController@ultphd');
 Route::post('/users/envres','UserController@envres');
 Route::post('/users/allen','UserController@allen');
+Route::post('/users/ultEnv','UserController@ultEnv');
 
 
 Route::group(array('before' => array('auth', 'restaurante')), function()
@@ -141,7 +142,9 @@ Route::get('/restaurante/agregarB','RestauranteController@agregarb');
 Route::post('/restaurante/addA','RestauranteController@addA');
 Route::post('/restaurante/addB','RestauranteController@addB');
 Route::post('/restaurante/editar','RestauranteController@editar');
+Route::post('/restaurante/editarB','RestauranteController@editarB');
 Route::post('/restaurante/saveChanges','RestauranteController@saveChanges');
+Route::post('/restaurante/saveChanges2','RestauranteController@saveChanges2');
 Route::post('condec','RestauranteController@hogarPedidos');
 Route::post('rescon','RestauranteController@rescon');
 Route::get('/restaurante/estadisticas','RestauranteController@estadisticas');

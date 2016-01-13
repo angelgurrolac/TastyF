@@ -17,8 +17,8 @@
 
       <div class="row">
         <div class="col-lg-12">
-          <div class="panel panel-green" style="border-color:gray;">
-            <div class="panel-heading" style="background-color:gray; border-color:gray;">
+          <div class="panel panel-green" style="border-color:black;">
+            <div class="panel-heading" style="background-color:black; border-color:black;">
             <h3 class="panel-title"><i class="fa fa-fw fa-flag"></i> Pedidos</h3>
             </div>
             <div class="panel-body" >

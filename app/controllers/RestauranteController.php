@@ -82,8 +82,9 @@ class RestauranteController extends \BaseController {
 
 			$producto = Productos::find(Input::get('producto_id'));
 			$cat =  Categorias::find($producto->id_categoria);
+			$cat2 =  Categorias::find($producto->id_categoria2);
 	    	$categorias = Categorias::where('activa','=','1')->lists('nombre','id');		
-			return View::make('Restaurante.editarProducto',compact('producto','cat','categorias'));
+			return View::make('Restaurante.editarProducto',compact('producto','cat','cat2','categorias'));
 
 		}
 		elseif (Input::has('Eliminar')) 
@@ -91,6 +92,26 @@ class RestauranteController extends \BaseController {
 			$producto = Productos::find(Input::get('producto_id'));
 			$producto->delete();
 			return Redirect::to('/restaurante/alimentos')->with('success','Alimento eliminado con éxito');
+		}
+	}
+
+	public function editarB(){
+		
+		if(Input::has('Editar'))
+		{
+
+			$producto = Productos::find(Input::get('producto_id'));
+			$cat =  Categorias::find($producto->id_categoria);
+			$cat2 =  Categorias::find($producto->id_categoria2);
+	    	$categorias = Categorias::where('activa','=','1')->lists('nombre','id');		
+			return View::make('Restaurante.editarProductoB',compact('producto','cat','cat2','categorias'));
+
+		}
+		elseif (Input::has('Eliminar')) 
+		{
+			$producto = Productos::find(Input::get('producto_id'));
+			$producto->delete();
+			return Redirect::to('/restaurante/bebidas')->with('success','Bebida eliminada con éxito');
 		}
 	}
 
@@ -127,6 +148,40 @@ class RestauranteController extends \BaseController {
 		$producto->save();
 
 		return Redirect::to('restaurante/alimentos')->with('message','Cambios con exito');
+	}
+
+	public function saveChanges2()
+	{	$producto = Productos::find(Input::get('id'));
+		$image = Input::file('imgFile');
+		$cat = Input::get('categoria1');
+		$cat2 = Input::get('categoria2');
+		if($image!=null){
+			$producto->imagen = $image_final;
+			$name_image = $image -> getClientOriginalName();	
+			$image_final = 'productos/' .$name_image;
+			$image -> move('productos', $name_image );
+		}
+			
+	
+		$producto->nombre = Input::get('nombre');
+		$producto->descripcion = Input::get('descripcion');
+		$producto->precio = Input::get('precio');
+		$producto->iva = Input::get('comision');
+		$producto->costo_unitario = Input::get('costo_unitario');
+		$producto->id_restaurante = Auth::user()->id_restaurante;
+		$producto->id_sabor = Input::get('sabor');
+		if($cat != 0){
+			$producto->id_categoria = $cat;
+		}
+		if($cat2 != 0){
+			$producto->id_categoria2 = $cat2;
+		}
+		$producto->hora_inicio = Input::get('hora_inicio'); 
+		$producto->hora_fin = Input::get('hora_fin');
+		
+		$producto->save();
+
+		return Redirect::to('restaurante/bebidas')->with('message','Cambios con exito');
 	}
 	public function agregarA()
 	{
@@ -224,26 +279,36 @@ class RestauranteController extends \BaseController {
 	{
 		$id= Auth::user()->id_restaurante;
 		$pedidos=Pedidos::pagadas($id)->count();
-	
+		$pedidos=Pedidos::pagadasSemana($id)->count();
+		$pedidos=Pedidos::pagadasMes($id)->count();
 
 		
-		if($pedidos==0){
- 			return View::make('Restaurante.informes2');	
- 		}
-
- 		else{
 		$VT = Pedidos::pagadas($id)->sum('total');
-				
+		$VT2 = Pedidos::pagadasSemana($id)->sum('total');
+		$VT3 = Pedidos::pagadasMes($id)->sum('total');
 		$IVA = Pedidos::pagadas($id)->sum('iva');
+		$IVA2 = Pedidos::pagadasSemana($id)->sum('iva');
+		$IVA3 = Pedidos::pagadasMes($id)->sum('iva');
 		$IMPORTE = $VT-$IVA;
+		$IMPORTE2 = $VT2-$IVA2;
+		$IMPORTE3 = $VT3-$IVA3;
 		$NuOrdenes = Pedidos::pagadas($id)->count();
-
+		$NuOrdenes2 = Pedidos::pagadasSemana($id)->count();
+		$NuOrdenes3 = Pedidos::pagadasMes($id)->count();
 		$OM = Pedidos::pagadas($id)->max('total');
+		$OM2 = Pedidos::pagadasSemana($id)->max('total');
+		$OM3 = Pedidos::pagadasMes($id)->max('total');
 		$MO = Pedidos::pagadas($id)->min('total');
+		$MO2 = Pedidos::pagadasSemana($id)->min('total');
+		$MO3 = Pedidos::pagadasMes($id)->min('total');
 		$OP = Pedidos::pagadas($id)->avg('total');
+		$OP2 = Pedidos::pagadasSemana($id)->avg('total');
+		$OP3 = Pedidos::pagadasMes($id)->avg('total');
 	
-		return View::make('Restaurante.informes',compact('VT','IMPORTE','NuOrdenes','OM','MO','OP'));
-		}
+		return View::make('Restaurante.informes',compact('VT','IMPORTE','NuOrdenes','OM','MO','OP',
+			'VT2','IMPORTE2','NuOrdenes2','OM2','MO2','OP2',
+			'VT3','IMPORTE3','NuOrdenes3','OM3','MO3','OP3'));
+		
 	}
 	public function datos()
 	{
@@ -251,24 +316,30 @@ class RestauranteController extends \BaseController {
 		return View::make('Restaurante.datos',compact('restaurante'));
 	}
 
+
 	public function estadisticas()
 	{
 		
 		$id= Auth::user()->id_restaurante;
-		$pedidos=Pedidos::pagadas($id)->count();
-		$credito = Estadisticas::where('id_restaurante', '=', $id)->where('tipo', '=','tarjeta')->get();
-		$efectivo = Estadisticas::where('id_restaurante', '=', $id)->where('tipo', '=','efectivo')->get();
-		$restaurante = Restaurantes::find(Auth::user()->id_restaurante);
-		if($pedidos==0){
- 			return View::make('Restaurante.estadisticas2');	
- 		}
- 		else{		
+		$restaurantes = Pedidos::estadisticasRestaurante($id)->get(); 
+		$restaurantes2 = Pedidos::estadisticasRestauranteE($id)->get();
+		// $pedidos=Pedidos::pagadas($id)->count();
+		// $credito = Estadisticas::where('id_restaurante', '=', $id)->where('tipo', '=','tarjeta')->get();
+		// $efectivo = Estadisticas::where('id_restaurante', '=', $id)->where('tipo', '=','efectivo')->get();
+		// $restaurante = Restaurantes::find(Auth::user()->id_restaurante);
+		// if($pedidos==0){
+ 	// 		return View::make('Restaurante.estadisticas2');	
+ 	// 	}
+ 	// 	else{		
  			
- 			$cantidad = Pedidos::cantidad()->get();
+ 	// 		$cantidad = Pedidos::cantidad()->get();
  		
-		return View::make('Restaurante.estadisticas',compact('estadisticas','cantidad','restaurante','credito','efectivo'));
-		}
+		return View::make('Restaurante.estadisticas',compact('restaurantes','restaurantes2'));
+		
 	}
+
+
+
 	public function guardarTarjeta()
 	{
 			$rules = array(			

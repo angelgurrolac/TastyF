@@ -624,8 +624,12 @@ class UserController extends \BaseController {
         $restaurante = Restaurantes::where('id','=',Input::get('id_restaurante'))->get();
         $envios = Envios::todosenvios($restaurante->id)->get();
         return json_encode($envios);
+    }
 
-
-
+    public function ultEnv()
+    {
+        $restaurante = Restaurantes::where('id','=',Input::get('id_restaurante'))->get();
+        $envios = Envios::ultimoenvio($restaurante->id)->take(1)->get();
+        return json_encode($envios);
     }
 }

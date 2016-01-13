@@ -4,6 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Agregar</title>
+	<script src="{{ URL::asset('assets/js/sumas.js') }}"></script>
 </head>
 <body>
 	  <div class="row" style="background-color:white;">
