@@ -67,26 +67,42 @@
 
 
          <div class="table-responsive">
-           <table class="table table-bordered table-hover table-striped users">
-             <thead class="at">
+         
+           <table class=" table-hover table-striped users" style=" border-spacing: 0; max-height: 50vh; overflow-y: auto; overflow-x: hidden; table-layout: fixed; width: 80vw; 
+    border:1px solid gray;" >
+    <caption>  <h1>Usuarios</h1></caption>
+  
+             <thead class="at" style="border:1px solid gray;">
               <tr>
-                <th width="220" >Nombre</th>
-                <th width="100"  >Edad</th>
-                <th width="100"   >Sexo</th>
-                <th width="300" >Dirección</th>
-                <th width="100"  >Código Postal</th>
-                <th width="206"  >Correo electrónico</th>  
+                <th style="max-width: 15vw; min-width: 15vw; word-wrap: break-word; height: 3.5vh !important; padding: 4px; font-weight: normal;
+                                  font-size: 14px;" >Nombre</th>
+                <th style="max-width: 5vw; min-width: 5vw; word-wrap: break-word; height: 3.5vh !important; padding: 4px; font-weight: normal;
+                                  font-size: 14px;" >Edad</th>
+                <th style="max-width: 10vw; min-width: 10vw; word-wrap: break-word; height: 3.5vh !important; padding: 4px; font-weight: normal;
+                                  font-size: 14px;"    >Sexo</th>
+                <th style="max-width: 25vw; min-width: 25vw; word-wrap: break-word; height: 3.5vh !important; padding: 4px; font-weight: normal;
+                                  font-size: 14px;" >Dirección</th>
+                <th style="max-width: 10vw; min-width: 10vw; word-wrap: break-word; height: 3.5vh !important; padding: 4px; font-weight: normal;
+                                  font-size: 14px;"  >Código Postal</th>
+                <th style="max-width: 20vw; min-width: 20vw; word-wrap: break-word; height: 3.5vh !important; padding: 4px; font-weight: normal;
+                                  font-size: 14px;"  >Correo electrónico</th>  
               </tr>
             </thead>
             <tbody class="at acomodo-tabla">
              @foreach($usuarios as $key => $value)  
              <tr>
-              <td width="220"  >{{$value->nombre}} {{$value->apellidos}}</td>
-              <td width="100"  >{{$value->edad}}</td>
-              <td width="100"  >{{$value->sexo}}</td>
-              <td width="300" >{{$value->direccion}}</td>
-              <td width="100" >{{$value->codigo_postal}}</td>
-              <td width="200" >{{$value->correo}}</td>
+              <td style="max-width: 15vw; min-width: 15vw; word-wrap: break-word; height: 3.5vh !important; padding: 4px; font-weight: normal;
+                                  font-size: 14px;" >{{$value->nombre}} {{$value->apellidos}}</td>
+              <td style="max-width: 5vw; min-width: 5vw; word-wrap: break-word; height: 3.5vh !important; padding: 4px; font-weight: normal;
+                                  font-size: 14px;"  >{{$value->edad}}</td>
+              <td style="max-width: 10vw; min-width: 10vw; word-wrap: break-word; height: 3.5vh !important; padding: 4px; font-weight: normal;
+                                  font-size: 14px;"  >{{$value->sexo}}</td>
+              <td style="max-width: 25vw; min-width: 25vw; word-wrap: break-word; height: 3.5vh !important; padding: 4px; font-weight: normal;
+                                  font-size: 14px;">{{$value->direccion}}</td>
+              <td style="max-width: 10vw; min-width: 10vw; word-wrap: break-word; height: 3.5vh !important; padding: 4px; font-weight: normal;
+                                  font-size: 14px;" >{{$value->codigo_postal}}</td>
+              <td style="max-width: 20vw; min-width: 20vw; word-wrap: break-word; height: 3.5vh !important; padding: 4px; font-weight: normal;
+                                  font-size: 14px;" >{{$value->correo}}</td>
 
 
             </tr>
@@ -96,9 +112,12 @@
         </table>
 
         <table class="table table-bordered table-hover table-striped">
+         
           <h2 id="usuariostotal">El número total de usuarios es: {{$numero}}</h2>
         </table>
+
         <table id="pedidos" class="table table-bordered table-hover table-striped">
+         <caption>  <h1>Total gastado</h1></caption>
          <thead class="at">
 
           <th width="350">Nombre</th>
