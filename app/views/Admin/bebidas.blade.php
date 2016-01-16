@@ -55,6 +55,19 @@
                         <p>{{$value->descripcion}}</p>   
                         <b>Restaurante:</b>
                         <p>{{$value->nombreR}}</p>
+                       <b>¿Aparece en la aplicación de TastyFoods?</b>
+                        <?php
+                          $estado = $value->estado;
+                          if ($estado == 1) {
+                              $valor = 'Si';
+                          }
+                          else
+                          {
+                             $valor = 'No';
+                          }
+                         ?>
+                         <p>{{$valor}}</p>
+
                       </div>
 
                       @if($mensaje==1)
@@ -62,6 +75,13 @@
                       @elseif($mensaje==2)
                       <h4>Pedido: {{$value->cantidad}} veces</h4>	
                       @endif
+                      <br>
+
+                        {{Form::open(array('url'=>'/admin/editarB', 'id' => $value->id))}}
+                {{ Form::submit('Editar', array('name'=> 'Editar','class' => 'btn btn-success direccionar')) }} 
+                {{ Form::submit('Eliminar', array('name'=> 'Eliminar','class' => 'btn btn-danger')) }}</td> 
+                <input type="hidden" name="id_producto" value="{{$value->id}}">
+                {{Form::close()}}
                     </div>
                   </div>
                   <div class="col-md-1"></div>

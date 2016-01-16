@@ -25,7 +25,7 @@
 				</div>		    
 				<div class="form-group col-lg-6">
 					{{ Form::label('telefono', 'Teléfono') }}
-					{{ Form::text('telefono', Input::old('telefono'), array('class' => 'form-control','form'=>'nueva', 'required', 'pattern'=>'"^[9|8|7|6|5]\d{9}$"', 'maxlength'=>'10','placeholder'=>'(000) 000 00 00')) }}
+					{{ Form::text('telefono', Input::old('telefono'), array('class' => 'form-control','form'=>'nueva', 'required','maxlength'=>'10','placeholder'=>'(000) 000 00 00')) }}
 				</div>
 				<div class="form-group col-lg-6">
 					{{ Form::label('direccion', 'Dirección') }}

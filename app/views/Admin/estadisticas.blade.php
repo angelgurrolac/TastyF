@@ -87,8 +87,8 @@ jddayofweek ( cal_to_jd(CAL_GREGORIAN, date("m"),date("d"), date("Y")) , 1 );
                                         $fecha = date('d-m-Y', strtotime('next thursday'));
                                         $diaA = 'Jueves';
                                    }
-                                    ?>
-                                   <td>{{$diaA}} {{$fecha}}</td>
+                                  
+                                  echo "<td>".$diaA." ".$fecha."</td>";  ?>
                               </tr>
                               @endforeach
                          </tbody>
@@ -169,8 +169,8 @@ jddayofweek ( cal_to_jd(CAL_GREGORIAN, date("m"),date("d"), date("Y")) , 1 );
                                         $fecha = date('d-m-Y', strtotime('next thursday'));
                                         $diaA = 'Jueves';
                                    }
-                                    ?>
-                                   <td>{{$diaA}} {{$fecha}}</td>
+                                    
+                                   echo "<td>".$diaA." ".$fecha."</td>";  ?>
                          </tr>
                          @endforeach
 

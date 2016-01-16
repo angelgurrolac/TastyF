@@ -168,7 +168,9 @@ class Productos extends Eloquent
 		})
 
 		->where('tipo','=','alimento')
-		->select('*','Restaurantes.nombre as nombreR','Productos.nombre as nombre');
+		->select('*','Restaurantes.nombre as nombreR','Productos.nombre as nombre',
+			'Productos.id_categoria as categoria1','Productos.id_categoria2 as categoria2',
+			'Productos.id as id','Productos.estado as estado');
 
 		return $productos;
 
@@ -202,7 +204,9 @@ class Productos extends Eloquent
 		})
 
 		->where('tipo','=','bebida')
-		->select('*','Restaurantes.nombre as nombreR','Productos.nombre as nombre');
+		->select('*','Restaurantes.nombre as nombreR','Productos.nombre as nombre',
+			'Productos.id_categoria as categoria1','Productos.id_categoria2 as categoria2',
+			'Productos.id as id','Productos.estado as estado');
 
 		return $productos;
 

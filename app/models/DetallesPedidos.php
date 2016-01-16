@@ -16,7 +16,7 @@ class DetallesPedidos extends Eloquent
 		})
 
 		->select(DB::raw('*','id_producto, SUM(cantidad) as cantidad'))
-		->select('*','Restaurantes.nombre as nombreR','Productos.nombre as nombre')
+		->select('*','Restaurantes.nombre as nombreR','productos.nombre as nombre')
 		->where('productos.tipo','=','alimento')
 		->groupBy('id_producto')
 		->orderBy('cantidad','DESC');
@@ -32,7 +32,7 @@ class DetallesPedidos extends Eloquent
 				$join->on('Restaurantes.id','=','productos.id_restaurante');
 		})
 		->select(DB::raw('*','id_producto, SUM(cantidad) as cantidad '))
-		->select('*','Restaurantes.nombre as nombreR','Productos.nombre as nombre')
+		->select('*','Restaurantes.nombre as nombreR','productos.nombre as nombre')
 		->where('productos.tipo','=','bebida')
 		->groupBy('id_producto')
 		->orderBy('cantidad','DESC');

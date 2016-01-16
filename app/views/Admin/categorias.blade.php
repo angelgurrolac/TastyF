@@ -23,6 +23,17 @@
               <h3 class="panel-title"><i class="fa fa-fw fa-check-square-o"></i> Categorías</h3>
             </div>
             <div class="panel-body" style="margin-left:2em;">
+            	<div class="row">
+						<div class=" col-lg-4"></div>
+						<div class=" col-lg-4">
+							<br>
+							<a href="/admin/agregarC" class="btn btn-primary buttonagregar">Nueva categoría</a>
+							<br>
+							   </div>
+						<div class=" col-lg-4"></div></div>
+						<br>
+						<hr>
+            	
                     	<div class="row">
 						{{ Form::open(array('url' => '/admin/activar','files'=>'true')) }}
 						@foreach($categorias as $key => $value)  
@@ -40,6 +51,13 @@
 										 {{ Form::label('nombre', $value->nombre, array('class' => 'text-borde')) }}
                                   		</h4>
                                 </div>
+                                {{Form::open(array('url' => '/admin/editarC'))}}
+                                 {{ Form::hidden('cat_id',$value->id)}}
+				{{ Form::submit('Editar', array('name'=> 'Editar','class' => 'btn btn-success btn-xs','style'=>'display:inline-block;')) }}</td>
+				{{ Form::submit('Eliminar', array('name'=> 'Eliminar','class' => 'btn btn-danger btn-xs','style'=>'display:inline-block;')) }}</td>													
+				
+				 {{Form::close()}}
+				 <hr>
 
 							
 
@@ -47,7 +65,7 @@
 						</div>
 						@endforeach
 						</div>
-
+<!-- 
 						<div class="row">
 						<div class=" col-lg-4"></div>
 						<div class=" col-lg-4">
@@ -57,7 +75,7 @@
 							<br>
 							   </div>
 						<div class=" col-lg-4"></div></div>
-				
+				 -->
 					</div>
 				</div>
 			</div>

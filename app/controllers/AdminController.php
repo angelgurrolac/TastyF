@@ -162,6 +162,8 @@ public function publicidad()
 		return View::make('Admin.categorias',compact('categorias'));
 
 	}
+
+
 	public function activar()
 	{	dd(Input::All());
 		// $valor = Input::get('activar');
@@ -171,6 +173,8 @@ public function publicidad()
 		// $categoria->save();
 		// 	return Redirect::back()->with('message','Cambios con exito');
 	}
+
+
 	public function publicar()
 	{
 		$publicidad = new Publicidad;
@@ -325,6 +329,172 @@ public function publicidad()
 		return Redirect::to('admin/publicidad')->with('message','Cambios con éxito');
 			
 	}
+
+	public function editarA()
+	{
+		if(Input::has('Editar'))
+		{
+
+			$producto = Productos::find(Input::get('id_producto'));
+			$cat =  Categorias::find($producto->id_categoria);
+			$cat2 =  Categorias::find($producto->id_categoria2);
+	    	$categorias = Categorias::where('activa','=','1')->lists('nombre','id');		
+			return View::make('admin.editarproductoA',compact('producto','cat','cat2','categorias'));
+
+		}
+		elseif (Input::has('Eliminar')) 
+		{
+			$producto = Productos::find(Input::get('id_producto'));
+			$producto->delete();
+			return Redirect::to('/admin/alimentos')->with('success','Alimento eliminado con éxito');
+		}
+	}
+
+	public function guardarA()
+	{
+		$producto = Productos::find(Input::get('id'));
+		$image = Input::file('imgFile');
+		if($image!=null){
+			$producto->imagen = $image_final;
+			$name_image = $image -> getClientOriginalName();	
+			$image_final = 'productos/' .$name_image;
+			$image -> move('productos', $name_image );
+		}
+			
+	
+		$producto->nombre = Input::get('nombre');
+		$producto->descripcion = Input::get('descripcion');
+		$producto->precio = Input::get('precio');
+		$producto->id_restaurante = Auth::user()->id_restaurante;
+		$producto->hora_inicio = Input::get('hora_inicio'); 
+		$producto->hora_fin = Input::get('hora_fin');
+		$estado = Input::get('estado');
+			if($estado==1){
+				$producto->estado = 1;
+			}
+			else
+			{
+				$producto->estado = 0;
+			}
+
+		
+		$producto->save();
+
+		return Redirect::to('admin/alimentos')->with('message','Cambios con exito');
+	}
+
+	public function editarB()
+	{
+		if(Input::has('Editar'))
+		{
+
+			$producto = Productos::find(Input::get('id_producto'));
+			$cat =  Categorias::find($producto->id_categoria);
+			$cat2 =  Categorias::find($producto->id_categoria2);
+	    	$categorias = Categorias::where('activa','=','1')->lists('nombre','id');		
+			return View::make('admin.editarproductoB',compact('producto','cat','cat2','categorias'));
+
+		}
+		elseif (Input::has('Eliminar')) 
+		{
+			$producto = Productos::find(Input::get('id_producto'));
+			$producto->delete();
+			return Redirect::to('/admin/bebidas')->with('success','Bebida elimnada con éxito');
+		}
+	}
+
+	public function guardarB()
+	{
+		$producto = Productos::find(Input::get('id'));
+		$image = Input::file('imgFile');
+		if($image!=null){
+			$producto->imagen = $image_final;
+			$name_image = $image -> getClientOriginalName();	
+			$image_final = 'productos/' .$name_image;
+			$image -> move('productos', $name_image );
+		}
+			
+	
+		$producto->nombre = Input::get('nombre');
+		$producto->descripcion = Input::get('descripcion');
+		$producto->precio = Input::get('precio');
+		$producto->id_restaurante = Auth::user()->id_restaurante;
+		$producto->hora_inicio = Input::get('hora_inicio'); 
+		$producto->hora_fin = Input::get('hora_fin');
+		$estado = Input::get('estado');
+			if($estado==1){
+				$producto->estado = 1;
+			}
+			else
+			{
+				$producto->estado = 0;
+			}
+
+		
+		$producto->save();
+
+		return Redirect::to('admin/bebidas')->with('message','Cambios con exito');
+	}
+
+	public function agregarc()
+	{
+		return View::make('admin/nuevac');
+	}
+
+	public function nuevac()
+	{
+
+		$categoria = new Categorias;
+		$categoria->nombre = Input::get('nombre');
+		$categoria->descripcion = Input::get('descripcion');
+		$estado = Input::get('estado');
+		if ($estado == 1) {
+			$categoria->activa = 1;
+		}
+		else{
+			$categoria->activa = 0;
+		}
+		$categoria->save();
+		return Redirect::to('admin/categorias')->with('message','Categoría subida correctamente');
+
+	}
+
+		public function editarc(){
+
+		if(Input::has('Editar'))
+		{	
+			$categoria = Categorias::find(Input::get('cat_id'));
+		    return View::make('Admin.categorias2',compact('categoria'));
+
+		}
+		if(Input::has('Eliminar'))
+		{	
+		 	$categoria = Categorias::where('id','=',Input::get('cat_id'))->get();
+			$categoria[0]->delete();
+			return Redirect::to('admin/categorias')->with('message','Categoría eliminada con éxito');
+        }
+
+	
+	}
+
+	public function savec()
+	{
+
+		$categorias = Categorias::find(Input::get('id'));
+		$categorias->descripcion = Input::get('descripcion');
+		$categorias->nombre = Input::get('nombre');
+		$estado = Input::get('estado');
+		if ($estado == 1) {
+			$categorias->activa = 1;
+		}
+		else{
+			$categorias->activa = 0;
+		}
+		$categorias->save();
+		return Redirect::to('admin/categorias')->with('message','Cambios con éxito');
+
+	}
+
 
 
 

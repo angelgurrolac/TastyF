@@ -2,5 +2,5 @@
 
 class UsuariosHD extends Eloquent
 {
-	protected $table = "usersHD";
+	protected $table = "usershd";
 }
