@@ -67,7 +67,7 @@ echo $nuevafecha;
 
 						<ul class="nav nav-tabs">
 							<li><a style="cursor:pointer;" id="hogarP">Pedidos</a></li>
-							<li><a style="cursor:pointer;" id="hogarV">Vistas</a></li>
+							<!-- <li><a style="cursor:pointer;" id="hogarV">Vistas</a></li> -->
 							<li><a style="cursor:pointer;" id="hogarR">Reservaciones</a></li>
 						</ul>
 						<br>
@@ -156,7 +156,7 @@ echo $nuevafecha;
 							<!-- Fin pedidos -->
 
 							<!-- 	Visitas -->
-							<div id="visitas" class="panel panel-green" style="border-color:black;">
+							<!-- <div id="visitas" class="panel panel-green" style="border-color:black;">
 								<div class="panel-heading" style="background-color:black; border-color:black;">
 									<h3 class="panel-title"><i class="fa fa-eye"></i> Vistas</h3>
 								</div>
@@ -172,7 +172,7 @@ echo $nuevafecha;
 									<br>
 									 @endforeach
 								</div>
-							</div>
+							</div> -->
 							<!-- Fin de visitas -->
 
 							<!-- Reservaciones -->

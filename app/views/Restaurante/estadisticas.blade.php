@@ -195,6 +195,56 @@ jddayofweek ( cal_to_jd(CAL_GREGORIAN, date("m"),date("d"), date("Y")) , 1 );
                </div>       
           </div>
      </div>
+
+
+
+
+      <div class="panel panel-default">
+                    <div class="panel-heading admin"><h4>Publicidad</h4></div>
+
+                    <div class="table-responsive">
+                         <table class="table table-bordered table-hover table-striped users">
+
+                           <thead>
+                              <th>Nombre</th>
+                              <th>Vistas teléfono</th>
+                              <th>Vistas dirección</th>               
+                              <th>Vistas publicidad</th>   
+                              <th>Cobro</th>       
+                              <th>Total a cobrar</th> 
+                            
+                             
+                              
+                         </thead>
+                         <tbody>
+                            
+                              <tr>
+                                  <td>{{ Session::get('nombre') }}</td>
+                                  <td>{{$restaurante->con_telefono}}</td>
+                                   <td>{{$restaurante->con_direccion}}</td>
+                                   @foreach($publicidad as $key => $val)
+                                   <td>{{$val->vistasp}}</td>
+                                    @endforeach
+                                    <td>$0.20</td>
+                                    <?php 
+                                    $total = (($restaurante->con_telefono + $restaurante->con_direccion + $val->vistasp) * .2) 
+                                    ?>
+                                    <td>{{$total}}</td>
+
+                                  
+
+               
+                            </tr>
+                       
+                         </tbody>
+
+
+                    </table>     
+                    <div class="panel-footer clearfix admin">
+
+                    </div>     
+               </div>
+          </div>
     
           
 

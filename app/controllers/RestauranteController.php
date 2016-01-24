@@ -326,8 +326,10 @@ class RestauranteController extends \BaseController {
 	{
 		
 		$id= Auth::user()->id_restaurante;
+		$restaurante = Restaurantes::find(Auth::user()->id_restaurante);
 		$restaurantes = Pedidos::estadisticasRestaurante($id)->get(); 
 		$restaurantes2 = Pedidos::estadisticasRestauranteE($id)->get();
+		$publicidad = Publicidad::cuentasp(Auth::user()->id_restaurante)->get();
 		// $pedidos=Pedidos::pagadas($id)->count();
 		// $credito = Estadisticas::where('id_restaurante', '=', $id)->where('tipo', '=','tarjeta')->get();
 		// $efectivo = Estadisticas::where('id_restaurante', '=', $id)->where('tipo', '=','efectivo')->get();
@@ -339,7 +341,7 @@ class RestauranteController extends \BaseController {
  			
  	// 		$cantidad = Pedidos::cantidad()->get();
  		
-		return View::make('Restaurante.estadisticas',compact('restaurantes','restaurantes2'));
+		return View::make('Restaurante.estadisticas',compact('restaurante','restaurantes','restaurantes2','publicidad'));
 		
 	}
 
@@ -455,6 +457,13 @@ class RestauranteController extends \BaseController {
 		$finanzas->save();
 		return Redirect::to('restaurante/estadisticas')->with('message','Pago guardado');
 
+	}
+
+
+	public function pedenviados()
+	{
+		$penvios = Pedidos::pedienvi()->get();
+		return View::make('Restaurante.enviados',compact('penvios'));
 	}
 
 
