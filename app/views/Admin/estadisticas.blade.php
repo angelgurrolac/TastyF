@@ -29,21 +29,21 @@
                               <th>Nombre</th>
                               <th>Costo Promedio</th>
                               <th>No. ordenes</th>               
-                              <th>Consultas</th>
+                              
                               <th>Comisión</th>          
                               <th>Total a depositar</th> 
                               <th>Numero de cuenta</th>
                               <th>Fecha a pagar</th>
+                              <th>Acciones</th>
                               
                          </thead>
                          <tbody>
                               @foreach($restaurantes as $key => $val)
                               <tr>
                                    <td>{{$val->Nombre}}</td>
-
                                    <td>{{$val->promedio}}</td>
-                                   <td>{{$val->ordenes}}</td>
-                                   <td>{{$val->consultas}}</td>
+                                   <td>{{$val->pedidos}}</td>
+
                                    <td>{{$val->comision}}</td>
                                    <td>{{$val->totalF}}</td>
                                    <td>{{$val->cuenta}}</td>
@@ -75,7 +75,7 @@ jddayofweek ( cal_to_jd(CAL_GREGORIAN, date("m"),date("d"), date("Y")) , 1 );
                                         $fecha = date('d-m-Y', strtotime('next tuesday'));
                                         $diaA = 'Martes';
                                    }
-                                   if ($dia == 'friday') {
+                                   if ($dia == 'Friday') {
                                         $fecha = date('d-m-Y', strtotime('next wednesday'));
                                         $diaA = 'Miercoles';
                                    }
@@ -89,7 +89,15 @@ jddayofweek ( cal_to_jd(CAL_GREGORIAN, date("m"),date("d"), date("Y")) , 1 );
                                    }
                                   
                                   echo "<td>".$diaA." ".$fecha."</td>";  ?>
-                              </tr>
+                              
+                                  <td>{{Form::open(array('url'=>'/admin/finanzas', 'id' => $val->idp))}}
+                {{ Form::submit('Pagado', array('name'=> 'Pagado','class' => 'btn btn-success direccionar')) }} 
+                <input type="hidden" name="id" value="{{$val->idp}}">
+                <input type="hidden" name="costo_promedio" value="{{$val->promedio}}">
+                <input type="hidden" name="tipo" value="{{$val->tipo}}">
+                {{Form::close()}}
+           </td>
+                                  </tr>
                               @endforeach
                          </tbody>
 
@@ -100,7 +108,9 @@ jddayofweek ( cal_to_jd(CAL_GREGORIAN, date("m"),date("d"), date("Y")) , 1 );
                     </div>     
                </div>
           </div>
+
           <br>
+
           <div class="panel panel-default">
                <div class="panel-heading admin"><h4>Efectivo</h4></div>
 
@@ -109,12 +119,13 @@ jddayofweek ( cal_to_jd(CAL_GREGORIAN, date("m"),date("d"), date("Y")) , 1 );
                         <thead>
                          <th>Nombre</th>
                          <th>Costo Promedio</th>
-                         <th>No. ordenes</th>               
-                         <th>Consultas</th>
+                         <th>No. ordenes</th>  
+
                          <th>Comisión</th>          
                          <th>Total a depositar</th> 
                          <th>Numero de cuenta</th>
                          <th>Fecha a cobrar</th>
+                         <th>Acciones</th>
                          
                     </thead>
                     <tbody>
@@ -123,10 +134,9 @@ jddayofweek ( cal_to_jd(CAL_GREGORIAN, date("m"),date("d"), date("Y")) , 1 );
                          @foreach($restaurantes2 as $key => $val)
                          <tr>
                               <td>{{$val->Nombre}}</td>
-
                               <td>{{$val->promedio}}</td>
-                              <td>{{$val->ordenes}}</td>
-                              <td>{{$val->consultas}}</td>
+                              <td>{{$val->pedidos}}</td>
+
                               <td>{{$val->comision}}</td>
                               <td>{{$val->totalF}}</td>
                               <td>{{$val->cuenta}}</td>
@@ -140,37 +150,44 @@ jddayofweek ( cal_to_jd(CAL_GREGORIAN, date("m"),date("d"), date("Y")) , 1 );
 // ECHO ' <br/>'; 
 
 jddayofweek ( cal_to_jd(CAL_GREGORIAN, date("m"),date("d"), date("Y")) , 1 ); 
-                                   $dia = $val->dia;
+                                   $dia = $val->hoy;
                                    if ($dia == 'Monday') {
-                                        $fecha = date('d-m-Y', strtotime('next thursday'));
-                                        $diaA = 'Jueves';
+                                        $fecha = date('d-m-Y', strtotime('next tuesday'));
+                                        $diaA = 'Martes';
                                    }
                                    if ($dia == 'Tuesday') {
-                                        $fecha = date('d-m-Y', strtotime('next friday'));
-                                        $diaA = 'Viernes';
+                                        $fecha = date('d-m-Y', strtotime('next wednesday'));
+                                        $diaA = 'Miercoles';
                                    }
                                    if ($dia == 'Wednesday') {
-                                        $fecha = date('d-m-Y', strtotime('next monday'));
-                                        $diaA = 'Lunes';
+                                        $fecha = date('d-m-Y', strtotime('next thursday'));
+                                        $diaA = 'Jueves';
                                    }
                                    if ($dia == 'Thursday') {
                                         $fecha = date('d-m-Y', strtotime('next tuesday'));
                                         $diaA = 'Martes';
                                    }
-                                   if ($dia == 'friday') {
-                                        $fecha = date('d-m-Y', strtotime('next wednesday'));
-                                        $diaA = 'Miercoles';
+                                   if ($dia == 'Friday') {
+                                        $fecha = date('d-m-Y', strtotime('next saturday'));
+                                        $diaA = 'Sábado';
                                    }
                                    if ($dia == 'Saturday') {
-                                        $fecha = date('d-m-Y', strtotime('next thursday'));
-                                        $diaA = 'Jueves';
+                                        $fecha = date('d-m-Y', strtotime('next sunday'));
+                                        $diaA = 'Domingo';
                                    }
                                    if ($dia == 'Sunday') {
-                                        $fecha = date('d-m-Y', strtotime('next thursday'));
-                                        $diaA = 'Jueves';
+                                        $fecha = date('d-m-Y', strtotime('next monday'));
+                                        $diaA = 'Lunes';
                                    }
                                     
                                    echo "<td>".$diaA." ".$fecha."</td>";  ?>
+                                  <td>{{Form::open(array('url'=>'/admin/finanzas', 'id' => $val->id))}}
+                {{ Form::submit('Pagado', array('name'=> 'Pagado','class' => 'btn btn-success direccionar')) }} 
+                <input type="hidden" name="id" value="{{$val->id}}">
+                <input type="hidden" name="costo_promedio" value="{{$val->promedio}}">
+                <input type="hidden" name="tipo" value="{{$val->tipo}}">
+                {{Form::close()}}
+           </td>
                          </tr>
                          @endforeach
 
@@ -184,9 +201,70 @@ jddayofweek ( cal_to_jd(CAL_GREGORIAN, date("m"),date("d"), date("Y")) , 1 );
                </div>       
           </div>
      </div>
+
+     <br>
+
+
+      <div class="panel panel-default">
+                    <div class="panel-heading admin"><h4>Publicidad</h4></div>
+
+                    <div class="table-responsive">
+                         <table class="table table-bordered table-hover table-striped users">
+
+                           <thead>
+                              <th>Nombre</th>
+                              <th>Vistas teléfono</th>
+                              <th>Vistas dirección</th>               
+                              <th>Vistas publicidad</th>          
+                              <th>Total a cobrar</th> 
+                              <th>Acciones</th> 
+                             
+                              
+                         </thead>
+                         <tbody>
+                              @foreach($publicidad as $key => $val)
+                              <tr>
+                                   <td>{{$val->nombreR}}</td>
+                                   <td>{{$val->telefono}}</td>
+                                   <td>{{$val->direccion}}</td>
+                                   <td>{{$val->vistasp}}</td>
+                                   <td>{{$val->total}}</td>
+                     
+
+               
+                              
+                                  <td>{{Form::open(array('url'=>'/admin/finanzasPu', 'id' => $val->id))}}
+                {{ Form::submit('Pagado', array('name'=> 'Pagado','class' => 'btn btn-success direccionar')) }} 
+                <input type="hidden" name="id" value="{{$val->id}}">
+                {{Form::close()}}
+           </td>
+                                  </tr>
+                              @endforeach
+                         </tbody>
+
+
+                    </table>     
+                    <div class="panel-footer clearfix admin">
+
+                    </div>     
+               </div>
+          </div>
+
+
+
+
 </div>     
 </div>
 </div>     
 
 </body>
 </html>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.direccionar').click(function(){
+    var formulario = $(this).next('input').val();
+    $('#'+formulario).submit();
+  });
+});
+</script>

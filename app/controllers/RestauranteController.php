@@ -14,22 +14,27 @@ class RestauranteController extends \BaseController {
 		$detalles = Pedidos::consulta()->get();
 		$restaurante = Restaurantes::find(Auth::user()->id_restaurante);
 		$reservaciones = Reservaciones::res(Auth::user()->id_restaurante);
+		$publicidad = Publicidad::cuentasp(Auth::user()->id_restaurante)->get();
 		$detallesR = Reservaciones::consulta()->get();
-		return View::make('Restaurante.hogar',compact('pedidos','detalles','reservaciones','detallesR','restaurante'));
+		return View::make('Restaurante.hogar',compact('pedidos','detalles','reservaciones','detallesR','restaurante','publicidad'));
 	}
 
 
 	public function hogarPedidos(){
 		
 		$pedido = Pedidos::find(Input::get('idpedido'));
-		$user =    	$usuario = User::where('id','=',$pedido->id_usuario)->first();
+		$user = $usuario = User::where('id','=',$pedido->id_usuario)->first();
 	
 		if(Input::has('Confirmar'))
 		{
 
 			$pedido->estatus = 'sinPagar';
 			$pedido->save();
-			
+			$envios = new Envios();
+			$envios->estatus = 'pendiente';
+			$envios->id_pedido = $pedido->id;
+			$envios->id_restaurante = $pedido->id_restaurante;
+			$envios->save();
 			return Redirect::to('/')->with('success','Orden Aceptada Con Exito');
 
 		}
@@ -317,7 +322,7 @@ class RestauranteController extends \BaseController {
 	}
 
 
-	public function estadisticas()
+	public function estadisticas() 
 	{
 		
 		$id= Auth::user()->id_restaurante;
@@ -420,5 +425,37 @@ class RestauranteController extends \BaseController {
 			
 				
 	}
+
+	public function enviarhd()
+	{
+		// $valor = Input::get('id');
+		// $pedidos = Pedidos::where('pagoR','=', $valor)->first();
+		// $pedidos->estatus = 'sinPagar';
+		// $pedidos->save();
+
+        // Envios::where('id_usuarioHD','=',Input::get('id'))->update(['estatus' => 'pendiente']);
+		Pedidos::where('pagoR', '=', Input::get('id'))->update(['estatus' => 'sinPagar']); 
+
+		return Redirect::to('restaurante/hogar');
+
+
+	}
+
+
+	public function finanzas()
+	{
+
+		$pedidos = Pedidos::find(Input::get('id'));
+		$pedidos->pagoR2 = 1;
+		$pedidos->save();
+		$finanzas = new Estadisticas();
+		$finanzas->id_restaurante = Input::get('id');
+		$finanzas->costo_promedio = Input::get('costo_promedio');
+		$finanzas->tipo = Input::get('tipo');
+		$finanzas->save();
+		return Redirect::to('restaurante/estadisticas')->with('message','Pago guardado');
+
+	}
+
 
 }

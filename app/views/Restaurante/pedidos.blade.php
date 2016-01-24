@@ -86,10 +86,10 @@
                             </table>
                           </div>
                         
-                           {{ Form::hidden('idpedido',$value->id)}}
-                           <div class="panel-footer" style="border-style: none;">
+                           <!-- {{ Form::hidden('idpedido',$value->id)}} -->
+                       <!--     <div class="panel-footer" style="border-style: none;">
                                 <input type="submit" value="Enviar con HD" class="btn btn-success">
-                           </div>
+                           </div> -->
                
                   
 

@@ -5,23 +5,25 @@ class UserController extends \BaseController {
 			
 	public function alimentos()
 	{			
-			date_default_timezone_set('America/Mexico_City');
+			
+            $usuario = User::where('username','=',Input::get('username'))->first();
+            date_default_timezone_set('America/Mexico_City');
 			$hora = date('H:i:s');
 			$alimentos=Productos::alimentosUser($hora);			
-				
 			return json_encode($alimentos);		
 	}
 	public function bebidas()
 	{
 		
-			date_default_timezone_set('America/Mexico_City');
+			$usuario = User::where('username','=',Input::get('username'))->first();
+            date_default_timezone_set('America/Mexico_City');
 			$hora = date('H:i:s');
 			$bebidas=Productos::bebidasUser($hora);			
 			return json_encode($bebidas);				
 	}
 	public function restaurantes()
 	{
-        $usuario = User::where('username','=',Input::get('username'))->firs();
+        $usuario = User::where('username','=',Input::get('username'))->first();
 		$restaurantes=Restaurantes::all();
 		return json_encode($restaurantes);
 		
@@ -41,7 +43,8 @@ class UserController extends \BaseController {
 		
 			
 		$pedido = new Pedidos;
-		$pedido->domicilio = Input::get('direccion');
+        $pedido->domicilio = Input::get('direccion');
+		$pedido->coordenadas = Input::get('coordenadas');
         $pedido->caracteristica = $caracteristica;
 		$pedido->total = Input::get('costo');
 		$pedido->id_restaurante = $restaurante;
@@ -65,24 +68,14 @@ class UserController extends \BaseController {
 
 	}
 
+    public function estatuspedido()
+    {
 
-
-
-
-
-
-    public function EstatusP(){
-
-        $usuario = User::where('username','=',Input::get('username'))->first();
+        $usuario = User::where('username','=', Input::get('username'))->first();
         $resultado = Pedidos::EnviosUser($usuario->id)->take(1)->get();
-    
-       //      return Response::json($pedido);
-       //  }
-        
-        
-  // $validacion = usuariosHD::whereRaw('id = (select max(`id`) from usersHD)')->get();
         return json_encode($resultado);
     }
+
 
 
 	public function reservaciones(){
@@ -122,7 +115,9 @@ class UserController extends \BaseController {
         Conekta::setLocale('ES');
         $reservacion = Reservaciones::find(Input::get('id'));
         $card = Input::get('conektaTokenId');
-        $monto = 5 * 100;
+        $total = Input::get('total');
+        $monto = 5 + $total;
+
 
         $restaurantes = Restaurantes::find($reservacion->id_restaurante)->first();              
         $user =  $usuario = User::where('id','=',$reservacion->id_usuario)->first();
@@ -162,6 +157,7 @@ class UserController extends \BaseController {
 
         }
             $reservacion->estatus = 'pagada';
+            $reservacion->total = $monto;
             $reservacion->save();
             $restaurantes->confirmadas = $restaurantes->confirmadas + 1 ;
             $restaurantes->save();
@@ -169,6 +165,7 @@ class UserController extends \BaseController {
             return Response::json($charge->status);
         
     }
+    
 	public function factura(){
 		$usuario = User::where('username','=',Input::get('username'))->first();
 		$factura = new Facturas;
@@ -182,6 +179,8 @@ class UserController extends \BaseController {
 		$factura->save();
 		return Response::json($factura->id);
 	}
+
+
 	public function tarjeta(){
 		$usuario = User::where('username','=',Input::get('username'))->first();
 		$tarjeta = new Tarjetas;
@@ -264,12 +263,28 @@ class UserController extends \BaseController {
             $restaurantes->pagadas = $restaurantes->pagadas + 1 ;
             $restaurantes->save();
             if($user->reg_id != ""){
+                $valor = PushNotification::Message('Califica el sabor de los platillos que acabas de consumir!',array(
+                    'valor' => 1,
+                    'sound' => 'example.aiff',
+
+                    'actionLocKey' => 'Action button title!',
+                    'locKey' => 'localized key',
+                    'locArgs' => array(
+                        'localized args',
+                        'localized args',
+                        ),
+                    'launchImage' => 'image.jpg',
+
+                    'custom' => array('custom data' => array(
+                        'we' => 'want', 'send to app'
+                        ))
+                    ));
 
 
-                      PushNotification::app('Tasty')
-                            ->to($user->reg_id)
-                            ->send('Califica el sabor de los platillos que acabas de consumir!');
-                    }
+                PushNotification::app('Tasty')
+                ->to($user->reg_id)
+                ->send($valor);
+            }
         	return Response::json($charge->status);
         
     }
@@ -597,6 +612,7 @@ class UserController extends \BaseController {
     public function envres()
     {
         $usuario = User::where('username','=',Input::get('username'))->first();
+        $estado = UsuariosHD::where('id','=',Input::get('id_usuarioHD') )->first();
         $confirmacion = Input::get('confirmacion');
 
         if ($confirmacion == 'si')
@@ -604,13 +620,17 @@ class UserController extends \BaseController {
         $envios = Envios::find(Input::get('id'));
         $envios->estatus = 'recibido';
         $envios->save();
+        $estado->estatus_u = 'disponible';
+        $estado->save();
         return Response::json('success si');
         }
-        if ($confirmacion == 'no')
+        elseif ($confirmacion == 'no')
          {
         $envios = Envios::find(Input::get('id'));
         $envios->estatus = 'confirmado';
         $envios->save();
+        $estado->estatus_u = 'noatendido';
+        $estado->save();
         return Response::json('success no');
         }
         else
@@ -631,5 +651,26 @@ class UserController extends \BaseController {
         $restaurante = Restaurantes::where('id','=',Input::get('id_restaurante'))->get();
         $envios = Envios::ultimoenvio($restaurante->id)->take(1)->get();
         return json_encode($envios);
+    }
+
+    public function Pednoaten()
+    {
+        // $pedido = Pedidos::where('id','=',Input::get('id_pedido'))->get();
+        $pedidos = Pedidos::find(Input::get('id_pedido'));
+        $pedidos->estatus = 'noAtendida';
+        $pedidos->save();
+        return Response::json('success');
+
+
+    }
+
+    public function PedPen()
+    {
+        // $pedido = Pedidos::where('id','=',Input::get('id_pedido'))->get();
+        $pedidos = Pedidos::find(Input::get('id_pedido'));
+        $pedidos->estatus = 'pendiente';
+        $pedidos->save();
+        return Response::json('success');
+
     }
 }

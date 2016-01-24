@@ -1,31 +1,31 @@
 <?php
 
-class FacturarR extends Eloquent
+class facturarr extends Eloquent
 {
-	protected $table = "FacturarR";
+	protected $table = "facturarr";
 	
 	public function scopePropias($facturas,$id){
-		$facturas =DB::table('FacturarR')
-		->where('FacturarR.id_restaurante','=',$id)
+		$facturas =DB::table('facturarr')
+		->where('facturarr.id_restaurante','=',$id)
 		->leftjoin('facturas as facturas',	function($join){
-							$join->on('FacturarR.id_factura','=','facturas.id');
+							$join->on('facturarr.id_factura','=','facturas.id');
 					}) 
 		
 	
-		->select('*','facturas.id as idF','FacturarR.id as idf');
+		->select('*','facturas.id as idF','facturarr.id as idf');
 	
 		return $facturas;
 	}
 
 	public function scopeUnica($factura,$id){
-		$factura =DB::table('FacturarR')
-		->where('FacturarR.id','=',$id)
+		$factura =DB::table('facturarr')
+		->where('facturarr.id','=',$id)
 		->leftjoin('facturas as facturas',	function($join){
-							$join->on('FacturarR.id_factura','=','facturas.id');
+							$join->on('facturarr.id_factura','=','facturas.id');
 					}) 
 		
 	
-		->select('*','facturas.id as idF','FacturarR.id as idf');
+		->select('*','facturas.id as idF','facturarr.id as idf');
 	
 		return $factura;
 	}

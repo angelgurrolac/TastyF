@@ -5,14 +5,14 @@ class RegistroController extends BaseController {
 	public function registrar()
 	{
 		$username = Input::get('correo');
-		$usuarios = User::where('username','=',$username)->get();
+		$usuarios = User::where('username','=',$username)->count();
 		$codigo = Input::get('codigo_postal');
 		if ($codigo > 34398 || $codigo < 34000)
 		{
 			return Response::json('0');		
 		}
-		if ($usuarios != null) {
-			return Response::json('2');
+		elseif ($usuarios > 0) {
+			return Response::json('usuario repetido');
 		}
 		else{
 

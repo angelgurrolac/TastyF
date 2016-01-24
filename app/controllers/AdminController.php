@@ -14,7 +14,7 @@ class AdminController extends \BaseController {
 		$pedidos= Pedidos::Admin();		
 		return View::make('Admin.pedidos',compact('pedidos'));
 	}
-public function publicidad()
+    public function publicidad()
 	{	
 		date_default_timezone_set('America/Mexico_City');
 		$fecha = date('Y-m-d');
@@ -22,6 +22,7 @@ public function publicidad()
 		return View::make('Admin.publicidad',compact('publicidad'));
 		//return View::make('Admin.publicidad');
 	}
+
 	public function alimentos()
 	{
 		
@@ -95,15 +96,19 @@ public function publicidad()
 	{
 		$restaurantes = Pedidos::estadisticasT()->get(); 
 		$restaurantes2 = Pedidos::estadisticasE()->get(); 
+		$publicidad = Publicidad::pagos()->get();
 		// // $nuevafecha = date('Y-m-d', strtotime('+7 day'));//arreglo para días 
 		// $cantidad = Pedidos::cantidad()->get();
 		// $credito = Estadisticas::where('tipo', '=','tarjeta')->get();
 		// $efectivo = Estadisticas::where('tipo', '=','efectivo')->get();		
 		
 	
-		return View::make('Admin.estadisticas',compact('restaurantes','restaurantes2'));
+		return View::make('Admin.estadisticas',compact('restaurantes','restaurantes2','publicidad'));
 		 	 
 	}
+
+
+
 	
 	public function candidatos(){
 		$candidatos = Restaurantes::where('validado','=','0')->get();
@@ -326,6 +331,15 @@ public function publicidad()
 		$publicidad->hora_fin = Input::get('hora_fin');
 		$publicidad->save();
 
+		$reg = 'APA91bFt7e3tIj2MO9YPQU7z6ddfQ4WkSdO7xzpQYX2H0G25JjiEjMQd9Chqn7OOKC1k14jGh3xeBPQWJZYP5Dzz9uyrjj1UB646vlt1dUdkDlM6M0_D7ss';
+
+
+                      PushNotification::app('Tasty')
+                            ->to($reg)
+                            ->send('Hola Escamilla!! Si funciona esto! :P');
+
+                            
+
 		return Redirect::to('admin/publicidad')->with('message','Cambios con éxito');
 			
 	}
@@ -494,6 +508,39 @@ public function publicidad()
 		return Redirect::to('admin/categorias')->with('message','Cambios con éxito');
 
 	}
+
+	public function finanzas()
+	{
+		$pedidos = Pedidos::find(Input::get('id'));
+		$pedidos->pagoR = 1;
+		$pedidos->save();
+		$finanzas = new Estadisticas();
+		$finanzas->id_restaurante = Input::get('id');
+		$finanzas->costo_promedio = Input::get('costo_promedio');
+		$finanzas->tipo = Input::get('tipo');
+		$finanzas->save();
+		return Redirect::to('admin/estadisticas')->with('message','Pago guardado');
+
+	}
+
+	public function finanzasPu()
+	{
+		$restaurantes = Restaurantes::find(Input::get('id'));
+		$restaurantes->con_telefono = 0;
+		$restaurantes->con_direccion = 0;
+		$restaurantes->save();
+		// $publicidad = Publicidad::where('id_restaurante','=',Input::get('id'))->first();
+		Publicidad::where('id_restaurante', '=', Input::get('id'))->update(['contador' => 0]); 
+		// $publicidad->contador = 0;
+		// $publicidad->save();
+		return Redirect::to('admin/estadisticas')->with('message','Pago guardado');
+
+	}
+
+
+
+
+
 
 
 

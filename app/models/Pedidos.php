@@ -298,8 +298,10 @@ class Pedidos extends Eloquent
 	{
 		$restaurantes =DB::table('pedidos as Pedidos')
 		
-		->where('Pedidos.estatus','LIKE','pagada')
-		->where('Pedidos.tipo','LIKE','tarjeta')
+		->where('Pedidos.estatus','=','pagada')
+		->where('Pedidos.tipo','=','tarjeta')
+		->where('Pedidos.pagoR','=', 0)
+		->where('Pedidos.pagoR2','=', 0)
 
 
 		->leftjoin('restaurantes as Restaurantes',	function($join){
@@ -307,20 +309,33 @@ class Pedidos extends Eloquent
 		})
 
 				
-		->select(DB::raw('DAYNAME(Restaurantes.created_at) as dia'),
-			  'Pedidos.id_restaurante',
+		->select('Pedidos.created_at as fecha',DB::raw('DAYNAME(Pedidos.created_at) as dia'),
+			  'Pedidos.id_restaurante as id',
+			  'Pedidos.id as idp',
 			  'Restaurantes.nombre as Nombre',
-			  'Restaurantes.pagadas as ordenes',
-			  'Restaurantes.confirmadas as reservaciones',
 			  'Restaurantes.cuenta as cuenta',
-			  DB::raw('SUM(Pedidos.total) as total'),
+			  'Pedidos.tipo as tipo',
+			  DB::raw('COUNT(Pedidos.id_restaurante = Restaurantes.id) as pedidos'),
+ 			  DB::raw('SUM(Pedidos.total) as total'),
 			  DB::raw('ROUND(AVG(Pedidos.total),2) as promedio'),
-			  DB::raw('(Restaurantes.con_telefono + Restaurantes.con_direccion) as consultas'),
-			  DB::raw('(SUM(Pedidos.total) * .15) as comision'),
-			  DB::raw('(SUM(Pedidos.total) - (SUM(Pedidos.total) * .15)  - (Restaurantes.con_telefono + Restaurantes.con_direccion)) as totalF'))
+			  DB::raw('(SUM(Pedidos.total) * .12) as comision'),
+			  DB::raw('(SUM(Pedidos.total) - (SUM(Pedidos.total) * .15)) as totalF'))
 	
 
-		->groupBy('Pedidos.id_restaurante');
+		->groupBy(DB::raw('LEFT(Pedidos.created_at,10), Restaurantes.id'))
+
+
+		->where(DB::raw('LEFT(Pedidos.created_at,10) = CURDATE()
+     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 1 DAY)
+     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 2 DAY)
+     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 3 DAY)
+     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 4 DAY)
+     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 5 DAY)
+     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 6 DAY)
+     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 7 DAY)
+      OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 8 DAY)
+      OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 9 DAY)
+      OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 10 DAY)'));
 		
 		
 		return $restaurantes;
@@ -333,30 +348,56 @@ class Pedidos extends Eloquent
 	{
 		$restaurantes =DB::table('pedidos as Pedidos')
 		
-		->where('Pedidos.estatus','LIKE','pagada')
-		->where('Pedidos.tipo','LIKE','tarjeta')
-		->where('Restaurantes.id','=',$id)
+		->where('Pedidos.estatus','=','pagada')
+		->where('Pedidos.tipo','=','tarjeta')
+		->where('Pedidos.id_restaurante','=',$id)
+		->where('Pedidos.pagoR','=', 0)
+		->where('Pedidos.pagoR2','=', 0)
+
+		->where(DB::raw('LEFT(Pedidos.created_at,10) = CURDATE()
+     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 1 DAY)
+     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 2 DAY)
+     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 3 DAY)
+     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 4 DAY)
+     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 5 DAY)
+     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 6 DAY)
+     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 7 DAY)
+      OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 8 DAY)
+      OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 9 DAY)
+      OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 10 DAY)'))
+		// DB::raw('LEFT(Pedidos.created_at,10)'), '=', DB::raw('DATE_SUB(CONCAT(CURDATE()), INTERVAL 1 DAY)'), 'OR',
+		// DB::raw('LEFT(Pedidos.created_at,10)'), '=', DB::raw('DATE_SUB(CONCAT(CURDATE()), INTERVAL 2 DAY)'), 'OR',
+		// DB::raw('LEFT(Pedidos.created_at,10)'), '=', DB::raw('DATE_SUB(CONCAT(CURDATE()), INTERVAL 3 DAY)'), 'OR',
+		// DB::raw('LEFT(Pedidos.created_at,10)'), '=', DB::raw('DATE_SUB(CONCAT(CURDATE()), INTERVAL 4 DAY)'), 'OR',
+		// DB::raw('LEFT(Pedidos.created_at,10)'), '=', DB::raw('DATE_SUB(CONCAT(CURDATE()), INTERVAL 5 DAY)'), 'OR',
+		// DB::raw('LEFT(Pedidos.created_at,10)'), '=', DB::raw('DATE_SUB(CONCAT(CURDATE()), INTERVAL 6 DAY)'), 'OR',
+		// DB::raw('LEFT(Pedidos.created_at,10)'), '=', DB::raw('DATE_SUB(CONCAT(CURDATE()), INTERVAL 7 DAY)'), 'OR',
+		// DB::raw('LEFT(Pedidos.created_at,10)'), '=', DB::raw('DATE_SUB(CONCAT(CURDATE()), INTERVAL 8 DAY)'), 'OR',
+		// DB::raw('LEFT(Pedidos.created_at,10)'), '=', DB::raw('DATE_SUB(CONCAT(CURDATE()), INTERVAL 9 DAY)'), 'OR',
+		// DB::raw('LEFT(Pedidos.created_at,10)'), '=', DB::raw('DATE_SUB(CONCAT(CURDATE()), INTERVAL 10 DAY)'))
 
 
-		->leftjoin('restaurantes as Restaurantes',	function($join){
-					$join->on('Restaurantes.id','=','Pedidos.id_restaurante');
-		})
+		// ->leftjoin('restaurantes as Restaurantes',	function($join) use($id) {
+		// 			$join->on('Pedidos.id_restaurante','=',DB::raw('"'.$id.'"'));
+		// })
 
 				
-		->select(DB::raw('DAYNAME(Restaurantes.created_at) as dia'),
-			  'Pedidos.id_restaurante',
-			  'Restaurantes.nombre as Nombre',
-			  'Restaurantes.pagadas as ordenes',
-			  'Restaurantes.confirmadas as reservaciones',
-			  'Restaurantes.cuenta as cuenta',
-			  DB::raw('SUM(Pedidos.total) as total'),
+		->select('Pedidos.created_at as fecha',DB::raw('DAYNAME(Pedidos.created_at) as dia'),
+			  'Pedidos.id_restaurante as id',
+			  'Pedidos.id as idp',
+			  'Pedidos.tipo as tipo',
+			  DB::raw('COUNT(Pedidos.id_restaurante = '.$id.') as pedidos'),
+ 			  DB::raw('SUM(Pedidos.total) as total'),
 			  DB::raw('ROUND(AVG(Pedidos.total),2) as promedio'),
-			  DB::raw('(Restaurantes.con_telefono + Restaurantes.con_direccion) as consultas'),
-			  DB::raw('(SUM(Pedidos.total) * .15) as comision'),
-			  DB::raw('(SUM(Pedidos.total) - (SUM(Pedidos.total) * .15)  - (Restaurantes.con_telefono + Restaurantes.con_direccion)) as totalF'))
+			  DB::raw('(SUM(Pedidos.total) * .12) as comision'),
+			  DB::raw('(SUM(Pedidos.total) - (SUM(Pedidos.total) * .15)) as totalF'))
+	
 	
 
-		->groupBy('Pedidos.id_restaurante');
+		->groupBy(DB::raw('LEFT(Pedidos.created_at,10), Pedidos.id_restaurante'));
+
+
+		
 		
 		
 		return $restaurantes;
@@ -367,30 +408,53 @@ class Pedidos extends Eloquent
 	{
 		$restaurantes =DB::table('pedidos as Pedidos')
 		
-		->where('Pedidos.estatus','LIKE','pagada')
-		->where('Pedidos.tipo','LIKE','efectivo')
-		->where('Restaurantes.id','=',$id)
+		->where('Pedidos.estatus','=','pagada')
+		->where('Pedidos.tipo','=','efectivo')
+		->where('Pedidos.id_restaurante','=',$id)
+		->where('Pedidos.pagoR','=', 0)
+		->where('Pedidos.pagoR2','=', 0)
+
+		->where(DB::raw('LEFT(Pedidos.created_at,10) = CURDATE()
+     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 1 DAY)
+     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 2 DAY)
+     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 3 DAY)
+     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 4 DAY)
+     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 5 DAY)
+     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 6 DAY)
+     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 7 DAY)'))
+		// DB::raw('LEFT(Pedidos.created_at,10)'), '=', DB::raw('DATE_SUB(CONCAT(CURDATE()), INTERVAL 1 DAY)'), 'OR',
+		// DB::raw('LEFT(Pedidos.created_at,10)'), '=', DB::raw('DATE_SUB(CONCAT(CURDATE()), INTERVAL 2 DAY)'), 'OR',
+		// DB::raw('LEFT(Pedidos.created_at,10)'), '=', DB::raw('DATE_SUB(CONCAT(CURDATE()), INTERVAL 3 DAY)'), 'OR',
+		// DB::raw('LEFT(Pedidos.created_at,10)'), '=', DB::raw('DATE_SUB(CONCAT(CURDATE()), INTERVAL 4 DAY)'), 'OR',
+		// DB::raw('LEFT(Pedidos.created_at,10)'), '=', DB::raw('DATE_SUB(CONCAT(CURDATE()), INTERVAL 5 DAY)'), 'OR',
+		// DB::raw('LEFT(Pedidos.created_at,10)'), '=', DB::raw('DATE_SUB(CONCAT(CURDATE()), INTERVAL 6 DAY)'), 'OR',
+		// DB::raw('LEFT(Pedidos.created_at,10)'), '=', DB::raw('DATE_SUB(CONCAT(CURDATE()), INTERVAL 7 DAY)'), 'OR',
+		// DB::raw('LEFT(Pedidos.created_at,10)'), '=', DB::raw('DATE_SUB(CONCAT(CURDATE()), INTERVAL 8 DAY)'), 'OR',
+		// DB::raw('LEFT(Pedidos.created_at,10)'), '=', DB::raw('DATE_SUB(CONCAT(CURDATE()), INTERVAL 9 DAY)'), 'OR',
+		// DB::raw('LEFT(Pedidos.created_at,10)'), '=', DB::raw('DATE_SUB(CONCAT(CURDATE()), INTERVAL 10 DAY)'))
 
 
-		->leftjoin('restaurantes as Restaurantes',	function($join){
-					$join->on('Restaurantes.id','=','Pedidos.id_restaurante');
-		})
+		// ->leftjoin('restaurantes as Restaurantes',	function($join) use($id) {
+		// 			$join->on('Pedidos.id_restaurante','=',DB::raw('"'.$id.'"'));
+		// })
 
 				
-		->select(DB::raw('DAYNAME(Restaurantes.created_at) as dia'),
-			  'Pedidos.id_restaurante',
-			  'Restaurantes.nombre as Nombre',
-			  'Restaurantes.pagadas as ordenes',
-			  'Restaurantes.confirmadas as reservaciones',
-			  'Restaurantes.cuenta as cuenta',
-			  DB::raw('SUM(Pedidos.total) as total'),
+		->select('Pedidos.created_at as fecha',DB::raw('DAYNAME(Pedidos.created_at) as dia'),
+			  'Pedidos.id_restaurante as id',
+			  'Pedidos.id as idp',
+			  'Pedidos.tipo as tipo',
+			  DB::raw('COUNT(Pedidos.id_restaurante = '.$id.') as pedidos'),
+ 			  DB::raw('SUM(Pedidos.total) as total'),
 			  DB::raw('ROUND(AVG(Pedidos.total),2) as promedio'),
-			  DB::raw('(Restaurantes.con_telefono + Restaurantes.con_direccion) as consultas'),
-			  DB::raw('(SUM(Pedidos.total) * .15) as comision'),
-			  DB::raw('(SUM(Pedidos.total) - (SUM(Pedidos.total) * .15)  - (Restaurantes.con_telefono + Restaurantes.con_direccion)) as totalF'))
+			  DB::raw('(SUM(Pedidos.total) * .12) as comision'),
+			  DB::raw('(SUM(Pedidos.total) - (SUM(Pedidos.total) * .15)) as totalF'))
+	
 	
 
-		->groupBy('Pedidos.id_restaurante');
+		->groupBy(DB::raw('Pedidos.id_restaurante'));
+
+
+		
 		
 		
 		return $restaurantes;
@@ -407,6 +471,8 @@ class Pedidos extends Eloquent
 		
 		->where('Pedidos.estatus','LIKE','pagada')
 		->where('Pedidos.tipo','LIKE','efectivo')
+		->where('Pedidos.pagoR','=', 0)
+		->where('Pedidos.pagoR2','=', 0)
 
 
 		->leftjoin('restaurantes as Restaurantes',	function($join){
@@ -414,21 +480,29 @@ class Pedidos extends Eloquent
 		})
 
 				
-		->select(DB::raw('DAYNAME(Restaurantes.created_at) as dia'),
-			  'Pedidos.id_restaurante',
+		->select(DB::raw('DAYNAME(CURDATE()) as hoy'),DB::raw('DATE_SUB(CONCAT(CURDATE()), INTERVAL 7 DAY) as final'),
+			  'Pedidos.id_restaurante as id',
 			  'Restaurantes.nombre as Nombre',
-			  'Restaurantes.pagadas as ordenes',
-			  'Restaurantes.confirmadas as reservaciones',
 			  'Restaurantes.cuenta as cuenta',
-			  DB::raw('SUM(Pedidos.total) as total'),
+			  'Pedidos.tipo as tipo',
+			  DB::raw('COUNT(Pedidos.id_restaurante = Restaurantes.id) as pedidos'),
+ 			  DB::raw('SUM(Pedidos.total) as total'),
 			  DB::raw('ROUND(AVG(Pedidos.total),2) as promedio'),
-			  DB::raw('(Restaurantes.con_telefono + Restaurantes.con_direccion) as consultas'),
-			  DB::raw('(SUM(Pedidos.total) * .15) as comision'),
-			  DB::raw('(SUM(Pedidos.total) - (SUM(Pedidos.total) * .15)  - (Restaurantes.con_telefono + Restaurantes.con_direccion)) as totalF'))
+			  DB::raw('(SUM(Pedidos.total) * .12) as comision'),
+			  DB::raw('(SUM(Pedidos.total) - (SUM(Pedidos.total) * .15)) as totalF'))
 	
 
-		->groupBy('Pedidos.id_restaurante');
-		
+		->groupBy('Restaurantes.id')
+
+
+		->where(DB::raw('LEFT(Pedidos.created_at,10) = CURDATE()
+     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 1 DAY)
+     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 2 DAY)
+     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 3 DAY)
+     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 4 DAY)
+     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 5 DAY)
+     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 6 DAY)
+     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 7 DAY)'));
 		
 		return $restaurantes;
 	}
@@ -512,38 +586,35 @@ class Pedidos extends Eloquent
 
 
 
-		public function scopeEnviosUser($pedidos,$id)
+		public function scopeEnviosUser($pedidos,$usuario)
 	{    
 
-		 $pedidos =DB::table('pedidos as p')
-
-		  
-
+		  $pedidos =DB::table('pedidos as p')
 		  ->where('p.estatus', '=', 'pagada')
+		  ->where('e.estatus', '=', 'confirmado')
 
-		  ->where('p.id_usuario', '=', $id) 
-		
-		  //->where('users.username','=', $id)
-
-		 ->leftjoin('users as u',function($join){
-							$join->on('u.id','=', 'p.id_usuario');
+		  // ->where('p.id_usuario', '=', $id)
+		  
+		 ->leftjoin('users as u',function($join) use($usuario){
+							$join->on('p.id_usuario','=',  DB::raw('"'.$usuario.'"'));
 					}) 
 		
-
 		->leftjoin('envios as e',function($join){
 							$join->on('e.id_pedido','=','p.id');
 					}) 
 		
-		->leftjoin('usersHD as h',function($join){
+		->leftjoin('usershd as h',function($join){
 							$join->on('e.id_usuarioHD','=','h.id');
 					})
+		
 
- 		
-                 
-                 ->select('h.username','e.estatus','e.coordenadas_actuales')
+        ->select('p.id as id_pedido','h.nombre','h.apellidos','e.coordenadas_actuales')
 
-				->orderBy('p.id','desc');
-					return $pedidos;
+        ->orderBy('p.id','DESC');
+
+		
+					
+		return $pedidos;
 
 	}
 
@@ -566,7 +637,7 @@ class Pedidos extends Eloquent
 
 		 ->orderBy('p.id','desc')
 		 
-		 ->select('p.id','e.id','p.id_usuario','u.username');
+		 ->select('p.id','e.id','p.id_usuario','u.username','e.id_usuarioHD');
 
 
 

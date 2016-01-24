@@ -77,6 +77,12 @@ echo $nuevafecha;
 
 							<!-- Pedidos -->
 							<div id="pedidos" class="panel panel-green" style="border-color:black;">
+								<br>
+								 <td>{{Form::open(array('url'=>'/restaurante/enviarhd','id' => 0))}}
+                {{ Form::submit('Enviar con Happy Delivery', array('name'=> 'Enviar','class' => 'btn btn-success direccionar')) }} 
+                <input type="hidden" name="id" value="0">
+                {{Form::close()}}
+                <br>
 								<div class="panel-heading" style="background-color:black; border-color:black;">
 									<h3 class="panel-title"><i class="fa fa-fw fa-flag"></i> Pedidos</h3>
 								</div>
@@ -161,6 +167,10 @@ echo $nuevafecha;
 									<br>
 									<p class="titulos-pedidos">Personas que han visto mi dirección en la aplicación:</p> <p class="res-pedidos">{{$restaurante->con_direccion}}</p>
 									<br>
+									 @foreach($publicidad as $key => $val)
+									<p class="titulos-pedidos">Personas que han visto mi publicidad en la aplicación:</p><p class="res-pedidos"> {{$val->vistasp}}</p>
+									<br>
+									 @endforeach
 								</div>
 							</div>
 							<!-- Fin de visitas -->
@@ -251,3 +261,12 @@ echo $nuevafecha;
 
 	</body>
 	</html>
+
+	<script type="text/javascript">
+$(document).ready(function(){
+  $('.direccionar').click(function(){
+    var formulario = $(this).next('input').val();
+    $('#'+formulario).submit();
+  });
+});
+</script>

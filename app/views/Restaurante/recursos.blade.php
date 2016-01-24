@@ -99,7 +99,7 @@
             <a href="{{URL::to('/restaurante/bebidas') }}"><i class="fa fa-fw fa-glass"></i> Bebidas</a>
           </li>
           <li>
-            <a href="{{URL::to('/restaurante/pedidos') }}"><i class="fa fa-fw fa-cutlery"></i> Pedidos</a>
+            <a href="{{URL::to('/restaurante/pedidos') }}"><i class="fa fa-fw fa-cutlery"></i> Pedidos atendidos</a>
           </li>
           <li>
             <a href="{{URL::to('/restaurante/declinadas') }}"><i class="fa fa-fw fa-file-excel-o"></i> Ordenes declinadas</a>
