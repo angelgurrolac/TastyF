@@ -646,6 +646,29 @@ class Pedidos extends Eloquent
 
 
 	}
+	public function scopepedienvi()
+	{
+		 $pedidos =DB::table('pedidos')
+
+		->leftjoin('envios as envios',function($join){
+							$join->on('pedidos.id','=','envios.id_pedido');
+					})
+		->leftjoin('users as users',function($join){
+							$join->on('pedidos.id_usuario','=','users.id');
+					})
+		->leftjoin('usershd as usershd',function($join){
+							$join->on('envios.id_usuarioHD','=','usershd.id');
+					})
+
+		->where('envios.estatus', '=' , 'entregado')
+		->where('pedidos.estatus', '=' , 'pagada')
+		->select('users.nombre as usuariotasty','users.apellidos as apellidostasty','usershd.nombre as usuariohd',
+			'usershd.apellidos as apellidoshd','pedidos.id as pedidosid','pedidos.caracteristica as caracteristicas',
+			'pedidos.total as totalpedido','pedidos.domicilio as domicilio');
+
+		return $pedidos;
+
+	}
 
 
 }

@@ -96,10 +96,13 @@
             <a href="{{URL::to('/restaurante/alimentos') }}"><i class="fa fa-fw fa-cutlery"></i> Alimentos</a>
           </li>
           <li>
-            <a href="{{URL::to('/restaurante/bebidas') }}"><i class="fa fa-fw fa-glass"></i> Bebidas</a>
+            <a href=""><i class="fa fa-fw fa-glass"></i> Bebidas</a>
           </li>
           <li>
-            <a href="{{URL::to('/restaurante/pedidos') }}"><i class="fa fa-fw fa-cutlery"></i> Pedidos atendidos</a>
+            <a href="{{URL::to('/restaurante/bebidas') }}"><i class="fa fafw fa-paper-plane-o"></i> Pedidos enviados</a>
+          </li>
+          <li>
+            <a href="{{URL::to('/restaurante/pedidos') }}"><i class="fa fa-fw fa-flag"></i> Pedidos atendidos</a>
           </li>
           <li>
             <a href="{{URL::to('/restaurante/declinadas') }}"><i class="fa fa-fw fa-file-excel-o"></i> Ordenes declinadas</a>

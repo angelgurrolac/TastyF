@@ -157,6 +157,7 @@ Route::post('/restaurante/facturaM','RestauranteController@facturaM');
 Route::post('/restaurante/facturacion','RestauranteController@facturacion');
 Route::post('/restaurante/enviarhd','RestauranteController@enviarhd');
 Route::post('/restaurante/finanzas','RestauranteController@finanzas');
+Route::get('/restaurante/pedenviados','RestauranteController@pedenviados');
 });
 
 Route::group(array('before' => array('auth', 'admin')), function()
