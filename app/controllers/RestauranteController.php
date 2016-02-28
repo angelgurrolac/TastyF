@@ -192,8 +192,10 @@ class RestauranteController extends \BaseController {
 			$producto = Productos::find(Input::get('producto_id'));
 			$cat =  Categorias::find($producto->id_categoria);
 			$cat2 =  Categorias::find($producto->id_categoria2);
-	    	$categorias = Categorias::where('activa','=','1')->lists('nombre','id');		
-			return View::make('Restaurante.editarProducto',compact('producto','cat','cat2','categorias'));
+	    	$categorias = Categorias::where('activa','=','1')->lists('nombre','id');
+	    	$pedidos = Pedidos::pedidos(Auth::user()->id_restaurante);
+			$reservaciones = Reservaciones::res(Auth::user()->id_restaurante);		
+			return View::make('Restaurante.editarProducto',compact('producto','cat','cat2','categorias','pedidos','reservaciones'));
 
 		}
 		elseif (Input::has('Eliminar')) 
@@ -212,8 +214,10 @@ class RestauranteController extends \BaseController {
 			$producto = Productos::find(Input::get('producto_id'));
 			$cat =  Categorias::find($producto->id_categoria);
 			$cat2 =  Categorias::find($producto->id_categoria2);
-	    	$categorias = Categorias::where('activa','=','1')->lists('nombre','id');		
-			return View::make('Restaurante.editarProductoB',compact('producto','cat','cat2','categorias'));
+	    	$categorias = Categorias::where('activa','=','1')->lists('nombre','id');
+	    	$pedidos = Pedidos::pedidos(Auth::user()->id_restaurante);
+			$reservaciones = Reservaciones::res(Auth::user()->id_restaurante);		
+			return View::make('Restaurante.editarProductoB',compact('producto','cat','cat2','categorias','pedidos','reservaciones'));
 
 		}
 		elseif (Input::has('Eliminar')) 
@@ -375,20 +379,26 @@ class RestauranteController extends \BaseController {
 	{
 		$pedidos = Pedidos::pedidosDos(Auth::user()->id_restaurante);
 		$detalles = Pedidos::consulta()->get();
-		return View::make('Restaurante.pedidos',compact('pedidos','detalles'));
+		$pedido = Pedidos::pedidos(Auth::user()->id_restaurante);
+		$reservaciones = Reservaciones::res(Auth::user()->id_restaurante);
+		return View::make('Restaurante.pedidos',compact('pedidos','detalles','reservaciones','pedido'));
 	}	
 
 		public function noAtendidas()
 	{
 		$pedidos = Pedidos::pedidosCuatro(Auth::user()->id_restaurante);
-			$detalles = Pedidos::consulta()->get();
-		return View::make('Restaurante.noAtendidas',compact('pedidos','detalles'));
+		$detalles = Pedidos::consulta()->get();
+		$pedido = Pedidos::pedidos(Auth::user()->id_restaurante);
+		$reservaciones = Reservaciones::res(Auth::user()->id_restaurante);
+		return View::make('Restaurante.noAtendidas',compact('pedidos','detalles','reservaciones','pedido'));
 	}	
 		public function declinadas()
 	{
 		$pedidos = Pedidos::pedidosTres(Auth::user()->id_restaurante);
-			$detalles = Pedidos::consultaDos()->get();
-		return View::make('Restaurante.declinadas',compact('pedidos','detalles'));
+		$detalles = Pedidos::consultaDos()->get();
+		$pedido = Pedidos::pedidos(Auth::user()->id_restaurante);
+		$reservaciones = Reservaciones::res(Auth::user()->id_restaurante);
+		return View::make('Restaurante.declinadas',compact('pedidos','detalles','reservaciones','pedido'));
 	}			
 	public function informes()
 	{
@@ -419,16 +429,21 @@ class RestauranteController extends \BaseController {
 		$OP = Pedidos::pagadas($id)->avg('total');
 		$OP2 = Pedidos::pagadasSemana($id)->avg('total');
 		$OP3 = Pedidos::pagadasMes($id)->avg('total');
+		$pedidos = Pedidos::pedidos(Auth::user()->id_restaurante);
+		$reservaciones = Reservaciones::res(Auth::user()->id_restaurante);
+
 	
 		return View::make('Restaurante.informes',compact('VT','IMPORTE','NuOrdenes','OM','MO','OP',
 			'VT2','IMPORTE2','NuOrdenes2','OM2','MO2','OP2',
-			'VT3','IMPORTE3','NuOrdenes3','OM3','MO3','OP3'));
+			'VT3','IMPORTE3','NuOrdenes3','OM3','MO3','OP3','pedidos','reservaciones'));
 		
 	}
 	public function datos()
 	{
 		$restaurante=Restaurantes::find( Auth::user()->id_restaurante);
-		return View::make('Restaurante.datos',compact('restaurante'));
+		$pedidos = Pedidos::pedidos(Auth::user()->id_restaurante);
+		$reservaciones = Reservaciones::res(Auth::user()->id_restaurante);
+		return View::make('Restaurante.datos',compact('restaurante','pedidos','reservaciones'));
 	}
 
 
@@ -440,6 +455,8 @@ class RestauranteController extends \BaseController {
 		$restaurantes = Pedidos::estadisticasRestaurante($id)->get(); 
 		$restaurantes2 = Pedidos::estadisticasRestauranteE($id)->get();
 		$publicidad = Publicidad::cuentasp(Auth::user()->id_restaurante)->get();
+		$pedidos = Pedidos::pedidos(Auth::user()->id_restaurante);
+		$reservaciones = Reservaciones::res(Auth::user()->id_restaurante);
 		// $pedidos=Pedidos::pagadas($id)->count();
 		// $credito = Estadisticas::where('id_restaurante', '=', $id)->where('tipo', '=','tarjeta')->get();
 		// $efectivo = Estadisticas::where('id_restaurante', '=', $id)->where('tipo', '=','efectivo')->get();
@@ -451,7 +468,7 @@ class RestauranteController extends \BaseController {
  			
  	// 		$cantidad = Pedidos::cantidad()->get();
  		
-		return View::make('Restaurante.estadisticas',compact('restaurante','restaurantes','restaurantes2','publicidad'));
+		return View::make('Restaurante.estadisticas',compact('restaurante','restaurantes','restaurantes2','publicidad','pedidos','reservaciones'));
 		
 	}
 
@@ -507,14 +524,17 @@ class RestauranteController extends \BaseController {
 	{	
 	
 		$Facturas = FacturarR::propias(Auth::user()->id_restaurante)->get();
-	
-		return View::make('Restaurante.facturas',compact('Facturas'));
+		$pedidos = Pedidos::pedidos(Auth::user()->id_restaurante);
+		$reservaciones = Reservaciones::res(Auth::user()->id_restaurante);
+		return View::make('Restaurante.facturas',compact('Facturas','pedidos','reservaciones'));
 
 	}
 	public function factura($id)
 	{
 		$factura = FacturarR::unica($id)->get();
-		return View::make('Restaurante.FacturaA',compact('factura'));
+		$pedidos = Pedidos::pedidos(Auth::user()->id_restaurante);
+		$reservaciones = Reservaciones::res(Auth::user()->id_restaurante);
+		return View::make('Restaurante.FacturaA',compact('factura','pedidos','reservaciones'));
 	}
 	public function facturaM()
 	{
@@ -572,13 +592,17 @@ class RestauranteController extends \BaseController {
 	public function pedenviados()
 	{
 		$penvios = Pedidos::pedienvi()->get();
-		return View::make('Restaurante.enviados',compact('penvios'));
+		$pedidos = Pedidos::pedidos(Auth::user()->id_restaurante);
+		$reservaciones = Reservaciones::res(Auth::user()->id_restaurante);
+		return View::make('Restaurante.enviados',compact('penvios','pedidos','reservaciones'));
 	}
 
 	public function reservacionesA()
 	{
 		$reservaciones = Reservaciones::reservacionesA()->get();
-		return View::make('Restaurante.reservaciones',compact('reservaciones'));
+		$pedidos = Pedidos::pedidos(Auth::user()->id_restaurante);
+		$reservacione = Reservaciones::res(Auth::user()->id_restaurante);
+		return View::make('Restaurante.reservaciones',compact('reservaciones','reservacione','pedidos'));
 	}
 
 

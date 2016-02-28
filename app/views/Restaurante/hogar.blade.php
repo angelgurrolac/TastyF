@@ -92,11 +92,8 @@ date_default_timezone_set('America/Mexico_City');
 $notificacion =  date('Y-m-d H:i:s');
 
 
-
 $nuevamas = strtotime ( '+2 minute' , strtotime ( $notificacion ) ) ;
 $nuevamas = date ( 'Y-m-d H:i:s' , $nuevamas );
-
-
 
 
 $nuevamenos = strtotime ( '-62 minute' , strtotime ( $notificacion ) ) ;

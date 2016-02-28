@@ -5,9 +5,140 @@
 	<meta charset="UTF-8" http-equiv="refresh" content="20">
 	<title>Declinadas</title>
   <script src="{{ URL::asset('assets/js/diseno-tabla.js') }}"></script>
+  <script src="{{ URL::asset('assets/js/notificaciones.js') }}"></script>
+
+  <style type="text/css">
+  .notificaciones-info{
+   background: #075db2;
+   color: #fff;
+   padding: 10px;
+   margin-right: 200px;
+   font-weight: bold;
+   font-family: sans-serif;
+ }
+
+ .notificaciones-info:hover{
+   background: #7cbecc;
+   color: #eee;
+ }
+
+ .notificaciones-error{
+   background: #bd0000;
+   color: #fff;
+   padding: 20px;
+   border: 3px solid #fff;
+ }
+ .notificaciones-error:hover{
+   background: #e43633;  
+ }
+
+ .notificaciones-success{
+   background: #90cd48;
+   color: #fff;
+   padding: 10px;
+   margin-right: 50px;
+   font-weight: bold;
+   font-family: sans-serif;
+ }
+ .notificaciones-success:hover{
+  background: #8bc53f;
+}
+
+#notificaciones{
+  display: block;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 9999;
+}
+.notificacion{
+  float: right;
+  clear: both;
+  border: 3px solid transparent;
+  cursor: pointer;
+}
+</style>
+<?php
+// Establecer la zona horaria predeterminada a usar. Disponible desde PHP 5.1
+date_default_timezone_set('America/Mexico_City');
+
+
+// Imprime algo como: Monday 8th of August 2005 03:12:46 PM
+$notificacion =  date('Y-m-d H:i:s');
+
+
+
+$nuevamas = strtotime ( '+2 minute' , strtotime ( $notificacion ) ) ;
+$nuevamas = date ( 'Y-m-d H:i:s' , $nuevamas );
+
+
+
+
+$nuevamenos = strtotime ( '-62 minute' , strtotime ( $notificacion ) ) ;
+$nuevamenos = date ( 'Y-m-d H:i:s' , $nuevamenos );
+
+?>
 </head>
 <body>
-	        <div class="row" style="background-color:white;">
+  @foreach($reservaciones as $key3 => $value3)
+  @if($nuevamas > $value3->created_at && $nuevamenos < $value3->created_at) 
+  <script type="text/javascript">
+  $(document).ready(function() { 
+
+   //si no existe la ventana notificaciones la creamos,
+     //esta será la que contendrá a todas las notificaciones
+     if ($("#notificaciones").length == 0) {
+        //creamos el div con id notificaciones
+        var contenedor_notificaciones = $(window.document.createElement('div')).attr("id", "notificaciones");
+        //a continuación la añadimos al body
+        $('body').append(contenedor_notificaciones);
+      }
+      
+      $.notificaciones({    
+        mensaje : '¡Tienes una nueva reservación, revisa tus pedidos y reservaciones!',
+        width: 700,
+        cssClass : 'success',
+        timeout : 3000,//milisegundos
+        fadeout : 5000,//tiempo en desaparecer
+        radius : 10
+      });
+    });
+
+  </script>                   
+  @endif
+
+  @endforeach
+
+  @foreach($pedido as $key2 => $value2)
+  
+  @if($nuevamas > $value2->created_at && $nuevamenos < $value2->created_at) 
+
+  <script type="text/javascript">
+  $(document).ready(function() { 
+
+   //si no existe la ventana notificaciones la creamos,
+     //esta será la que contendrá a todas las notificaciones
+     if ($("#notificaciones").length == 0) {
+        //creamos el div con id notificaciones
+        var contenedor_notificaciones = $(window.document.createElement('div')).attr("id", "notificaciones");
+        //a continuación la añadimos al body
+        $('body').append(contenedor_notificaciones);
+      }
+      
+      $.notificaciones({    
+        mensaje : '¡Tienes un nuevo pedido, revisa tus pedidos y reservaciones!',
+        width: 700,
+        cssClass : 'success',
+        timeout : 3000,//milisegundos
+        fadeout : 5000,//tiempo en desaparecer
+        radius : 10
+      });
+    });
+
+  </script>                   
+  @endif
+  @endforeach
+  <div class="row" style="background-color:white;">
    <div class="col-lg-2"></div>
    <div class="col-lg-10">
     <br>
@@ -22,83 +153,83 @@
               <h3 class="panel-title"><i class="fa fa-fw fa-file-excel-o"></i> Ordenes declinadas</h3>
             </div>
             <div class="panel-body"> 
-            <hr>
+              <hr>
 
-     
+
               <table id="pedidos" class="table table-bordered table-striped">
-       
+
                <thead class="at">
-                    <th style="width:170px; heigth:200px;">Número de orden</th>
-                    <!-- <th style="width:252px; heigth:200px;">Domicilio</th> -->
-                    <th style="width:388px; heigth:200px;">Características</th>
-                    <th style="width:100px; heigth:200px;">Total</th>      
-                    <!-- <th>Estatus</th>  -->
-                    <!-- <th style="width:144px; heigth:200px;">Nombre</th>       -->
-                    <th style="width:100px; heigth:200px;">Cantidad</th>
-                    <th style="width:344px; heigth:200px;">Producto</th>                                                
-               </thead>
-      <tbody class="at acomodo-tabla">
-         @if(count($pedidos)>0)
-           @foreach($pedidos as $key => $value)
-           {{Form::open(array('url' => '/condec'))}}
+                <th style="width:170px; heigth:200px;">Número de orden</th>
+                <!-- <th style="width:252px; heigth:200px;">Domicilio</th> -->
+                <th style="width:388px; heigth:200px;">Características</th>
+                <th style="width:100px; heigth:200px;">Total</th>      
+                <!-- <th>Estatus</th>  -->
+                <!-- <th style="width:144px; heigth:200px;">Nombre</th>       -->
+                <th style="width:100px; heigth:200px;">Cantidad</th>
+                <th style="width:344px; heigth:200px;">Producto</th>                                                
+              </thead>
+              <tbody class="at acomodo-tabla">
+               @if(count($pedidos)>0)
+               @foreach($pedidos as $key => $value)
+               {{Form::open(array('url' => '/condec'))}}
                <?php $a = 1; ?>
                @foreach($detalles as $key => $info)                        
-                    @if($info->id_pedido == $value->id)     
-                    <?php $a++; ?>
-                    @endif     
+               @if($info->id_pedido == $value->id)     
+               <?php $a++; ?>
+               @endif     
                @endforeach
-                        
-                    <tr>
-                         <td style="width:170px; heigth:200px;" rowspan="{{$a}}">{{$value->id}}</td>
-                         <!-- <td style="width:252px; heigth:200px;" rowspan="{{$a}}">{{$value->domicilioP}}</td> -->
-                         <td style="width:388px; heigth:200px;" rowspan="{{$a}}">{{$value->caracteristica}}</td>
-                         <td style="width:100px; heigth:200px;" rowspan="{{$a}}">{{$value->total}}</td>
-                         <!-- <td rowspan="{{$a}}">{{$value->estatus}}</td> -->
-                          <!-- <td style="width:144px; heigth:200px;" rowspan="{{$a}}">{{$value->nombreUsuario}}</td> -->
-                         @foreach($detalles as $key => $info)
-                         
-                         @if($info->id_pedido == $value->id)     
-                         
-                         
-                    
-                         
-                              <tr>                               
-                                   <td style="width:100px; heigth:200px;" >{{$info->cantidad}}</td>
-                              
-                                   <td style="width:344px; heigth:200px;" >{{$info->nombre}}</td>
-                              
-                           
-                                   
-                              </tr>
+
+               <tr>
+                 <td style="width:170px; heigth:200px;" rowspan="{{$a}}">{{$value->id}}</td>
+                 <!-- <td style="width:252px; heigth:200px;" rowspan="{{$a}}">{{$value->domicilioP}}</td> -->
+                 <td style="width:388px; heigth:200px;" rowspan="{{$a}}">{{$value->caracteristica}}</td>
+                 <td style="width:100px; heigth:200px;" rowspan="{{$a}}">{{$value->total}}</td>
+                 <!-- <td rowspan="{{$a}}">{{$value->estatus}}</td> -->
+                 <!-- <td style="width:144px; heigth:200px;" rowspan="{{$a}}">{{$value->nombreUsuario}}</td> -->
+                 @foreach($detalles as $key => $info)
+
+                 @if($info->id_pedido == $value->id)     
 
 
-                              @endif     
-                                   
-                          @endforeach
-            
-                         {{ Form::hidden('idpedido',$value->id)}}
-                     
-                    </tr>
-                    <td></td>
-                    
 
-          
-                     {{Form::close()}}
-           @endforeach
-              @endif
-      
-            </tbody>
-     
-               </table>
-               
-  
-	</div>
 
+                 <tr>                               
+                   <td style="width:100px; heigth:200px;" >{{$info->cantidad}}</td>
+
+                   <td style="width:344px; heigth:200px;" >{{$info->nombre}}</td>
+
+
+
+                 </tr>
+
+
+                 @endif     
+
+                 @endforeach
+
+                 {{ Form::hidden('idpedido',$value->id)}}
+
+               </tr>
+               <td></td>
+
+
+
+               {{Form::close()}}
+               @endforeach
+               @endif
+
+             </tbody>
+
+           </table>
+
+
+         </div>
+
+       </div>
+     </div>
+   </div>
  </div>
-    </div>
-  </div>
-</div>
-<!-- /.row -->
+ <!-- /.row -->
 
 </div>
 <!-- /.container-fluid -->
