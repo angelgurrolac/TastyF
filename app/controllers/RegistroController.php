@@ -7,15 +7,10 @@ class RegistroController extends BaseController {
 		$username = Input::get('correo');
 		$usuarios = User::where('username','=',$username)->count();
 		$codigo = Input::get('codigo_postal');
-		if ($codigo > 34398 || $codigo < 34000)
-		{
-			return Response::json('0');		
-		}
-		elseif ($usuarios > 0) {
+		if ($usuarios > 0) {
 			return Response::json('usuario repetido');
 		}
 		else{
-
 
 		$reg_id = Input::get('reg_id');
 		$user = New User();
@@ -88,7 +83,7 @@ class RegistroController extends BaseController {
 			
 				$name_image = $image -> getClientOriginalName();	
 				$image_final = 'restaurantes/' .$name_image;
-				$restaurante->img_ref = $image_final;
+				$restaurante->imagenR = $image_final;
 				$image -> move('restaurantes', $name_image );
 			}
 			$entrega = Input::get('domicilio');
@@ -100,7 +95,8 @@ class RegistroController extends BaseController {
 				$restaurante->domicilio = 0;
 			}
 			$restaurante->nombre 	=Input::get('nombre');
-			$restaurante->telefono=Input::get('telefono');
+			$restaurante->telefono = Input::get('telefono');
+			$restaurante->coordenadas = Input::get('coordenadas');
 			$restaurante->direccion=Input::get('direccion');
 			$restaurante->hora_inicio=Input::get('hora_inicio');
 			$restaurante->hora_fin=Input::get('hora_fin');

@@ -43,6 +43,7 @@
                   <p class="titulos-pedidos">Caracteristicas:</p> <p class="res-pedidos">  {{$value->caracteristica}}</p><br>
                   <p class="titulos-pedidos">Total:</p> <p class="res-pedidos">  {{$value->total}}</p>      <br>
                   <p class="titulos-pedidos">Estatus:</p> <p class="res-pedidos">  {{$value->estatus}}</p> <br>
+                  <p class="titulos-pedidos">Tipo de pago:</p> <p class="res-pedidos">  {{$value->tipo}}</p> <br>
                   <p class="titulos-pedidos">Nombre:</p> <p class="res-pedidos">  {{$value->nombreUsuario}}</p>    
 
                  

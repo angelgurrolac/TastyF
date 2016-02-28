@@ -13,12 +13,7 @@
 
              <div class="container ">
                   <h1>Finanzas</h1>
-
-
-
                   <br>
-
-
                   <div class="panel panel-default">
                     <div class="panel-heading admin"><h4>Tarjeta</h4></div>
 
@@ -29,9 +24,8 @@
                               <th>Nombre</th>
                               <th>Costo Promedio</th>
                               <th>No. ordenes</th>               
-                              
-                              <th>Comisión</th>          
                               <th>Total a depositar</th> 
+                              <th>Comisión</th>          
                               <th>Numero de cuenta</th>
                               <th>Fecha a pagar</th>
                               <th>Acciones</th>
@@ -43,9 +37,8 @@
                                    <td>{{$val->Nombre}}</td>
                                    <td>{{$val->promedio}}</td>
                                    <td>{{$val->pedidos}}</td>
-
-                                   <td>{{$val->comision}}</td>
                                    <td>{{$val->totalF}}</td>
+                                   <td>{{$val->comision}}</td>
                                    <td>{{$val->cuenta}}</td>
 
                                    <?php
@@ -120,9 +113,8 @@ jddayofweek ( cal_to_jd(CAL_GREGORIAN, date("m"),date("d"), date("Y")) , 1 );
                          <th>Nombre</th>
                          <th>Costo Promedio</th>
                          <th>No. ordenes</th>  
-
+                         <th>Total a depositar</th>
                          <th>Comisión</th>          
-                         <th>Total a depositar</th> 
                          <th>Numero de cuenta</th>
                          <th>Fecha a cobrar</th>
                          <th>Acciones</th>
@@ -136,9 +128,8 @@ jddayofweek ( cal_to_jd(CAL_GREGORIAN, date("m"),date("d"), date("Y")) , 1 );
                               <td>{{$val->Nombre}}</td>
                               <td>{{$val->promedio}}</td>
                               <td>{{$val->pedidos}}</td>
-
-                              <td>{{$val->comision}}</td>
                               <td>{{$val->totalF}}</td>
+                              <td>{{$val->comision}}</td>
                               <td>{{$val->cuenta}}</td>
                              <?php
                                    date_default_timezone_set('America/Mexico_City');
@@ -151,29 +142,29 @@ jddayofweek ( cal_to_jd(CAL_GREGORIAN, date("m"),date("d"), date("Y")) , 1 );
 
 jddayofweek ( cal_to_jd(CAL_GREGORIAN, date("m"),date("d"), date("Y")) , 1 ); 
                                    $dia = $val->hoy;
-                                   if ($dia == 'Monday') {
-                                        $fecha = date('d-m-Y', strtotime('next tuesday'));
-                                        $diaA = 'Martes';
+                                    if ($dia == 'Monday') {
+                                        $fecha = date('d-m-Y', strtotime('next monday'));
+                                        $diaA = 'Lunes';
                                    }
                                    if ($dia == 'Tuesday') {
-                                        $fecha = date('d-m-Y', strtotime('next wednesday'));
-                                        $diaA = 'Miercoles';
+                                        $fecha = date('d-m-Y', strtotime('next monday'));
+                                        $diaA = 'Lunes';
                                    }
                                    if ($dia == 'Wednesday') {
-                                        $fecha = date('d-m-Y', strtotime('next thursday'));
-                                        $diaA = 'Jueves';
+                                        $fecha = date('d-m-Y', strtotime('next monday'));
+                                        $diaA = 'Lunes';
                                    }
                                    if ($dia == 'Thursday') {
-                                        $fecha = date('d-m-Y', strtotime('next tuesday'));
-                                        $diaA = 'Martes';
+                                        $fecha = date('d-m-Y', strtotime('next monday'));
+                                        $diaA = 'Lunes';
                                    }
                                    if ($dia == 'Friday') {
-                                        $fecha = date('d-m-Y', strtotime('next saturday'));
-                                        $diaA = 'Sábado';
+                                        $fecha = date('d-m-Y', strtotime('next monday'));
+                                        $diaA = 'Lunes';
                                    }
                                    if ($dia == 'Saturday') {
-                                        $fecha = date('d-m-Y', strtotime('next sunday'));
-                                        $diaA = 'Domingo';
+                                        $fecha = date('d-m-Y', strtotime('next monday'));
+                                        $diaA = 'Lunes';
                                    }
                                    if ($dia == 'Sunday') {
                                         $fecha = date('d-m-Y', strtotime('next monday'));

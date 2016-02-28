@@ -125,6 +125,7 @@ Route::post('/users/allen','UserController@allen');
 Route::post('/users/ultEnv','UserController@ultEnv');
 Route::post('/users/Pednoaten','UserController@Pednoaten');
 Route::post('/users/PedPen','UserController@PedPen');
+Route::post('/users/timevaloracion','UserController@timevaloracion');
 
 
 
@@ -134,6 +135,7 @@ Route::get('/restaurante/hogar','RestauranteController@index');
 Route::get('/restaurante/alimentos','RestauranteController@alimentos');
 Route::get('/restaurante/bebidas','RestauranteController@bebidas');
 Route::get('/restaurante/pedidos','RestauranteController@pedidos');
+Route::get('/restaurante/reservacionesA','RestauranteController@reservacionesA');
 Route::get('/restaurante/declinadas','RestauranteController@declinadas');
 Route::get('/restaurante/informes','RestauranteController@informes');
 Route::get('/restaurante/datos','RestauranteController@datos');
@@ -158,6 +160,7 @@ Route::post('/restaurante/facturacion','RestauranteController@facturacion');
 Route::post('/restaurante/enviarhd','RestauranteController@enviarhd');
 Route::post('/restaurante/finanzas','RestauranteController@finanzas');
 Route::get('/restaurante/pedenviados','RestauranteController@pedenviados');
+Route::post('/restaurante/enviarhdc','RestauranteController@enviarhdc');
 });
 
 Route::group(array('before' => array('auth', 'admin')), function()
@@ -204,9 +207,8 @@ Route::post('/admin/editarC','AdminController@editarc');
 Route::post('/admin/savec','AdminController@savec');
 Route::post('/admin/finanzas','AdminController@finanzas');
 Route::post('/admin/finanzasPu','AdminController@finanzasPu');
-
-
-
+Route::post('/admin/editarR','AdminController@editarR');
+Route::post('/admin/guardarR','AdminController@guardarR');
 
 
 

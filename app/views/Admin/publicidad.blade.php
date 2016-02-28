@@ -62,18 +62,7 @@
 																<p>{{$value->contador}}</p>
 																<br>
 															
-
-															<!-- {{Form::open(array('url'=>'/admin/editar', 'id' => $value->id,'style' => 'display:inline-block;'))}} -->
-
-															<!-- <a name="editar" style="display:inline-block;" class="btn btn-success direccionar">Editar</a> -->
-															<!-- <input type="hidden" name="publicidad_id" value="{{$value->id}}"> -->
-															<!-- {{Form::close()}} -->
-
-															<!-- {{Form::open(array('url'=>'/admin/eliminarP', 'id' => $value->id,'style' => 'display:inline-block;'))}} -->
-
-															<!-- <a name="eliminar" style="display:inline-block;" class="btn btn-danger direccionar2">Eliminar</a>	 -->
-															<!-- <input type="hidden" name="producto_id" value="{{$value->id}}"> -->
-
+			
 
 
 															{{ Form::hidden('publicidad_id',$value->id)}}
@@ -90,6 +79,8 @@
 									</div>
 
 									@endforeach
+
+
 
 
 
@@ -140,14 +131,26 @@
 																<br>
 																{{ Form::input('time', 'hora_inicio', Input::old('hora_inicio'), array('placeholder'=>'09:00','required')) }}
 																<br/>
+																<br>
 
 
 																{{ Form::label( 'hora-final', 'Hora a la que dejara de aparecer la imagen', array ('class' => 'estilo-form')) }}	
 																<br>
 																{{ Form::input('time', 'hora_fin', Input::old('hora_fin'), array('placeholder'=>'17:00','required')) }}		    
 																<br>
+																<br>
 															</th>
 														</tr>
+
+														<tr>
+															<th>
+																{{ Form::label('restaurantess', 'Asigna un restaurante a la publicidad', array ('class' => 'estilo-form')) }}	
+																{{ Form::select('restaurante', $restaurantes->lists('nombre', 'id'), Input::old('restaurante'), ['class' => 'form-control']) }}
+									
+																<br>
+															</th>
+														</tr>
+
 
 														<tr>
 															<td>{{ Form::label('Imagen') }}</td>

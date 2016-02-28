@@ -22,6 +22,9 @@ class SessionController extends \BaseController {
 				if ($nivel=='2') {
 					Session::put('nombre',Restaurantes::find(Auth::user()->id_restaurante)->nombre);
 					Session::put('id',Auth::user()->id);
+					$user = User::where('id','=',Auth::user()->id)->first();
+					$user->estatus = 1;
+					$user->save();
 					return Redirect::action('RestauranteController@index');
 				}
 			}
@@ -29,6 +32,10 @@ class SessionController extends \BaseController {
 		return Redirect::back()->with('error_message', 'Datos incorrectos, vuelve a intentarlo.');
 	}
 	public function logout(){
+
+		$user = User::where('id','=',Auth::user()->id)->first();
+		$user->estatus = 0;
+		$user->save();
 		Auth::logout();
 	
 		Session::forget('nombre');

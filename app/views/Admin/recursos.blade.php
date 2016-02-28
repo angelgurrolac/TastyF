@@ -84,7 +84,7 @@
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav" style="overflow-y:hidden;">
           <br>
-          <li class="active">
+          <li >
             <a href="{{URL::to('/admin/pedidos') }}"><i class="fa fa-fw fa-flag"></i> Pedidos</a>
           </li>
           <li>

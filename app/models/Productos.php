@@ -10,6 +10,11 @@ class Productos extends Eloquent
 		->leftjoin('restaurantes as Restaurantes',	function($join){
 				$join->on('Restaurantes.id','=','Productos.id_restaurante');
 		})
+		->leftjoin('users as users',	function($join){
+				$join->on('Restaurantes.id','=','users.id_restaurante');
+		})
+
+		->where('users.estatus','=',1)
 		->where('Restaurantes.validado','=',' 1')
 
 		->where('Productos.hora_inicio','<', $hora)
@@ -102,7 +107,15 @@ class Productos extends Eloquent
 
 		->leftjoin('restaurantes as Restaurantes',	function($join){
 				$join->on('Restaurantes.id','=','Productos.id_restaurante');
+
 		})
+
+		->leftjoin('users as users',	function($join){
+				$join->on('Restaurantes.id','=','users.id_restaurante');
+		})
+
+		->where('users.estatus','=',1)
+
 		->where('Restaurantes.validado','=',' 1')
 
 		->where('Productos.hora_inicio','<', $hora)
@@ -132,8 +145,14 @@ class Productos extends Eloquent
 		->leftjoin('restaurantes as Restaurantes',	function($join){
 				$join->on('Restaurantes.id','=','Productos.id_restaurante');
 		})
+		->leftjoin('users as users',	function($join){
+				$join->on('Restaurantes.id','=','users.id_restaurante');
+		})
+
+		->where('users.estatus','=',1)
 
 		->where('Restaurantes.validado','=','1')
+		
 		->orderBy('Productos.id_categoria');
 
 	

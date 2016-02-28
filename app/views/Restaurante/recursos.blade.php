@@ -16,6 +16,13 @@
   <link rel="stylesheet" href="{{ URL::asset('assets/pnotify.css') }}">
   <script src="{{ URL::asset('assets/js/bootstrap-datetimepicker.min.js') }}"></script>
   <script src="{{ URL::asset('assets/pnotify.js') }}"></script>
+  <style type="text/css">
+  .padding
+  {
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+  }
+  </style>
 
 
  
@@ -89,42 +96,45 @@
      <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav" style="overflow-y:hidden;">
           <br>
-          <li class="active">
-            <a href="{{URL::to('/restaurante/hogar') }}"><i class="fa fa-fw fa-flag"></i> Pedidos y reservaciones</a>
+          <li>
+            <a class="padding" href="{{URL::to('/restaurante/hogar') }}"><i class="fa fa-fw fa-flag"></i> Pedidos y reservaciones</a>
           </li>
           <li>
-            <a href="{{URL::to('/restaurante/alimentos') }}"><i class="fa fa-fw fa-cutlery"></i> Alimentos</a>
+            <a class="padding" href="{{URL::to('/restaurante/alimentos') }}"><i class="fa fa-fw fa-cutlery"></i> Alimentos</a>
           </li>
           <li>
-            <a href=""><i class="fa fa-fw fa-glass"></i> Bebidas</a>
+            <a class="padding" href="{{URL::to('/restaurante/bebidas') }}"><i class="fa fa-fw fa-glass"></i> Bebidas</a>
+          </li>
+           <li>
+            <a class="padding" href="{{URL::to('/restaurante/reservacionesA') }}"><i class="fa fa-fw fa-flag"></i> Reservaciones</a>
           </li>
           <li>
-            <a href="{{URL::to('/restaurante/bebidas') }}"><i class="fa fafw fa-paper-plane-o"></i> Pedidos enviados</a>
+            <a class="padding" href="{{URL::to('/restaurante/pedenviados') }}"><i class="fa fafw fa-paper-plane-o"></i> Pedidos enviados</a>
           </li>
           <li>
-            <a href="{{URL::to('/restaurante/pedidos') }}"><i class="fa fa-fw fa-flag"></i> Pedidos atendidos</a>
+            <a class="padding" href="{{URL::to('/restaurante/pedidos') }}"><i class="fa fa-fw fa-flag"></i> Pedidos atendidos</a>
           </li>
           <li>
-            <a href="{{URL::to('/restaurante/declinadas') }}"><i class="fa fa-fw fa-file-excel-o"></i> Ordenes declinadas</a>
+            <a class="padding" href="{{URL::to('/restaurante/declinadas') }}"><i class="fa fa-fw fa-file-excel-o"></i> Ordenes declinadas</a>
           </li>
           <li>
-            <a href="{{URL::to('/restaurante/noAtendidas') }}"><i class="fa fa-fw fa-minus-square-o"></i> Ordenes no atendidas</a>
+            <a class="padding" href="{{URL::to('/restaurante/noAtendidas') }}"><i class="fa fa-fw fa-minus-square-o"></i> Ordenes no atendidas</a>
           </li>
           
           <li>
-            <a href="{{URL::to('/restaurante/informes') }}"><i class="fa fa-fw fa-file-text-o"></i> Informes</a>
+            <a class="padding" href="{{URL::to('/restaurante/informes') }}"><i class="fa fa-fw fa-file-text-o"></i> Informes</a>
           </li>
           <li>
-            <a href="{{URL::to('/restaurante/datos') }}"><i class="fa fa-fw fa-credit-card"></i> No. de cuenta</a>
+            <a class="padding" href="{{URL::to('/restaurante/datos') }}"><i class="fa fa-fw fa-credit-card"></i> No. de cuenta</a>
           </li>
           <li>
-            <a href="{{URL::to('/restaurante/estadisticas') }}"><i class="fa fa-money"></i> Finanzas</a>
+            <a class="padding" href="{{URL::to('/restaurante/estadisticas') }}"><i class="fa fa-money"></i> Finanzas</a>
           </li>
           <li>
-            <a href="{{URL::to('/restaurante/facturas') }}"><i class="fa fa-files-o"></i> Facturas</a>
+            <a class="padding" href="{{URL::to('/restaurante/facturas') }}"><i class="fa fa-files-o"></i> Facturas</a>
           </li>
           <li>
-            <a href="{{URL::to('/logout') }}"><i class="fa fa-fw fa-power-off"></i> Salir</a>
+            <a class="padding" href="{{URL::to('/logout') }}"><i class="fa fa-fw fa-power-off"></i> Salir</a>
           </li>
         </ul>
       </div>

@@ -28,31 +28,28 @@
               <table id="pedidos" class="table table-bordered table-striped">
 
                <thead class="at">
-                <th style="width:70px; heigth:200px;">Orden</th>
-                <th style="width:252px; heigth:200px;">Usuario Tasty</th>
-                <th style="width:252px; heigth:200px;">Domicilio</th>
-                <th style="width:188px; heigth:200px;">Características</th>
+                <th style="width:270px; heigth:200px;">Número de orden</th>
+                <th style="width:288px; heigth:200px;">Características</th>
                 <th style="width:90px; heigth:200px;">Total</th> 
-                <th style="width:100px; heigth:200px;">Repartidor</th>     
+                <th style="width:400px; heigth:200px;">Nombre del repartidor</th>     
                                                                
               </thead>
               <tbody class="at acomodo-tabla">
 
 
-                <tr>
                 @foreach($penvios as $key => $value)
-                 <td style="width:70px; heigth:200px;" >{{$value->pedidosid}}</td>
-                 <td style="width:252px; heigth:200px;" >{{$value->usuariotasty}} {{$value->apellidostasty}}</td>
-                 <td style="width:252px; heigth:200px;" >{{$value->domicilio}}</td>
-                 <td style="width:188px; heigth:200px;" >{{$value->caracteristicas}}</td>
+
+                <tr>
+                 <td style="width:270px; heigth:200px;" >{{$value->pedidosid}}</td>
+                 <td style="width:288px; heigth:200px;" >{{$value->caracteristicas}}</td>
                  <td style="width:90px; heigth:200px;" >{{$value->totalpedido}}</td>
-                 <td style="width:100px; heigth:200px;" >{{$value->usuariohd}} {{$value->apellidoshd}}</td>                
+                 <td style="width:400px; heigth:200px;" >{{$value->usuariohd}} {{$value->apellidoshd}}</td>                
                 
+               </tr>
+             
                  @endforeach
 
 
-               </tr>
-             
 
              </tbody>
 

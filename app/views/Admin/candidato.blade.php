@@ -60,18 +60,18 @@
 		       </div>
 		       </div>
 		       <div class="row"><div class="form-group col-lg-6">
-		         <img id="blah" style="height:200px; width:200px;"  src="{{asset($candidato->img_ref)}}" />			
+		         <img id="blah" style="height:200px; width:200px;"  src="{{asset($candidato->imagenR)}}" />			
 		       </div>
 		      </div>
 		         
 		       <br>
 		       <div class="row">
 		        <div class="form-group col-lg-6">
-		         {{ Form::label('user', 'Ingresa tu usuario administrador') }}
+		         {{ Form::label('user', 'Ingresa el nombre de usuario del restaurante') }}
 		         {{ Form::text('user', Input::old('user'), array('class' => 'form-control','form'=>'nueva','placeholder' => 'Ingrese su usuario')) }}
 		       </div>
 		        <div class="form-group col-lg-6">
-		         {{ Form::label('password', 'Contraseña') }}
+		         {{ Form::label('password', 'Ingresa la contraseña del restaurante') }}
 		         {{ Form::input('password', 'password', Input::old('password'), array('class' => 'form-control','form'=>'nueva','placeholder' => 'Ingrese su contraseña')) }}
 		       </div>
 	        	</div>

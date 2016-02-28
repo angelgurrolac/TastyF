@@ -14,10 +14,12 @@ class Pedidos extends Eloquent
 					}) 
 		->where('pedidos.id_restaurante','=',$id)
 		->where('pedidos.estatus','=','pendiente')
-		->select('*','pedidos.id as id','restaurantes.id as idR','restaurantes.nombre','users.nombre as nombreUsuario','pedidos.domicilio as domicilioP','pedidos.caracteristica')
+		->select('*','pedidos.created_at as created_at','pedidos.id as id','restaurantes.id as idR','restaurantes.nombre','users.nombre as nombreUsuario','pedidos.domicilio as domicilioP','pedidos.caracteristica')
+		->orderBy('pedidos.id','desc')
 		->get();
 		return $pedidos;
 	}
+
 	public function scopePedidosDos($pedidos,$id){
 		$pedidos =DB::table('pedidos')
 		->leftjoin('restaurantes as restaurantes',	function($join){
@@ -26,9 +28,15 @@ class Pedidos extends Eloquent
 		->leftjoin('users as users',	function($join){
 							$join->on('users.id','=','pedidos.id_usuario');
 					}) 
+		->leftjoin('envios as envios',	function($join){
+							$join->on('envios.id_pedido','=','pedidos.id');
+					})
+		->where('envios.estatus','=','pendiente')
 		->where('pedidos.id_restaurante','=',$id)
+		->where('pedidos.estatus','=','pagada')
 		
-		->select('pedidos.total','pedidos.estatus','pedidos.id as id','restaurantes.id as idR','restaurantes.nombre','users.nombre as nombreUsuario','pedidos.domicilio as domicilioP','pedidos.caracteristica')
+		->select('pedidos.total','pedidos.tipo','pedidos.estatus','pedidos.id as id','restaurantes.id as idR','restaurantes.nombre','users.nombre as nombreUsuario','pedidos.domicilio as domicilioP','pedidos.caracteristica')
+		->orderBy('pedidos.id','desc')
 		->get();
 		return $pedidos;
 	}
@@ -287,7 +295,7 @@ class Pedidos extends Eloquent
 	public function scopeOP(){
 		$productos =DB::table('pedidos')
 		
-		->select(DB::raw('id_restaurante, AVG(total) as cantidad '))
+		->select(DB::raw('id_restaurante, ROUND(AVG(total),2) as cantidad '))
 		
 		->groupBy('id_restaurante')
 		->orderBy('cantidad','DSC');
@@ -319,7 +327,7 @@ class Pedidos extends Eloquent
  			  DB::raw('SUM(Pedidos.total) as total'),
 			  DB::raw('ROUND(AVG(Pedidos.total),2) as promedio'),
 			  DB::raw('(SUM(Pedidos.total) * .12) as comision'),
-			  DB::raw('(SUM(Pedidos.total) - (SUM(Pedidos.total) * .15)) as totalF'))
+			  DB::raw('(SUM(Pedidos.total) - (SUM(Pedidos.total) * .12)) as totalF'))
 	
 
 		->groupBy(DB::raw('LEFT(Pedidos.created_at,10), Restaurantes.id'))
@@ -332,10 +340,7 @@ class Pedidos extends Eloquent
      OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 4 DAY)
      OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 5 DAY)
      OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 6 DAY)
-     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 7 DAY)
-      OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 8 DAY)
-      OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 9 DAY)
-      OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 10 DAY)'));
+     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 7 DAY)'));
 		
 		
 		return $restaurantes;
@@ -361,10 +366,7 @@ class Pedidos extends Eloquent
      OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 4 DAY)
      OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 5 DAY)
      OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 6 DAY)
-     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 7 DAY)
-      OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 8 DAY)
-      OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 9 DAY)
-      OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 10 DAY)'))
+     OR LEFT(Pedidos.created_at,10) = DATE_SUB(CONCAT(CURDATE()), INTERVAL 7 DAY)'))
 		// DB::raw('LEFT(Pedidos.created_at,10)'), '=', DB::raw('DATE_SUB(CONCAT(CURDATE()), INTERVAL 1 DAY)'), 'OR',
 		// DB::raw('LEFT(Pedidos.created_at,10)'), '=', DB::raw('DATE_SUB(CONCAT(CURDATE()), INTERVAL 2 DAY)'), 'OR',
 		// DB::raw('LEFT(Pedidos.created_at,10)'), '=', DB::raw('DATE_SUB(CONCAT(CURDATE()), INTERVAL 3 DAY)'), 'OR',
@@ -390,7 +392,7 @@ class Pedidos extends Eloquent
  			  DB::raw('SUM(Pedidos.total) as total'),
 			  DB::raw('ROUND(AVG(Pedidos.total),2) as promedio'),
 			  DB::raw('(SUM(Pedidos.total) * .12) as comision'),
-			  DB::raw('(SUM(Pedidos.total) - (SUM(Pedidos.total) * .15)) as totalF'))
+			  DB::raw('(SUM(Pedidos.total) - (SUM(Pedidos.total) * .12)) as totalF'))
 	
 	
 
@@ -447,7 +449,7 @@ class Pedidos extends Eloquent
  			  DB::raw('SUM(Pedidos.total) as total'),
 			  DB::raw('ROUND(AVG(Pedidos.total),2) as promedio'),
 			  DB::raw('(SUM(Pedidos.total) * .12) as comision'),
-			  DB::raw('(SUM(Pedidos.total) - (SUM(Pedidos.total) * .15)) as totalF'))
+			  DB::raw('(SUM(Pedidos.total) - (SUM(Pedidos.total) * .12)) as totalF'))
 	
 	
 
@@ -489,7 +491,7 @@ class Pedidos extends Eloquent
  			  DB::raw('SUM(Pedidos.total) as total'),
 			  DB::raw('ROUND(AVG(Pedidos.total),2) as promedio'),
 			  DB::raw('(SUM(Pedidos.total) * .12) as comision'),
-			  DB::raw('(SUM(Pedidos.total) - (SUM(Pedidos.total) * .15)) as totalF'))
+			  DB::raw('(SUM(Pedidos.total) - (SUM(Pedidos.total) * .12)) as totalF'))
 	
 
 		->groupBy('Restaurantes.id')
@@ -529,8 +531,8 @@ class Pedidos extends Eloquent
 			  'Restaurantes.pagadas as ordenes',
 			  'Restaurantes.confirmadas as reservaciones',
 			  DB::raw('(Restaurantes.con_telefono + Restaurantes.con_direccion) as consultas'),
-			  DB::raw('(Pedidos.total * .15) as comision'),
-			  DB::raw('(SUM(Pedidos.total) - (Pedidos.total * .15) - (Restaurantes.confirmadas * 5) - (Restaurantes.con_telefono + Restaurantes.con_direccion)) as totalF,Restaurantes.cuenta'))
+			  DB::raw('(Pedidos.total * .12) as comision'),
+			  DB::raw('(SUM(Pedidos.total) - (Pedidos.total * .12) - (Restaurantes.confirmadas * 5) - (Restaurantes.con_telefono + Restaurantes.con_direccion)) as totalF,Restaurantes.cuenta'))
 	
 
 		->groupBy('Pedidos.id_restaurante');
@@ -590,15 +592,18 @@ class Pedidos extends Eloquent
 	{    
 
 		  $pedidos =DB::table('pedidos as p')
+
 		  ->where('p.estatus', '=', 'pagada')
 		  ->where('e.estatus', '=', 'confirmado')
+		  ->where('h.estatus_u','=','ocupado')
+		  ->where('u.username','=',$usuario)
 
 		  // ->where('p.id_usuario', '=', $id)
 		  
 		 ->leftjoin('users as u',function($join) use($usuario){
-							$join->on('p.id_usuario','=',  DB::raw('"'.$usuario.'"'));
+							$join->on('p.id_usuario','=', 'u.id' );
 					}) 
-		
+		// DB::raw('"'.$usuario.'"')
 		->leftjoin('envios as e',function($join){
 							$join->on('e.id_pedido','=','p.id');
 					}) 
@@ -608,7 +613,7 @@ class Pedidos extends Eloquent
 					})
 		
 
-        ->select('p.id as id_pedido','h.nombre','h.apellidos','e.coordenadas_actuales')
+        ->select('e.id as id_envio','h.nombre','h.apellidos','e.coordenadas_actuales')
 
         ->orderBy('p.id','DESC');
 
@@ -660,7 +665,7 @@ class Pedidos extends Eloquent
 							$join->on('envios.id_usuarioHD','=','usershd.id');
 					})
 
-		->where('envios.estatus', '=' , 'entregado')
+		->where('envios.estatus', '=' , 'recibido')
 		->where('pedidos.estatus', '=' , 'pagada')
 		->select('users.nombre as usuariotasty','users.apellidos as apellidostasty','usershd.nombre as usuariohd',
 			'usershd.apellidos as apellidoshd','pedidos.id as pedidosid','pedidos.caracteristica as caracteristicas',
@@ -669,6 +674,9 @@ class Pedidos extends Eloquent
 		return $pedidos;
 
 	}
+
+
+	
 
 
 }

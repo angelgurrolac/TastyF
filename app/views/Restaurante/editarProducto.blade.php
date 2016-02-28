@@ -46,6 +46,9 @@
 	      <?php $precioF = ($producto->precio * .15) + (2.5 + $producto->precio);
 	      $valor = ($producto->precio * .15);
 	      		 ?>
+
+	      		 <label>Tiempo de preparación</label>
+			<input class="form-control" type="number" name="preparacion" value="{{$producto->tiempo}}"></input>
 			</div>
 			<div class="col-md-3 precios">
 				<label >Precio</label>

@@ -43,6 +43,9 @@
 	           {{ Form::select('categoria2', (['0' => 'Elija categoria secundaria'] + $categorias), null,['class' => 'form-control']) }}
 	          
 			<br>
+
+			<label>Tiempo de preparación</label>
+			<input class="form-control" type="number" name="preparacion"></input>
 			</div>
 			<div class="col-md-3 precios">
 				<label >Precio</label>
@@ -71,6 +74,7 @@
 		         {{ Form::label('hora_fin', 'Hora a la que se termina de preparar') }}
 		         <br>
 		         {{ Form::input('time', 'hora_fin', Input::old('hora_fin'), array('placeholder'=>'17:00','class'=>'form-control', 'required')) }}		    
+				<br>
 				<br>
 				<br>
 				<br>

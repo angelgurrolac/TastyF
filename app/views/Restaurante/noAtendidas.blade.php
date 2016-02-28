@@ -28,13 +28,13 @@
               <table id="pedidos" class="table table-bordered table-striped">
         
                <thead class="at">
-                    <th style="width:70px; heigth:200px;">Orden</th>
-                    <th style="width:252px; heigth:200px;">Domicilio</th>
-                    <th style="width:188px; heigth:200px;">Caracteristicas</th>
-                    <th style="width:100px; heigth:200px;">Total</th>      
-                    <th style="width:144px; heigth:200px;">Nombre</th>      
+                    <th style="width:270px; heigth:200px;">Número de orden</th>
+                    <!-- <th style="width:252px; heigth:200px;">Domicilio</th> -->
+                    <th style="width:288px; heigth:200px;">Caracteristicas</th>
+                    <th style="width:150px; heigth:200px;">Total</th>      
+                    <!-- <th style="width:144px; heigth:200px;">Nombre</th>       -->
                     <th style="width:100px; heigth:200px;">Cantidad</th>
-                    <th style="width:144px; heigth:200px;">Producto</th>                                                
+                    <th style="width:244px; heigth:200px;">Producto</th>                                                
                </thead>
 
                  <tbody class="at acomodo-tabla">
@@ -50,12 +50,12 @@
                @endforeach
                        
                     <tr>
-                         <td style="width:70px; heigth:200px;" rowspan="{{$a}}">{{$value->id}}</td>
-                         <td style="width:252px; heigth:200px;" rowspan="{{$a}}">{{$value->domicilioP}}</td>
-                         <td style="width:188px; heigth:200px;" rowspan="{{$a}}">{{$value->caracteristica}}</td>
-                         <td style="width:100px; heigth:200px;" rowspan="{{$a}}">{{$value->total}}</td>
+                         <td style="width:270px; heigth:200px;" rowspan="{{$a}}">{{$value->id}}</td>
+                         <!-- <td style="width:252px; heigth:200px;" rowspan="{{$a}}">{{$value->domicilioP}}</td> -->
+                         <td style="width:288px; heigth:200px;" rowspan="{{$a}}">{{$value->caracteristica}}</td>
+                         <td style="width:150px; heigth:200px;" rowspan="{{$a}}">{{$value->total}}</td>
                          <!-- <td rowspan="{{$a}}">{{$value->estatus}}</td> -->
-                          <td style="width:144px; heigth:200px;" rowspan="{{$a}}">{{$value->nombreUsuario}}</td>
+                          <!-- <td style="width:144px; heigth:200px;" rowspan="{{$a}}">{{$value->nombreUsuario}}</td> -->
                          @foreach($detalles as $key => $info)
                          
                          @if($info->id_pedido == $value->id)     
@@ -66,7 +66,7 @@
                               <tr>                               
                                    <td style="width:100px; heigth:200px;">{{$info->cantidad}}</td>
                               
-                                   <td style="width:144px; heigth:200px;">{{$info->nombre}}</td>
+                                   <td style="width:244px; heigth:200px;">{{$info->nombre}}</td>
                               
                            
                                    
@@ -80,7 +80,7 @@
                      
                     </tr>
 
-                    <td></td>
+                    
                     
 
           

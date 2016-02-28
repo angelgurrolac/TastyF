@@ -47,6 +47,18 @@
 	display:inline;
 	margin-right: 25px;
 }
+.botondis
+{
+	background-image: url('../img/Enviar2.jpg')!important;
+	width: 171px;
+	border-style: none !important;
+}
+.botondis1
+{
+	background-image: url('../img/Enviar1.jpg')!important;
+	width: 171px;
+	border-style: none !important;
+}
 
 
 @media (max-width:768px) {

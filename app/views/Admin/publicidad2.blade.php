@@ -40,14 +40,16 @@
                       	<b>Nombre de la publicidad:</b>
                       	<input class="form-control" type="text" name="descripcion" value="{{$publicidad->descripcion}}">
                       	<br>
-                      	<!-- <b>Día:</b> -->
-                        <!-- <input  data-format="yyyy/MM/dd" class="form-control" type="date" name="date" value="{{$publicidad->dia}}"> -->
+                      	<b>Día:</b>
+                        <input  data-format="yyyy/MM/dd" class="form-control" type="date" name="date" value="{{$publicidad->dia}}">
+                        <br>
                      	<b>Hora de inicio:</b>
                         <input class="form-control" type="time" name="hora_inicio" value="{{$publicidad->hora_inicio}}">
+                        <br>
                         <b>Hora de fin:</b>
                         <input class="form-control" type="time" name="hora_fin" value="{{$publicidad->hora_fin}}">
                         <br>
-
+   
                         <input type="hidden" name="id" value="{{$publicidad->id}}">
 			            {{Form::submit('Guardar cambios',array('class'=>'btn btn-primary'))}}
 

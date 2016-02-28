@@ -51,7 +51,7 @@
 
                     <div class="col-md-10">
 
-                      <img style="height:300px; width:300px;" class="center-block thumbnail img-rounded" src="{{asset($value->imagen)}}" alt="{{asset($value->imagen)}}">
+                      <img style="height:300px; width:300px;" class="center-block thumbnail img-rounded" src="{{asset($value->imagenR)}}" alt="{{asset($value->imagenR)}}">
                       <div class="caption">
                         @if($mensaje==2)
                       <h4>Número total de ordenes: {{$cat->cantidad2}} </h4>
@@ -64,6 +64,12 @@
                       @elseif($mensaje==6)
                       <h4>Promedio en ordenes: ${{$cat->cantidad}} </h4>			
                       @endif
+
+                      {{Form::open(array('url'=>'/admin/editarR', 'id' => $value->id))}}
+                {{ Form::submit('Editar', array('name'=> 'Editar','class' => 'btn btn-success direccionar')) }} 
+                {{ Form::submit('Eliminar', array('name'=> 'Eliminar','class' => 'btn btn-danger')) }}</td> 
+                <input type="hidden" name="id_restaurante" value="{{$value->id}}">
+                {{Form::close()}}
                   </div>
                     </div>
                   </div>

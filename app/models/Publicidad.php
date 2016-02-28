@@ -53,4 +53,19 @@ class Publicidad extends Eloquent
 		return $publicidad;
 
 	}
+
+	public function scopenombre($publicidad,$nombre)
+	{
+		$publicidad = DB::table('publicidad as p')
+
+
+			->leftjoin('restaurantes as r',	function($join) use($nombre){
+					$join->on('r.id','=',DB::raw('"'.$nombre.'"'));
+		})
+
+		->select('r.nombre as nombre');
+
+		return $publicidad;
+
+	}
 }

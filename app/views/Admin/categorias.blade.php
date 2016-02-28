@@ -35,7 +35,7 @@
 						<hr>
             	
                     	<div class="row">
-						{{ Form::open(array('url' => '/admin/activar','files'=>'true')) }}
+						
 						@foreach($categorias as $key => $value)  
 						<div class="form-group col-lg-4">
 

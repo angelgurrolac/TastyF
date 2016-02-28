@@ -19,7 +19,10 @@ class AdminController extends \BaseController {
 		date_default_timezone_set('America/Mexico_City');
 		$fecha = date('Y-m-d');
 		$publicidad = Publicidad::where('dia','>=',$fecha)->get();
-		return View::make('Admin.publicidad',compact('publicidad'));
+		$restaurantes = Restaurantes::where('id', '>', 0)->get();
+		$publicidad2 = Publicidad::where('dia','>=',$fecha)->first();
+		$nombre = Publicidad::nombre($publicidad2->id_restaurante)->get();
+		return View::make('Admin.publicidad',compact('publicidad','restaurantes','nombre'));
 		//return View::make('Admin.publicidad');
 	}
 
@@ -149,6 +152,10 @@ class AdminController extends \BaseController {
 			$usuario->id_nivel = 2;
 			$usuario->id_restaurante = Input::get('id') ;
 			$usuario->save();
+			$hd=new hd;
+			$hd->id_restaurante = Input::get('id');
+			$hd->decision = 1;
+			$hd->save();
 
 			return Redirect::to('admin/candidatos')->with('message','Restaurante aceptado con éxito');
 		}
@@ -195,6 +202,7 @@ class AdminController extends \BaseController {
 		// $date=$date->format('Y-m-d');
 		
 		$publicidad->descripcion = Input::get('descripcion');
+		$publicidad->id_restaurante = Input::get('restaurante');
 		$publicidad->dia = Input::get('date1');
 		$publicidad->hora_inicio = Input::get('hora_inicio');
 		$publicidad->hora_fin = Input::get('hora_fin');
@@ -307,7 +315,8 @@ class AdminController extends \BaseController {
 		if(Input::has('Editar'))
 		{	
 			$publicidad = Publicidad::find(Input::get('publicidad_id'));
-		    return View::make('Admin.publicidad2',compact('publicidad'));
+		    $restaurante = Restaurantes::where('id','=',$publicidad->id_restaurante);
+		    return View::make('Admin.publicidad2',compact('publicidad','restaurante'));
 
 		}
 		if(Input::has('Eliminar'))
@@ -327,19 +336,10 @@ class AdminController extends \BaseController {
 		
 		$publicidad->descripcion = Input::get('descripcion');
 		// $publicidad->dia = $date1;
+		
 		$publicidad->hora_inicio = Input::get('hora_inicio');
 		$publicidad->hora_fin = Input::get('hora_fin');
 		$publicidad->save();
-
-		$reg = 'APA91bFt7e3tIj2MO9YPQU7z6ddfQ4WkSdO7xzpQYX2H0G25JjiEjMQd9Chqn7OOKC1k14jGh3xeBPQWJZYP5Dzz9uyrjj1UB646vlt1dUdkDlM6M0_D7ss';
-
-
-                      PushNotification::app('Tasty')
-                            ->to($reg)
-                            ->send('Hola Escamilla!! Si funciona esto! :P');
-
-                            
-
 		return Redirect::to('admin/publicidad')->with('message','Cambios con éxito');
 			
 	}
@@ -353,7 +353,7 @@ class AdminController extends \BaseController {
 			$cat =  Categorias::find($producto->id_categoria);
 			$cat2 =  Categorias::find($producto->id_categoria2);
 	    	$categorias = Categorias::where('activa','=','1')->lists('nombre','id');		
-			return View::make('admin.editarproductoA',compact('producto','cat','cat2','categorias'));
+			return View::make('Admin.editarproductoA',compact('producto','cat','cat2','categorias'));
 
 		}
 		elseif (Input::has('Eliminar')) 
@@ -369,17 +369,17 @@ class AdminController extends \BaseController {
 		$producto = Productos::find(Input::get('id'));
 		$image = Input::file('imgFile');
 		if($image!=null){
-			$producto->imagen = $image_final;
-			$name_image = $image -> getClientOriginalName();	
-			$image_final = 'productos/' .$name_image;
-			$image -> move('productos', $name_image );
+
+			    $name_image = $image -> getClientOriginalName();	
+				$image_final = 'productos/' .$name_image;
+				$producto->imagen = $image_final;
+				$image -> move('productos', $name_image );
 		}
 			
 	
 		$producto->nombre = Input::get('nombre');
 		$producto->descripcion = Input::get('descripcion');
 		$producto->precio = Input::get('precio');
-		$producto->id_restaurante = Auth::user()->id_restaurante;
 		$producto->hora_inicio = Input::get('hora_inicio'); 
 		$producto->hora_fin = Input::get('hora_fin');
 		$estado = Input::get('estado');
@@ -406,7 +406,7 @@ class AdminController extends \BaseController {
 			$cat =  Categorias::find($producto->id_categoria);
 			$cat2 =  Categorias::find($producto->id_categoria2);
 	    	$categorias = Categorias::where('activa','=','1')->lists('nombre','id');		
-			return View::make('admin.editarproductoB',compact('producto','cat','cat2','categorias'));
+			return View::make('Admin.editarproductoB',compact('producto','cat','cat2','categorias'));
 
 		}
 		elseif (Input::has('Eliminar')) 
@@ -422,17 +422,16 @@ class AdminController extends \BaseController {
 		$producto = Productos::find(Input::get('id'));
 		$image = Input::file('imgFile');
 		if($image!=null){
-			$producto->imagen = $image_final;
-			$name_image = $image -> getClientOriginalName();	
-			$image_final = 'productos/' .$name_image;
-			$image -> move('productos', $name_image );
+			 $name_image = $image -> getClientOriginalName();	
+				$image_final = 'productos/' .$name_image;
+				$producto->imagen = $image_final;
+				$image -> move('productos', $name_image );
 		}
 			
 	
 		$producto->nombre = Input::get('nombre');
 		$producto->descripcion = Input::get('descripcion');
 		$producto->precio = Input::get('precio');
-		$producto->id_restaurante = Auth::user()->id_restaurante;
 		$producto->hora_inicio = Input::get('hora_inicio'); 
 		$producto->hora_fin = Input::get('hora_fin');
 		$estado = Input::get('estado');
@@ -452,7 +451,7 @@ class AdminController extends \BaseController {
 
 	public function agregarc()
 	{
-		return View::make('admin/nuevac');
+		return View::make('Admin.nuevac');
 	}
 
 	public function nuevac()
@@ -537,14 +536,47 @@ class AdminController extends \BaseController {
 
 	}
 
+	public function editarR()
+	{
+		if(Input::has('Editar'))
+		{
+
+			$restaurantes = Restaurantes::find(Input::get('id_restaurante'));
+			return View::make('Admin.editarR',compact('restaurantes'));
+
+		}
+		elseif (Input::has('Eliminar')) 
+		{
+			$restaurantes = Restaurantes::find(Input::get('id_restaurante'));
+			$restaurantes->delete();
+			return Redirect::to('/admin/restaurantes')->with('success','Restaurante eliminado con éxito');
+		}
+	}
+
+	public function guardarR()
+	{
+		$restaurante = Restaurantes::find(Input::get('id'));
+		$image = Input::file('imgFile');
+		if($image!=null){
+
+			    $name_image = $image -> getClientOriginalName();	
+				$image_final = 'restaurantes/' .$name_image;
+				$restaurante->imagenR = $image_final;
+				$image -> move('restaurantes', $name_image );
+		}
+
+			$restaurante->nombre 	=Input::get('nombre');
+			$restaurante->telefono = Input::get('telefono');
+			$restaurante->coordenadas = Input::get('coordenadas');
+			$restaurante->direccion=Input::get('direccion');
+			$restaurante->hora_inicio=Input::get('hora_inicio');
+			$restaurante->hora_fin=Input::get('hora_fin');
+			$restaurante->save();
+			return Redirect::to('/admin/restaurantes')->with('success','Restaurante guardado con éxito');
 
 
 
-
-
-
-
-
+	}
 
 
 }

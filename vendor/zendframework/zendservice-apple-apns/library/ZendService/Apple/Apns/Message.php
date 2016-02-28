@@ -66,6 +66,12 @@ class Message
      */
     protected $category;
 
+    /** 
+     * URL Arguments
+     * @var array|null
+     */
+    protected $urlArgs;
+
     /**
      * Custom Attributes
      * @var array|null
@@ -116,7 +122,6 @@ class Message
      */
     public function setToken($token)
     {
-
         if (!is_string($token)) {
             throw new Exception\InvalidArgumentException(sprintf(
                     'Device token must be a string, "%s" given.',
@@ -220,6 +225,8 @@ class Message
             throw new Exception\InvalidArgumentException('Badge must be null or an integer');
         }
         $this->badge = $badge;
+
+        return $this;
     }
 
     /**
@@ -301,6 +308,29 @@ class Message
     }
 
     /**
+     * Get URL arguments
+     *
+     * @return array|null
+     */
+    public function getUrlArgs()
+    {
+        return $this->urlArgs;
+    }
+
+    /**
+     * Set URL arguments
+     *
+     * @param  array|null $urlArgs
+     * @return Message
+     */
+    public function setUrlArgs(array $urlArgs)
+    {
+        $this->urlArgs = $urlArgs;
+
+        return $this;
+    }
+
+    /**
      * Get Custom Data
      *
      * @return array|null
@@ -352,6 +382,9 @@ class Message
         }
         if (!is_null($this->category)) {
             $aps['category'] = $this->category;
+        }
+        if (!is_null($this->urlArgs)) {
+            $aps['url-args'] = $this->urlArgs;
         }
         if (!empty($this->custom)) {
             $message = array_merge($this->custom, $message);

@@ -40,6 +40,10 @@
 					{{ Form::input( 'time',' hora_fin', Input::old('hora_fin'), array('class' => 'form-control','form'=>'nueva','placeholder'=>'17:00', 'required')) }}
 				</div>
 				<div class="form-group col-lg-6">
+					{{ Form::label('coordenada', 'Coordenadas de tu restaurante') }}
+					{{ Form::text('coordenadas', Input::old('coordenadas'), array('class' => 'form-control','form'=>'nueva', 'required')) }}
+				</div>
+				<div class="form-group col-lg-6">
 					<br>
 					{{ Form::label('entrega', '¿Entrega a domicilio?') }}
 					{{ Form::checkbox('domicilio', true, ['class' => 'field']) }}

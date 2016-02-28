@@ -16,7 +16,27 @@ class RestauranteController extends \BaseController {
 		$reservaciones = Reservaciones::res(Auth::user()->id_restaurante);
 		$publicidad = Publicidad::cuentasp(Auth::user()->id_restaurante)->get();
 		$detallesR = Reservaciones::consulta()->get();
-		return View::make('Restaurante.hogar',compact('pedidos','detalles','reservaciones','detallesR','restaurante','publicidad'));
+		$hd = hd::where('id_restaurante','=',Auth::user()->id_restaurante)->first();
+		if ($hd->decision == 1) {
+			$variable = 1;
+		}
+		else
+		{
+			$variable = 0;
+		}
+		return View::make('Restaurante.hogar',compact('pedidos','variable','detalles','reservaciones','detallesR','restaurante','publicidad'));
+	}
+
+	public function enviarhdc()
+	{
+
+		$id = Input::get('hd');
+		$var = Auth::user()->id_restaurante;
+		$hd = hd::where('id_restaurante','=', $var)->first();
+		$hd->decision = $id;
+		$hd->save();
+		return Redirect::to('/');
+
 	}
 
 
@@ -24,7 +44,11 @@ class RestauranteController extends \BaseController {
 		
 		$pedido = Pedidos::find(Input::get('idpedido'));
 		$user = $usuario = User::where('id','=',$pedido->id_usuario)->first();
+		$restaurante = Restaurantes::where('id','=', $pedido->id_restaurante);
+		$var = Auth::user()->id_restaurante;
 	
+		$validacion = hd::where('id_restaurante','=',$var)->get();
+
 		if(Input::has('Confirmar'))
 		{
 
@@ -33,10 +57,86 @@ class RestauranteController extends \BaseController {
 			$envios = new Envios();
 			$envios->estatus = 'pendiente';
 			$envios->id_pedido = $pedido->id;
+			$envios->coordenadas_accidente = 0;
 			$envios->id_restaurante = $pedido->id_restaurante;
 			$envios->save();
-			return Redirect::to('/')->with('success','Orden Aceptada Con Exito');
 
+
+		foreach($validacion as $key2 => $info2){
+
+		if ($info2->decision == 0) {
+			$reg = UsuariosHD::reg($var)->get();
+
+				if($reg != ""){
+
+			foreach($reg as $key => $info){
+			
+
+                $valor = PushNotification::Message('¡Envíos disponibles!',array(
+                    'valor' => 1,
+                    'sound' => 'example.aiff',
+                 'actionLocKey' => 'Action button title!',
+    'locKey' => 'localized key',
+    'locArgs' => array(
+        'localized args',
+        'localized args',
+    ),
+    'launchImage' => 'image.jpg',
+
+    'custom' => array('custom data' => array(
+        'we' => 'want', 'send to app'
+    ))
+));
+
+                PushNotification::app('HappyDelivery')
+                ->to($info->reg_id)
+                ->send($valor);
+            }
+
+        
+            }
+
+			
+		}
+		if ($info2->decision == 1) {
+			$reg = UsuariosHD::reg2($var)->get();
+
+				if($reg != ""){
+
+			foreach($reg as $key => $info){
+			
+
+                $valor = PushNotification::Message('¡Envíos disponibles!',array(
+                    'valor' => 1,
+                    'sound' => 'example.aiff',
+                 'actionLocKey' => 'Action button title!',
+    'locKey' => 'localized key',
+    'locArgs' => array(
+        'localized args',
+        'localized args',
+    ),
+    'launchImage' => 'image.jpg',
+
+    'custom' => array('custom data' => array(
+        'we' => 'want', 'send to app'
+    ))
+));
+
+                PushNotification::app('HappyDelivery')
+                ->to($info->reg_id)
+                ->send($valor);
+            }
+
+        
+            }
+
+		    
+		}
+	}
+
+		
+
+			return Redirect::to('/')->with('success','Orden Aceptada Con Exito');
 		}
 		elseif (Input::has('Declinar')) 
 		{
@@ -71,13 +171,17 @@ class RestauranteController extends \BaseController {
 	{
 		
 		$alimentos=Productos::misP(Auth::user()->id_restaurante)->get();
-		return View::make('Restaurante.alimentos',compact('alimentos'));
+		$pedidos = Pedidos::pedidos(Auth::user()->id_restaurante);
+		$reservaciones = Reservaciones::res(Auth::user()->id_restaurante);
+		return View::make('Restaurante.alimentos',compact('alimentos','pedidos','reservaciones'));
 		
 	}
 	public function bebidas()
 	{
 		$bebidas=Productos::misB(Auth::user()->id_restaurante)->get();
-		return View::make('Restaurante.bebidas',compact('bebidas'));
+		$pedidos = Pedidos::pedidos(Auth::user()->id_restaurante);
+		$reservaciones = Reservaciones::res(Auth::user()->id_restaurante);
+		return View::make('Restaurante.bebidas',compact('bebidas','pedidos','reservaciones'));
 		
 	}
 	public function editar(){
@@ -127,16 +231,17 @@ class RestauranteController extends \BaseController {
 		$cat = Input::get('categoria1');
 		$cat2 = Input::get('categoria2');
 		if($image!=null){
-			$producto->imagen = $image_final;
 			$name_image = $image -> getClientOriginalName();	
-			$image_final = 'productos/' .$name_image;
-			$image -> move('productos', $name_image );
+				$image_final = 'productos/' .$name_image;
+				$producto->imagen = $image_final;
+				$image -> move('productos', $name_image );
 		}
 			
 	
 		$producto->nombre = Input::get('nombre');
 		$producto->descripcion = Input::get('descripcion');
 		$producto->precio = Input::get('precio');
+		$producto->tiempo = Input::get('preparacion');
 		$producto->iva = Input::get('comision');
 		$producto->costo_unitario = Input::get('costo_unitario');
 		$producto->id_restaurante = Auth::user()->id_restaurante;
@@ -161,10 +266,10 @@ class RestauranteController extends \BaseController {
 		$cat = Input::get('categoria1');
 		$cat2 = Input::get('categoria2');
 		if($image!=null){
-			$producto->imagen = $image_final;
 			$name_image = $image -> getClientOriginalName();	
-			$image_final = 'productos/' .$name_image;
-			$image -> move('productos', $name_image );
+				$image_final = 'productos/' .$name_image;
+				$producto->imagen = $image_final;
+				$image -> move('productos', $name_image );
 		}
 			
 	
@@ -172,6 +277,7 @@ class RestauranteController extends \BaseController {
 		$producto->descripcion = Input::get('descripcion');
 		$producto->precio = Input::get('precio');
 		$producto->iva = Input::get('comision');
+		$producto->tiempo = Input::get('preparacion');
 		$producto->costo_unitario = Input::get('costo_unitario');
 		$producto->id_restaurante = Auth::user()->id_restaurante;
 		$producto->id_sabor = Input::get('sabor');
@@ -220,6 +326,7 @@ class RestauranteController extends \BaseController {
 		$producto->descripcion = Input::get('descripcion');
 		$producto->precio = Input::get('precio');
 		$producto->iva = Input::get('comision');
+		$producto->tiempo = Input::get('preparacion');
 		$producto->costo_unitario = Input::get('costo_unitario');
 		$producto->tipo = "alimento";
 		$producto->id_restaurante = Auth::user()->id_restaurante;		
@@ -249,6 +356,7 @@ class RestauranteController extends \BaseController {
 		$producto->descripcion = Input::get('descripcion');
 		$producto->precio = Input::get('precio');
 		$producto->iva = Input::get('comision');
+		$producto->tiempo = Input::get('preparacion');
 		$producto->costo_unitario = Input::get('costo_unitario');
 		$producto->tipo = "bebida";
 		$producto->id_restaurante = Auth::user()->id_restaurante;
@@ -262,12 +370,14 @@ class RestauranteController extends \BaseController {
 		return Redirect::to('restaurante/bebidas')->with('message','Cambios con exito');
 
 	}
+	
 	public function pedidos()
 	{
 		$pedidos = Pedidos::pedidosDos(Auth::user()->id_restaurante);
-			$detalles = Pedidos::consulta()->get();
+		$detalles = Pedidos::consulta()->get();
 		return View::make('Restaurante.pedidos',compact('pedidos','detalles'));
 	}	
+
 		public function noAtendidas()
 	{
 		$pedidos = Pedidos::pedidosCuatro(Auth::user()->id_restaurante);
@@ -446,7 +556,6 @@ class RestauranteController extends \BaseController {
 
 	public function finanzas()
 	{
-
 		$pedidos = Pedidos::find(Input::get('id'));
 		$pedidos->pagoR2 = 1;
 		$pedidos->save();
@@ -464,6 +573,12 @@ class RestauranteController extends \BaseController {
 	{
 		$penvios = Pedidos::pedienvi()->get();
 		return View::make('Restaurante.enviados',compact('penvios'));
+	}
+
+	public function reservacionesA()
+	{
+		$reservaciones = Reservaciones::reservacionesA()->get();
+		return View::make('Restaurante.reservaciones',compact('reservaciones'));
 	}
 
 

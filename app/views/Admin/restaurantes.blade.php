@@ -54,6 +54,12 @@
                           @if($mensaje==1)
                       <h4>Visto: {{$value->cantidad}} veces</h4>		
                       @endif
+
+                      {{Form::open(array('url'=>'/admin/editarR', 'id' => $value->id))}}
+                {{ Form::submit('Editar', array('name'=> 'Editar','class' => 'btn btn-success direccionar')) }} 
+                {{ Form::submit('Eliminar', array('name'=> 'Eliminar','class' => 'btn btn-danger')) }}</td> 
+                <input type="hidden" name="id_restaurante" value="{{$value->id}}">
+                {{Form::close()}}
                       </div>
                     </div>
                   </div>

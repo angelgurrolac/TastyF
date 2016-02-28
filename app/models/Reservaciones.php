@@ -47,7 +47,27 @@ class Reservaciones extends Eloquent
 		$confirmadas = DB::table('reservaciones')
 			->where('estatus','=','pendiente')							
 			->where('id_restaurante','=', $id)
+			->orderBy('id','desc')
 			->get();
 		return $confirmadas;
+	}
+
+	public function scopereservacionesA($reservaciones)
+	{
+		$reservaciones = DB::table('reservaciones as r')
+
+		->leftjoin('users as u',	function($join){
+							$join->on('u.id','=','r.id_usuario');
+					})	
+
+		->where('r.estatus','=','pagada')
+
+		->select('r.id as id','u.nombre as nombre','u.apellidos as apellidos','u.direccion as direccion','u.correo as correo',
+		'r.total as total' ,'r.hora as hora','r.fecha as fecha');
+
+
+
+		return $reservaciones;
+
 	}
 }

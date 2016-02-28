@@ -9,7 +9,7 @@ class UserController extends \BaseController {
             $usuario = User::where('username','=',Input::get('username'))->first();
             date_default_timezone_set('America/Mexico_City');
 			$hora = date('H:i:s');
-			$alimentos=Productos::alimentosUser($hora);			
+			$alimentos=Productos::alimentosUser($hora);
 			return json_encode($alimentos);		
 	}
 	public function bebidas()
@@ -24,7 +24,7 @@ class UserController extends \BaseController {
 	public function restaurantes()
 	{
         $usuario = User::where('username','=',Input::get('username'))->first();
-		$restaurantes=Restaurantes::all();
+		$restaurantes=Restaurantes::restaurantesA();
 		return json_encode($restaurantes);
 		
 	}
@@ -72,7 +72,7 @@ class UserController extends \BaseController {
     {
 
         $usuario = User::where('username','=', Input::get('username'))->first();
-        $resultado = Pedidos::EnviosUser($usuario->id)->take(1)->get();
+        $resultado = Pedidos::EnviosUser($usuario->username)->take(1)->get();
         return json_encode($resultado);
     }
 
@@ -216,7 +216,8 @@ class UserController extends \BaseController {
        
         Conekta::setApiKey("key_U7qsxjuAzRny1F5ogKXFyw");
         Conekta::setLocale('ES');
-		$pedido = Pedidos::find(Input::get('id'));
+        $reg = Input::get('reg_id');
+        $pedido = Pedidos::find(Input::get('id'));
         $card = Input::get('conektaTokenId');
         $monto = $pedido->total;
 
@@ -262,30 +263,18 @@ class UserController extends \BaseController {
             $pedido->save();
             $restaurantes->pagadas = $restaurantes->pagadas + 1 ;
             $restaurantes->save();
-            if($user->reg_id != ""){
-                $valor = PushNotification::Message('Califica el sabor de los platillos que acabas de consumir!',array(
-                    'valor' => 1,
-                    'sound' => 'example.aiff',
-
-                    'actionLocKey' => 'Action button title!',
-                    'locKey' => 'localized key',
-                    'locArgs' => array(
-                        'localized args',
-                        'localized args',
-                        ),
-                    'launchImage' => 'image.jpg',
-
-                    'custom' => array('custom data' => array(
-                        'we' => 'want', 'send to app'
-                        ))
-                    ));
+            date_default_timezone_set('America/Mexico_City');
+            $hora = date('Y-m-d H:i:s');
+            // $nuevamas = strtotime ( '+2 minute' , strtotime ( $notificacion ) ) ;
+            // $nuevamas = date ( 'Y-m-d H:i:s' , $nuevamas );
+            // if($reg != ""){
 
 
-                PushNotification::app('Tasty')
-                ->to($user->reg_id)
-                ->send($valor);
-            }
-        	return Response::json($charge->status);
+            //           PushNotification::app('Tasty')
+            //                 ->to($reg)
+            //                 ->send('Califica el sabor de los platillos que acabas de consumir!');
+            //         }
+            // return Response::json($charge->status);
         
     }
     public function getPubli()
@@ -614,7 +603,7 @@ class UserController extends \BaseController {
         $usuario = User::where('username','=',Input::get('username'))->first();
         $estado = UsuariosHD::where('id','=',Input::get('id_usuarioHD') )->first();
         $confirmacion = Input::get('confirmacion');
-
+        $reg = Input::get('reg_id');
         if ($confirmacion == 'si')
         {
         $envios = Envios::find(Input::get('id'));
@@ -629,7 +618,7 @@ class UserController extends \BaseController {
         $envios = Envios::find(Input::get('id'));
         $envios->estatus = 'confirmado';
         $envios->save();
-        $estado->estatus_u = 'noatendido';
+        $estado->estatus_u = 'noatendida';
         $estado->save();
         return Response::json('success no');
         }
@@ -673,4 +662,38 @@ class UserController extends \BaseController {
         return Response::json('success');
 
     }
+
+    public function timevaloracion()
+    {
+        $reg = Input::get('reg_id');
+
+
+        if($reg != ""){
+                $valor = PushNotification::Message('¡Valora tu pedido!',array(
+                    'valor' => 1,
+                    'sound' => 'example.aiff',
+                 'actionLocKey' => 'Action button title!',
+    'locKey' => 'localized key',
+    'locArgs' => array(
+        'localized args',
+        'localized args',
+    ),
+    'launchImage' => 'image.jpg',
+
+    'custom' => array('custom data' => array(
+        'we' => 'want', 'send to app'
+    ))
+));
+
+                PushNotification::app('Tasty')
+                ->to($reg)
+                ->send($valor);
+            }
+
+            return Response::json('1');
+
+    }
+
+
+
 }
