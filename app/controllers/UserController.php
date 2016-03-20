@@ -24,7 +24,7 @@ class UserController extends \BaseController {
 	public function restaurantes()
 	{
         $usuario = User::where('username','=',Input::get('username'))->first();
-		$restaurantes=Restaurantes::restaurantesA();
+		$restaurantes=Restaurantes::All();
 		return json_encode($restaurantes);
 		
 	}
@@ -45,6 +45,7 @@ class UserController extends \BaseController {
 		$pedido = new Pedidos;
         $pedido->domicilio = Input::get('direccion');
 		$pedido->coordenadas = Input::get('coordenadas');
+        $pedido->hora_pedido = Input::get('hora_pedido');
         $pedido->caracteristica = $caracteristica;
 		$pedido->total = Input::get('costo');
 		$pedido->id_restaurante = $restaurante;
@@ -93,6 +94,7 @@ class UserController extends \BaseController {
 		$reservacion->mesa = Input::get('mesa');
         $reservacion->total = Input::get('total');
 		$reservacion->hora = Input::get('hora');
+        $reservacion->hora_reservacion = Input::get('hora_res');
         $reservacion->fecha = $date;
 		$reservacion->id_restaurante = $restaurante;
 		$reservacion->id_usuario = $usuario{0}->id;
@@ -653,12 +655,33 @@ class UserController extends \BaseController {
 
     }
 
+       public function Resnoaten()
+    {
+        // $pedido = Pedidos::where('id','=',Input::get('id_pedido'))->get();
+        $reservacion = Reservaciones::find(Input::get('id_reservacion'));
+        $reservacion->estatus = 'noAtendida';
+        $reservacion->save();
+        return Response::json('success');
+
+
+    }
+
     public function PedPen()
     {
         // $pedido = Pedidos::where('id','=',Input::get('id_pedido'))->get();
         $pedidos = Pedidos::find(Input::get('id_pedido'));
         $pedidos->estatus = 'pendiente';
         $pedidos->save();
+        return Response::json('success');
+
+    }
+
+     public function ResPen()
+    {
+        // $pedido = Pedidos::where('id','=',Input::get('id_pedido'))->get();
+        $reservacion = Reservaciones::find(Input::get('id_reservacion'));
+        $reservacion->estatus = 'pendiente';
+        $reservacion->save();
         return Response::json('success');
 
     }
@@ -691,6 +714,17 @@ class UserController extends \BaseController {
             }
 
             return Response::json('1');
+
+    }
+
+
+    public function correo()
+    {
+
+        $usuario = User::where('id','=',Input::get('id'))->first();
+        $usuario->correo = Input::get('correo');
+        $usuario->save();
+        return Response::json('success');
 
     }
 

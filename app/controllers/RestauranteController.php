@@ -526,9 +526,20 @@ class RestauranteController extends \BaseController {
 		$Facturas = FacturarR::propias(Auth::user()->id_restaurante)->get();
 		$pedidos = Pedidos::pedidos(Auth::user()->id_restaurante);
 		$reservaciones = Reservaciones::res(Auth::user()->id_restaurante);
-		return View::make('Restaurante.facturas',compact('Facturas','pedidos','reservaciones'));
+		return View::make('Restaurante.facturaA',compact('Facturas','pedidos','reservaciones'));
 
 	}
+
+	public function nuevafac()
+	{
+		$pedidos = Pedidos::pedidos(Auth::user()->id_restaurante);
+		$reservaciones = Reservaciones::res(Auth::user()->id_restaurante);
+		return View::make('Restaurante.facturas',compact('pedidos','reservaciones'));
+	}
+
+
+
+
 	public function factura($id)
 	{
 		$factura = FacturarR::unica($id)->get();
@@ -551,9 +562,13 @@ class RestauranteController extends \BaseController {
 			$factura->Domicilio = Input::get('domicilio');
 			$factura->rfc = Input::get('RFC');
 			$factura->correo = Input::get('Correo');
-												
 			$factura->save();
-			return Redirect::to('restaurante/hogar')->with('message','factura guardada con éxito');
+			$FacturarR = New facturarr;
+			$FacturarR->id_restaurante = Auth::user()->id_restaurante;
+			$FacturarR->estatus = 'pendiente';
+			$FacturarR->costo = Input::get('Costo');
+			$FacturarR->save();
+			return Redirect::to('restaurante/facturas')->with('message','factura guardada con éxito');
 			
 				
 	}

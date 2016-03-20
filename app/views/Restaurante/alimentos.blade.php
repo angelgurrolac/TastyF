@@ -64,24 +64,24 @@ date_default_timezone_set('America/Mexico_City');
 
 
 // Imprime algo como: Monday 8th of August 2005 03:12:46 PM
-$notificacion =  date('Y-m-d H:i:s');
+$notificacion =  date('H:i:s');
 
 
 
 $nuevamas = strtotime ( '+5 minute' , strtotime ( $notificacion ) ) ;
-$nuevamas = date ( 'Y-m-d H:i:s' , $nuevamas );
+$nuevamas = date ( 'H:i:s' , $nuevamas );
 
 
 
 
 $nuevamenos = strtotime ( '-5 minute' , strtotime ( $notificacion ) ) ;
-$nuevamenos = date ( 'Y-m-d H:i:s' , $nuevamenos );
+$nuevamenos = date ( 'H:i:s' , $nuevamenos );
 
 ?>
 </head>
 <body>
   @foreach($reservaciones as $key3 => $value3)
-  @if($nuevamas > $value3->created_at && $nuevamenos < $value3->created_at) 
+  @if($nuevamas > $value3->hora_reservacion && $nuevamenos < $value3->hora_reservacion) 
   <script type="text/javascript">
    $(document).ready(function() { 
 
@@ -111,7 +111,7 @@ $nuevamenos = date ( 'Y-m-d H:i:s' , $nuevamenos );
 
   @foreach($pedidos as $key2 => $value2)
   
-  @if($nuevamas > $value2->created_at && $nuevamenos < $value2->created_at) 
+  @if($nuevamas > $value2->hora_pedido && $nuevamenos < $value2->hora_pedido) 
 
   <script type="text/javascript">
    $(document).ready(function() { 

@@ -51,6 +51,26 @@
                       <img style="height:300px; width:300px;" class="center-block thumbnail img-rounded" src="{{asset($value->imagenR)}}" alt="{{asset($value->imagenR)}}">
                       <div class="caption">
 
+                      	<b>Dirección:</b>
+                      	<p>{{$value->direccion}}</p>
+                      	<b>Telefono:</b>
+                      	<p>{{$value->telefono}}</p>
+                      	<b>Horario:</b>
+                      	<p>De: {{$value->hora_inicio}} a: {{$value->hora_fin}}</p>
+                      	<b>¿Entrega a domicilio?</b>
+                      	 <?php
+                          $estado = $value->domicilio;
+                          if ($estado == 1) {
+                              $valor = 'Si';
+                          }
+                          else
+                          {
+                             $valor = 'No';
+                          }
+                         ?>
+                         <p>{{$valor}}</p>
+
+
                           @if($mensaje==1)
                       <h4>Visto: {{$value->cantidad}} veces</h4>		
                       @endif

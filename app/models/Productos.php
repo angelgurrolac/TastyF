@@ -18,6 +18,7 @@ class Productos extends Eloquent
 		->where('Restaurantes.validado','=',' 1')
 
 		->where('Productos.hora_inicio','<', $hora)
+		->where('Productos.estado','=',1)
 
 		->where('Productos.hora_fin','>', $hora)
 

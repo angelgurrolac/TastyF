@@ -125,7 +125,10 @@ Route::post('/users/allen','UserController@allen');
 Route::post('/users/ultEnv','UserController@ultEnv');
 Route::post('/users/Pednoaten','UserController@Pednoaten');
 Route::post('/users/PedPen','UserController@PedPen');
+Route::post('/users/Resnoaten','UserController@Resnoaten');
+Route::post('/users/ResPen','UserController@ResPen');
 Route::post('/users/timevaloracion','UserController@timevaloracion');
+Route::post('/users/correo','UserController@correo');
 
 
 
@@ -153,6 +156,7 @@ Route::post('condec','RestauranteController@hogarPedidos');
 Route::post('rescon','RestauranteController@rescon');
 Route::get('/restaurante/estadisticas','RestauranteController@estadisticas');
 Route::get('/restaurante/facturas','RestauranteController@facturas');
+Route::get('/restaurante/nuevafac','RestauranteController@nuevafac');
 Route::get('/restaurante/{id}/factura','RestauranteController@factura');
 Route::get('/restaurante/noAtendidas','RestauranteController@noAtendidas');
 Route::post('/restaurante/facturaM','RestauranteController@facturaM');

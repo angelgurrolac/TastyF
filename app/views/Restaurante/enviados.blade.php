@@ -9,79 +9,79 @@
   
   <style type="text/css">
   .notificaciones-info{
-   background: #075db2;
-   color: #fff;
-   padding: 10px;
-   margin-right: 200px;
-   font-weight: bold;
-   font-family: sans-serif;
- }
+    background: #075db2;
+    color: #fff;
+    padding: 10px;
+    margin-right: 200px;
+    font-weight: bold;
+    font-family: sans-serif;
+  }
 
- .notificaciones-info:hover{
-   background: #7cbecc;
-   color: #eee;
- }
+  .notificaciones-info:hover{
+    background: #7cbecc;
+    color: #eee;
+  }
 
- .notificaciones-error{
-   background: #bd0000;
-   color: #fff;
-   padding: 20px;
-   border: 3px solid #fff;
- }
- .notificaciones-error:hover{
-   background: #e43633;  
- }
+  .notificaciones-error{
+    background: #bd0000;
+    color: #fff;
+    padding: 20px;
+    border: 3px solid #fff;
+  }
+  .notificaciones-error:hover{
+    background: #e43633;  
+  }
 
- .notificaciones-success{
-   background: #90cd48;
-   color: #fff;
-   padding: 10px;
-   margin-right: 50px;
-   font-weight: bold;
-   font-family: sans-serif;
- }
- .notificaciones-success:hover{
-  background: #8bc53f;
-}
+  .notificaciones-success{
+    background: #90cd48;
+    color: #fff;
+    padding: 10px;
+    margin-right: 50px;
+    font-weight: bold;
+    font-family: sans-serif;
+  }
+  .notificaciones-success:hover{
+    background: #8bc53f;
+  }
 
-#notificaciones{
-  display: block;
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  z-index: 9999;
-}
-.notificacion{
-  float: right;
-  clear: both;
-  border: 3px solid transparent;
-  cursor: pointer;
-}
-</style>
-<?php
+  #notificaciones{
+    display: block;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 9999;
+  }
+  .notificacion{
+    float: right;
+    clear: both;
+    border: 3px solid transparent;
+    cursor: pointer;
+  }
+  </style>
+    <?php
 // Establecer la zona horaria predeterminada a usar. Disponible desde PHP 5.1
 date_default_timezone_set('America/Mexico_City');
 
 
 // Imprime algo como: Monday 8th of August 2005 03:12:46 PM
-$notificacion =  date('Y-m-d H:i:s');
+$notificacion =  date('H:i:s');
 
 
 
-$nuevamas = strtotime ( '+2 minute' , strtotime ( $notificacion ) ) ;
-$nuevamas = date ( 'Y-m-d H:i:s' , $nuevamas );
+$nuevamas = strtotime ( '+5 minute' , strtotime ( $notificacion ) ) ;
+$nuevamas = date ( 'H:i:s' , $nuevamas );
 
 
 
 
-$nuevamenos = strtotime ( '-62 minute' , strtotime ( $notificacion ) ) ;
-$nuevamenos = date ( 'Y-m-d H:i:s' , $nuevamenos );
+$nuevamenos = strtotime ( '-5 minute' , strtotime ( $notificacion ) ) ;
+$nuevamenos = date ( 'H:i:s' , $nuevamenos );
 
 ?>
 </head>
 <body>
   @foreach($reservaciones as $key3 => $value3)
-  @if($nuevamas > $value3->created_at && $nuevamenos < $value3->created_at) 
+  @if($nuevamas > $value3->hora_reservacion && $nuevamenos < $value3->hora_reservacion) 
   <script type="text/javascript">
   $(document).ready(function() { 
 
@@ -92,17 +92,17 @@ $nuevamenos = date ( 'Y-m-d H:i:s' , $nuevamenos );
         var contenedor_notificaciones = $(window.document.createElement('div')).attr("id", "notificaciones");
         //a continuación la añadimos al body
         $('body').append(contenedor_notificaciones);
-      }
-      
-      $.notificaciones({    
-        mensaje : '¡Tienes una nueva reservación, revisa tus pedidos y reservaciones!',
-        width: 700,
-        cssClass : 'success',
+    }
+    
+    $.notificaciones({    
+      mensaje : '¡Tienes una nueva reservación, revisa tus pedidos y reservaciones!',
+      width: 700,
+      cssClass : 'success',
         timeout : 3000,//milisegundos
         fadeout : 5000,//tiempo en desaparecer
         radius : 10
       });
-    });
+  });
 
   </script>                   
   @endif
@@ -111,7 +111,7 @@ $nuevamenos = date ( 'Y-m-d H:i:s' , $nuevamenos );
 
   @foreach($pedidos as $key2 => $value2)
   
-  @if($nuevamas > $value2->created_at && $nuevamenos < $value2->created_at) 
+  @if($nuevamas > $value2->hora_pedido && $nuevamenos < $value2->hora_pedido) 
 
   <script type="text/javascript">
   $(document).ready(function() { 
@@ -123,17 +123,17 @@ $nuevamenos = date ( 'Y-m-d H:i:s' , $nuevamenos );
         var contenedor_notificaciones = $(window.document.createElement('div')).attr("id", "notificaciones");
         //a continuación la añadimos al body
         $('body').append(contenedor_notificaciones);
-      }
-      
-      $.notificaciones({    
-        mensaje : '¡Tienes un nuevo pedido, revisa tus pedidos y reservaciones!',
-        width: 700,
-        cssClass : 'success',
+    }
+    
+    $.notificaciones({    
+      mensaje : '¡Tienes un nuevo pedido, revisa tus pedidos y reservaciones!',
+      width: 700,
+      cssClass : 'success',
         timeout : 3000,//milisegundos
         fadeout : 5000,//tiempo en desaparecer
         radius : 10
       });
-    });
+  });
 
   </script>                   
   @endif
@@ -160,7 +160,7 @@ $nuevamenos = date ( 'Y-m-d H:i:s' , $nuevamenos );
 
                <thead class="at">
                 <th style="width:270px; heigth:200px;">Número de orden</th>
-                <th style="width:288px; heigth:200px;">Características</th>
+                
                 <th style="width:90px; heigth:200px;">Total</th> 
                 <th style="width:400px; heigth:200px;">Nombre del repartidor</th>     
 
@@ -172,7 +172,7 @@ $nuevamenos = date ( 'Y-m-d H:i:s' , $nuevamenos );
 
                 <tr>
                  <td style="width:270px; heigth:200px;" >{{$value->pedidosid}}</td>
-                 <td style="width:288px; heigth:200px;" >{{$value->caracteristicas}}</td>
+                 
                  <td style="width:90px; heigth:200px;" >{{$value->totalpedido}}</td>
                  <td style="width:400px; heigth:200px;" >{{$value->usuariohd}} {{$value->apellidoshd}}</td>                
 

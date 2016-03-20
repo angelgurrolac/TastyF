@@ -78,6 +78,7 @@ class Pedidos extends Eloquent
 							$join->on('restaurantes.id','=','pedidos.id_restaurante');
 					}) 		
 		->select('*','restaurantes.nombre','pedidos.id as id')
+		->orderBy('pedidos.id','desc')
 		->get();
 		return $pedidos;
 	}
@@ -594,13 +595,13 @@ class Pedidos extends Eloquent
 		  $pedidos =DB::table('pedidos as p')
 
 		  ->where('p.estatus', '=', 'pagada')
-		  ->where('e.estatus', '=', 'confirmado')
+		  ->orWhere('e.estatus','=','confirmado','or','e.estatus','=','confirmado2')
 		  ->where('h.estatus_u','=','ocupado')
-		  ->where('u.username','=',$usuario)
+		  ->where('u.username','=', $usuario)
 
 		  // ->where('p.id_usuario', '=', $id)
 		  
-		 ->leftjoin('users as u',function($join) use($usuario){
+		 ->leftjoin('users as u',function($join){
 							$join->on('p.id_usuario','=', 'u.id' );
 					}) 
 		// DB::raw('"'.$usuario.'"')

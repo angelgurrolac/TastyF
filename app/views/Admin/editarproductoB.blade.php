@@ -25,8 +25,8 @@
 		{{Form::open(array('url'=>'/admin/guardarB','files'=>'true'))}}
 			<div class="col-md-6">
 				<br>
-			     <img id="blah" style="width:100%;" src="{{asset($producto->imagen)}}" alt="your image" />
-				<input type="file" name="imgFile" id="imgFile" value="">
+			     <img id="blah" style="width:100%;" src="{{asset($producto->imagen)}}" alt="your image" disabled/>
+				<!-- <input type="file" name="imgFile" id="imgFile" value=""> -->
 					
 			</div>
 			<br>
@@ -42,19 +42,19 @@
 			<div class="col-md-3 precios">
 				<label >Precio</label>
 				<br>
-				<input class="form-control inicial" name="precio"  value="{{$producto->precio}}" type="text">
+				<input class="form-control inicial" name="precio"  value="{{$producto->precio}}" type="text" disabled>
 				<br>				
 		         {{ Form::label('hora_inicio', 'hora a la que se comienza a preparar') }}
 		         <br>
-		         {{ Form::input('time','hora_inicio', $producto->hora_inicio, array('placeholder'=>'09:00', 'class' => 'form-control')) }}
+		         {{ Form::input('time','hora_inicio', $producto->hora_inicio, array('placeholder'=>'09:00', 'class' => 'form-control', 'disabled')) }}
 		    	<br/>
 		    
 		         {{ Form::label('hora_fin', 'hora a la que se deja de preparar') }}
 		         <br>
-		         {{ Form::input('time','hora_fin', $producto->hora_fin, array('placeholder'=>'17:00', 'class' => 'form-control')) }}
+		         {{ Form::input('time','hora_fin', $producto->hora_fin, array('placeholder'=>'17:00', 'class' => 'form-control', 'disabled')) }}
 				<br>
 				{{ Form::label('entrega', '¿Aparecer en la aplicación?') }}
-					{{ Form::checkbox('estado', true, ['class' => 'field']) }}
+					{{ Form::checkbox('estado', '1', $producto->estado, ['class' => 'field']) }}
 
 				<br>
 				<br>
