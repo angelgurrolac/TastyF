@@ -119,8 +119,7 @@
           </li>
           <li>
             <a class="padding" href="{{URL::to('/restaurante/noAtendidas') }}"><i class="fa fa-fw fa-minus-square-o"></i> Ordenes no atendidas</a>
-          </li>
-          
+          </li>    
           <li>
             <a class="padding" href="{{URL::to('/restaurante/informes') }}"><i class="fa fa-fw fa-file-text-o"></i> Informes</a>
           </li>
@@ -129,9 +128,6 @@
           </li>
           <li>
             <a class="padding" href="{{URL::to('/restaurante/estadisticas') }}"><i class="fa fa-money"></i> Finanzas</a>
-          </li>
-          <li>
-            <a class="padding" href="{{URL::to('/restaurante/facturas') }}"><i class="fa fa-files-o"></i> Facturas</a>
           </li>
           <li>
             <a class="padding" href="{{URL::to('/logout') }}"><i class="fa fa-fw fa-power-off"></i> Salir</a>

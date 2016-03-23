@@ -113,6 +113,9 @@
             <a href="{{URL::to('/admin/categorias') }}"><i class="fa fa-fw fa-check-square-o"></i> Categorías</a>
           </li>
           <li>
+            <a class="padding" href="{{URL::to('/admin/facturas') }}"><i class="fa fa-files-o"></i> Facturas</a>
+          </li>
+          <li>
             <a href="{{URL::to('/admin/publicidad') }}"><i class="fa fa-fw fa-bookmark"></i> Publicidad</a>
           </li>
           <li>

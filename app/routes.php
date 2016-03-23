@@ -129,6 +129,8 @@ Route::post('/users/Resnoaten','UserController@Resnoaten');
 Route::post('/users/ResPen','UserController@ResPen');
 Route::post('/users/timevaloracion','UserController@timevaloracion');
 Route::post('/users/correo','UserController@correo');
+Route::post('/users/CambioTel','UserController@CambioTel');
+
 
 
 
@@ -155,12 +157,12 @@ Route::post('/restaurante/saveChanges2','RestauranteController@saveChanges2');
 Route::post('condec','RestauranteController@hogarPedidos');
 Route::post('rescon','RestauranteController@rescon');
 Route::get('/restaurante/estadisticas','RestauranteController@estadisticas');
-Route::get('/restaurante/facturas','RestauranteController@facturas');
-Route::get('/restaurante/nuevafac','RestauranteController@nuevafac');
+
+
 Route::get('/restaurante/{id}/factura','RestauranteController@factura');
 Route::get('/restaurante/noAtendidas','RestauranteController@noAtendidas');
-Route::post('/restaurante/facturaM','RestauranteController@facturaM');
-Route::post('/restaurante/facturacion','RestauranteController@facturacion');
+
+
 Route::post('/restaurante/enviarhd','RestauranteController@enviarhd');
 Route::post('/restaurante/finanzas','RestauranteController@finanzas');
 Route::get('/restaurante/pedenviados','RestauranteController@pedenviados');
@@ -213,6 +215,10 @@ Route::post('/admin/finanzas','AdminController@finanzas');
 Route::post('/admin/finanzasPu','AdminController@finanzasPu');
 Route::post('/admin/editarR','AdminController@editarR');
 Route::post('/admin/guardarR','AdminController@guardarR');
+Route::get('/admin/facturas','AdminController@facturas');
+Route::get('/admin/nuevafac','AdminController@nuevafac');
+Route::post('/admin/facturaM','AdminController@facturaM');
+Route::post('/admin/facturacion','AdminController@facturacion');
 
 
 

@@ -579,4 +579,46 @@ class AdminController extends \BaseController {
 	}
 
 
+		public function facturas()
+	{	
+	
+		$Facturas = FacturarR::All();
+		return View::make('Admin.facturaA',compact('Facturas'));
+
+	}
+
+
+		public function nuevafac()
+	{
+		return View::make('Admin.facturas');
+	}
+
+		public function facturaM()
+	{
+		$factura = FacturarR::find(Input::get('id'));
+		$factura->estatus = 'facturada';
+		$factura->save();
+		return Redirect::to('/admin/facturas')->with('message','Factura guardada con éxito');
+	}
+	public function facturacion()
+	{
+
+			$factura = New Facturas;
+			$factura->nombreUsuario = Input::get('nombre');
+			$factura->Domicilio = Input::get('domicilio');
+			$factura->rfc = Input::get('RFC');
+			$factura->correo = Input::get('Correo');
+			$factura->save();
+			$FacturarR = New facturarr;
+			$FacturarR->id_restaurante = Auth::user()->id_restaurante;
+			$FacturarR->estatus = 'pendiente';
+			$FacturarR->costo = Input::get('Costo');
+			$FacturarR->save();
+			return Redirect::to('/admin/facturas')->with('message','factura guardada con éxito');
+			
+				
+	}
+
+
+
 }

@@ -223,6 +223,15 @@ $nuevamenos = date ( 'H:i:s' , $nuevamenos );
 
 									{{ Form::close() }}
 
+									<hr>
+
+
+								<div class="col-md-8">
+									<h1>Datos fiscales</h1>
+								</div>
+
+
+
 
 								</div>
 							</div>

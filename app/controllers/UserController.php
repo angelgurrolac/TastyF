@@ -728,6 +728,15 @@ class UserController extends \BaseController {
 
     }
 
+    public function CambioTel()
+    {
+        $usuario = User::where('username','=',Input::get('username'))->first();
+        $usuario->telefono = Input::get('telefono');
+        $usuario->save();
+        return Response::json('success');
+
+
+    }
 
 
 }
