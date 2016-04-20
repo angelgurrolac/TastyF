@@ -204,7 +204,7 @@ class Pedidos extends Eloquent
 	}
 	public function scopeUserPagado($pagado,$id){
 		$pagado = DB::table('pedidos')
-			->where('estatus','=','pagada')							
+			->where('estatus','=','valorar')							
 			->where('id_usuario','=', $id)
 			->orderBy('created_at', 'desc');
 		return $pagado;
@@ -223,7 +223,7 @@ class Pedidos extends Eloquent
 		$ultimo =DB::table('pedidos')
 		->where('pedidos.id_usuario','=',$id)
 
-		->where('pedidos.estatus','=','pagada')
+		->where('pedidos.estatus','=','valorar')
 
 		->where('pedidos.id','=', $pedido)
 
@@ -595,7 +595,8 @@ class Pedidos extends Eloquent
 		  $pedidos =DB::table('pedidos as p')
 
 		  ->where('p.estatus', '=', 'pagada')
-		  ->orWhere('e.estatus','=','confirmado','or','e.estatus','=','confirmado2')
+		  ->orWhere('e.estatus','confirmado')
+          ->orWhere('e.estatus','confirmado2')
 		  ->where('h.estatus_u','=','ocupado')
 		  ->where('u.username','=', $usuario)
 
@@ -676,6 +677,43 @@ class Pedidos extends Eloquent
 
 	}
 
+	public function scopeultimopedido($pedidos,$username)
+	{
+
+		$pedidos =DB::table('pedidos as p')
+
+		->where('u.username','=',$username)
+
+		->leftjoin('users as u',function($join){
+							$join->on('p.id_usuario','=','u.id');
+					})
+		->select('p.id as id_pedido','p.estatus')
+
+		->orderBy('p.id','desc');
+
+		return $pedidos;
+
+	}
+
+	public function scopelast($pedidos,$username)
+	{
+		$pedidos = DB::table('pedidos as p')
+
+		->leftjoin('envios as e',function($join){
+							$join->on('p.id','=','e.id_pedido');
+					})
+		->leftjoin('users as u',function($join){
+							$join->on('p.id_usuario','=','u.id');
+					})
+
+		->where('u.username','=',$username)
+
+		->select('e.estatus as envio_estatus')
+
+		->orderBy('p.id','desc');
+
+		return $pedidos;
+	}
 
 	
 

@@ -8,7 +8,7 @@ class UserController extends \BaseController {
 			
             $usuario = User::where('username','=',Input::get('username'))->first();
             date_default_timezone_set('America/Mexico_City');
-			$hora = date('H:i:s');
+			$hora = Input::get('hora');
 			$alimentos=Productos::alimentosUser($hora);
 			return json_encode($alimentos);		
 	}
@@ -17,14 +17,15 @@ class UserController extends \BaseController {
 		
 			$usuario = User::where('username','=',Input::get('username'))->first();
             date_default_timezone_set('America/Mexico_City');
-			$hora = date('H:i:s');
+			$hora = Input::get('hora');
 			$bebidas=Productos::bebidasUser($hora);			
 			return json_encode($bebidas);				
 	}
 	public function restaurantes()
 	{
         $usuario = User::where('username','=',Input::get('username'))->first();
-		$restaurantes=Restaurantes::All();
+        $hora = Input::get('hora');
+		$restaurantes=Restaurantes::RestaurantesA($hora)->get();
 		return json_encode($restaurantes);
 		
 	}
@@ -48,6 +49,7 @@ class UserController extends \BaseController {
         $pedido->hora_pedido = Input::get('hora_pedido');
         $pedido->caracteristica = $caracteristica;
 		$pedido->total = Input::get('costo');
+        $pedido->dispositivo = Input::get('dispositivo');
 		$pedido->id_restaurante = $restaurante;
 		$pedido->id_usuario = $usuario{0}->id;
 		$pedido->estatus = "pendiente";
@@ -199,7 +201,7 @@ class UserController extends \BaseController {
 
 	public function platilloEsp(){
 			date_default_timezone_set('America/Mexico_City');
-			$hora = date('H:i:s');
+			$hora = Input::get('hora');
 			$id = Input::get('id');
 			$alimentos=Productos::platilloEsp($hora,$id);			
 				
@@ -207,7 +209,7 @@ class UserController extends \BaseController {
 	}
 	public function addPlatillo(){
 			date_default_timezone_set('America/Mexico_City');
-			$hora = date('H:i:s');
+			$hora = Input::get('hora');
 			$producto=Productos::find(Input::get('id'));
 			$alimentos=Productos::moreAli($hora,$producto->id_restaurante);			
 				
@@ -368,7 +370,10 @@ class UserController extends \BaseController {
 
      public function valoracion()
     {
-    	$id_detalle = Input::get('id_detalle');
+    	$pedidos = Pedidos::find(Input::get('id_pedido'));
+        $pedidos->estatus = 'completado';
+        $pedidos->save();
+        $id_detalle = Input::get('id_detalle');
     	$id_producto = Input::get('id_producto');
     	$detalle = DetallesPedidos::find($id_detalle);
     	$producto = Productos::find($id_producto);
@@ -461,7 +466,7 @@ class UserController extends \BaseController {
     {
         $usuario = User::where('username','=',Input::get('username'))->first();
     		date_default_timezone_set('America/Mexico_City');
-			$hora = date('H:i:s');
+			$hora = Input::get('hora');
 			$productos=Productos::productos($hora);			
 				
 			return json_encode($productos);		
@@ -469,7 +474,7 @@ class UserController extends \BaseController {
     public function buscar()
     {
     	date_default_timezone_set('America/Mexico_City');
-			$hora = date('H:i:s');
+			$hora = Input::get('hora');
     	$texto = Input::get('palabra');
     	
     	$productos = Productos::buscar($texto,$hora)->get();
@@ -479,7 +484,7 @@ class UserController extends \BaseController {
      public function buscarA()
     {
     	date_default_timezone_set('America/Mexico_City');
-		$hora = date('H:i:s');
+		$hora = Input::get('hora');
     	$texto = Input::get('palabra');
     	
     	$productos = Productos::buscarA($texto,$hora)->get();
@@ -491,8 +496,10 @@ class UserController extends \BaseController {
     	date_default_timezone_set('America/Mexico_City');
 	
     	$texto = Input::get('palabra');
+
+        $hora = Input::get('hora');
     	
-    	$restaurantes = Restaurantes::buscarR($texto)->get();
+    	$restaurantes = Restaurantes::buscarR($texto,$hora)->get();
     	return Response::json($restaurantes);
     }
     public function facturarR()
@@ -575,6 +582,15 @@ class UserController extends \BaseController {
         $publicidad->save();
         return Response::json('success');
     }
+
+    public function contalimento()
+    {
+        $alimento = Productos::where('id','=',Input::get('id_producto'))->first();
+        $alimento->contador_v = $alimento->contador_v + 1;
+        $alimento->save();
+        return Response::json('success');
+    }
+
          public function cerrar()
     {
         $usuario = User::where('username','=',Input::get('username'))->first();
@@ -582,6 +598,7 @@ class UserController extends \BaseController {
         $usuario->save();
         return Response::json('success');
     }
+
     public function efectivo(){
         $pedido = Pedidos::find(Input::get('id'));
         $pedido->estatus = 'pagada';
@@ -604,7 +621,9 @@ class UserController extends \BaseController {
     {
         $usuario = User::where('username','=',Input::get('username'))->first();
         $estado = UsuariosHD::where('id','=',Input::get('id_usuarioHD') )->first();
+        $id_envio = Input::get('id');
         $confirmacion = Input::get('confirmacion');
+        $pedido = Pedidos::where('id','=',$id_envio->id_restaurante);
         $reg = Input::get('reg_id');
         if ($confirmacion == 'si')
         {
@@ -613,6 +632,8 @@ class UserController extends \BaseController {
         $envios->save();
         $estado->estatus_u = 'disponible';
         $estado->save();
+        $pedido->estatus = 'valorar';
+        $pedido->save();
         return Response::json('success si');
         }
         elseif ($confirmacion == 'no')
@@ -721,7 +742,7 @@ class UserController extends \BaseController {
     public function correo()
     {
 
-        $usuario = User::where('id','=',Input::get('id'))->first();
+        $usuario = User::where('username','=',Input::get('username'))->first();
         $usuario->correo = Input::get('correo');
         $usuario->save();
         return Response::json('success');
@@ -736,6 +757,29 @@ class UserController extends \BaseController {
         return Response::json('success');
 
 
+    }
+
+    public function upreg()
+    {
+        $usuario = User::where('username','=',Input::get('username'))->first();
+        $usuario->reg_id = Input::get('reg_id');
+        $usuario->save();
+        return Response::json('success');
+    }
+
+    public function pedidouser()
+    {
+        $usuario = User::where('username','=',Input::get('username'))->first();
+        $ultimo = Pedidos::ultimopedido($usuario->username)->take(1)->get();
+        return Response::json($ultimo);
+
+    }
+
+    public function estatusn()
+    {
+        $usuario = User::where('username','=',Input::get('username'))->first();
+        $pedido = Pedidos::last($usuario->username)->take(1)->get();
+        return Response::json($pedido);
     }
 
 

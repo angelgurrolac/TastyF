@@ -98,7 +98,7 @@ Route::post('/users/delFactura','UserController@delFactura');
 Route::post('/users/ultPedido','UserController@ultPedido');
 Route::post('/users/buscar','UserController@buscar');
 Route::post('/users/buscarA','UserController@buscarA');
-Route::post('/users/buscarR','UserController@buscarR');
+Route::get('/users/buscarR','UserController@buscarR');
 Route::post('/users/facturarR','UserController@facturarR');
 Route::post('/users/estatus','UserController@estatus');
 Route::post('/users/borrarP','UserController@borrarP');
@@ -130,6 +130,10 @@ Route::post('/users/ResPen','UserController@ResPen');
 Route::post('/users/timevaloracion','UserController@timevaloracion');
 Route::post('/users/correo','UserController@correo');
 Route::post('/users/CambioTel','UserController@CambioTel');
+Route::post('/users/contalimento','UserController@contalimento');
+Route::post('/users/upreg','UserController@upreg');
+Route::post('/users/pedidouser','UserController@pedidouser');
+Route::post('/users/estatusn','UserController@estatusn');
 
 
 
@@ -157,12 +161,8 @@ Route::post('/restaurante/saveChanges2','RestauranteController@saveChanges2');
 Route::post('condec','RestauranteController@hogarPedidos');
 Route::post('rescon','RestauranteController@rescon');
 Route::get('/restaurante/estadisticas','RestauranteController@estadisticas');
-
-
 Route::get('/restaurante/{id}/factura','RestauranteController@factura');
 Route::get('/restaurante/noAtendidas','RestauranteController@noAtendidas');
-
-
 Route::post('/restaurante/enviarhd','RestauranteController@enviarhd');
 Route::post('/restaurante/finanzas','RestauranteController@finanzas');
 Route::get('/restaurante/pedenviados','RestauranteController@pedenviados');

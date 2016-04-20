@@ -24,7 +24,7 @@ class Productos extends Eloquent
 
 		->where('Productos.tipo','=', 'alimento')
 
-		->select('*','Productos.nombre as nombreP','Productos.id as idP')
+		->select('*','Productos.nombre as nombreP','Productos.id as idP','Restaurantes.nombre as nombre_restaurante','Restaurantes.telefono as telefono_restaurante','Restaurantes.direccion as direccion_restaurante')
 
 		->orderBy('idP','desc')
 		
@@ -76,6 +76,7 @@ class Productos extends Eloquent
 		
 		->where('Productos.hora_inicio','<', $hora)
 
+
 		->where('Productos.hora_fin','>', $hora)
 
 		->select('*','Productos.nombre as nombreP','Productos.id as idP')
@@ -121,9 +122,15 @@ class Productos extends Eloquent
 
 		->where('Productos.hora_inicio','<', $hora)
 
+		->where('Productos.estado','=',1)
+
 		->where('Productos.hora_fin','>', $hora)
 
 		->where('Productos.tipo','=', 'bebida')
+
+		->select('*','Productos.nombre as nombreP','Productos.id as idP','Restaurantes.nombre as nombre_restaurante','Restaurantes.telefono as telefono_restaurante','Restaurantes.direccion as direccion_restaurante')
+
+		->orderBy('idP','desc')
 
 
 		
@@ -152,6 +159,8 @@ class Productos extends Eloquent
 
 		->where('users.estatus','=',1)
 
+		->where('Productos.estado','=',1)
+
 		->where('Restaurantes.validado','=','1')
 		
 		->orderBy('Productos.id_categoria');
@@ -166,7 +175,16 @@ class Productos extends Eloquent
 		->leftjoin('restaurantes as Restaurantes',	function($join){
 				$join->on('Restaurantes.id','=','Productos.id_restaurante');
 		})
+
+		->leftjoin('users as users',	function($join){
+				$join->on('Restaurantes.id','=','users.id_restaurante');
+		})
+
+		->where('users.estatus','=',1)
+
 		->where('Restaurantes.validado','=',' 1')
+
+		->where('Productos.estado','=',1)
 
 		->where('Productos.hora_inicio','<', $hora)
 
@@ -261,20 +279,26 @@ class Productos extends Eloquent
 				$join->on('Restaurantes.id','=','Productos.id_restaurante');
 		})
 
+		->leftjoin('users as users',	function($join){
+				$join->on('Restaurantes.id','=','users.id_restaurante');
+		})
+
+		->where('users.estatus','=',1)
+
 		->where('Restaurantes.validado','=',' 1')
 
 		->where('Productos.hora_inicio','<', $hora)
 
 		->where('Productos.hora_fin','>', $hora)
 
-
-				
+		->where('Productos.estado','=',1)
 
 		->select('*','Productos.nombre as nombreP','Productos.id as idP');
 			
 		return $coincidencias;
 	}
 	public function scopeBuscarA($coincidencias, $texto, $hora){
+
 		$coincidencias =DB::table('productos as Productos')
 
 		->where('Productos.nombre','LIKE','%'.$texto.'%')
@@ -282,6 +306,11 @@ class Productos extends Eloquent
 		->leftjoin('restaurantes as Restaurantes',	function($join){
 				$join->on('Restaurantes.id','=','Productos.id_restaurante');
 		})
+		->leftjoin('users as users',	function($join){
+				$join->on('Restaurantes.id','=','users.id_restaurante');
+		})
+
+		->where('users.estatus','=',1)
 
 		->where('Restaurantes.validado','=',' 1')
 
@@ -290,6 +319,8 @@ class Productos extends Eloquent
 		->where('Productos.hora_fin','>', $hora)
 		
 		->where('Productos.tipo','=', 'alimento')
+
+		->where('Productos.estado','=',1)
 				
 
 		->select('*','Productos.nombre as nombreP','Productos.id as idP');

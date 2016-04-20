@@ -15,6 +15,14 @@
   <link rel="stylesheet" href="{{ URL::asset('assets/pnotify.css') }}">
   <script src="{{ URL::asset('assets/js/bootstrap-datetimepicker.min.js') }}"></script>
   <script src="{{ URL::asset('assets/pnotify.js') }}"></script>
+    <style type="text/css">
+  .padding
+  {
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+  }
+  </style>
+
   
 
   
@@ -85,41 +93,41 @@
         <ul class="nav navbar-nav side-nav" style="overflow-y:hidden;">
           <br>
           <li >
-            <a href="{{URL::to('/admin/pedidos') }}"><i class="fa fa-fw fa-flag"></i> Pedidos</a>
+            <a class="padding" href="{{URL::to('/admin/pedidos') }}"><i class="fa fa-fw fa-flag"></i> Pedidos</a>
           </li>
           <li>
-            <a href="{{URL::to('/admin/alimentos') }}"><i class="fa fa-fw fa-cutlery"></i> Alimentos</a>
+            <a class="padding" href="{{URL::to('/admin/alimentos') }}"><i class="fa fa-fw fa-cutlery"></i> Alimentos</a>
           </li>
           <li>
-            <a href="{{URL::to('/admin/bebidas') }}"><i class="fa fa-fw fa-glass"></i> Bebidas</a>
+            <a class="padding" href="{{URL::to('/admin/bebidas') }}"><i class="fa fa-fw fa-glass"></i> Bebidas</a>
           </li>
           <li>
-            <a href="{{URL::to('/admin/restaurantes') }}"><i class="fa fa-fw fa-cutlery"></i> Restaurantes</a>
+            <a class="padding" href="{{URL::to('/admin/restaurantes') }}"><i class="fa fa-fw fa-cutlery"></i> Restaurantes</a>
           </li>
           <li>
-            <a href="{{URL::to('/admin/usuarios') }}"><i class="fa fa-fw fa-users"></i> Usuarios</a>
+            <a class="padding" href="{{URL::to('/admin/usuarios') }}"><i class="fa fa-fw fa-users"></i> Usuarios</a>
           </li>
           <li>
-            <a href="{{URL::to('/admin/informes') }}"><i class="fa fa-fw fa-file-text-o"></i> Informes</a>
+            <a class="padding" href="{{URL::to('/admin/informes') }}"><i class="fa fa-fw fa-file-text-o"></i> Informes</a>
           </li>
           
           <li>
-            <a href="{{URL::to('/admin/estadisticas') }}"><i class="fa fa-money"></i>  Finanzas</a>
+            <a class="padding" href="{{URL::to('/admin/estadisticas') }}"><i class="fa fa-money"></i>  Finanzas</a>
           </li>
           <li>
-            <a href="{{URL::to('/admin/candidatos') }}"><i class="fa fa-fw fa-users"></i> Candidatos</a>
+            <a class="padding" href="{{URL::to('/admin/candidatos') }}"><i class="fa fa-fw fa-users"></i> Candidatos</a>
           </li>
           <li>
-            <a href="{{URL::to('/admin/categorias') }}"><i class="fa fa-fw fa-check-square-o"></i> Categorías</a>
+            <a class="padding" href="{{URL::to('/admin/categorias') }}"><i class="fa fa-fw fa-check-square-o"></i> Categorías</a>
           </li>
           <li>
             <a class="padding" href="{{URL::to('/admin/facturas') }}"><i class="fa fa-files-o"></i> Facturas</a>
           </li>
           <li>
-            <a href="{{URL::to('/admin/publicidad') }}"><i class="fa fa-fw fa-bookmark"></i> Publicidad</a>
+            <a class="padding" href="{{URL::to('/admin/publicidad') }}"><i class="fa fa-fw fa-bookmark"></i> Publicidad</a>
           </li>
           <li>
-            <a href="{{URL::to('/logout') }}"><i class="fa fa-fw fa-power-off"></i> Salir</a>
+            <a class="padding" href="{{URL::to('/logout') }}"><i class="fa fa-fw fa-power-off"></i> Salir</a>
           </li>
         </ul>
       </div>

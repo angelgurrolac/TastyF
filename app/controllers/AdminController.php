@@ -379,9 +379,6 @@ class AdminController extends \BaseController {
 	
 		$producto->nombre = Input::get('nombre');
 		$producto->descripcion = Input::get('descripcion');
-		$producto->precio = Input::get('precio');
-		$producto->hora_inicio = Input::get('hora_inicio'); 
-		$producto->hora_fin = Input::get('hora_fin');
 		$estado = Input::get('estado');
 			if($estado==1){
 				$producto->estado = 1;
@@ -431,9 +428,6 @@ class AdminController extends \BaseController {
 	
 		$producto->nombre = Input::get('nombre');
 		$producto->descripcion = Input::get('descripcion');
-		$producto->precio = Input::get('precio');
-		$producto->hora_inicio = Input::get('hora_inicio'); 
-		$producto->hora_fin = Input::get('hora_fin');
 		$estado = Input::get('estado');
 			if($estado==1){
 				$producto->estado = 1;

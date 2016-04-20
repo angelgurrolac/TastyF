@@ -244,7 +244,7 @@ $nuevamenos = date ( 'H:i:s' , $nuevamenos );
               <th>Nombre</th>
               <th>Costo Promedio</th>
               <th>No. ordenes</th>               
-              <th>Total a depositar</th> 
+              <th>Total cobrado</th> 
               <th>Comisión</th>          
               <th>Fecha a pagar</th>
               <th>Acciones</th>

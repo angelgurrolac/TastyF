@@ -2,10 +2,10 @@
 
 return array(
 
-    'appNameIOS'     => array(
-        'environment' =>'development',
-        'certificate' =>'/path/to/certificate.pem',
-        'passPhrase'  =>'password',
+    'com.fomr.tasty'  => array(
+        'environment' =>'production',
+        'certificate' =>app_path().'/cert/push.pem',
+        'passPhrase'  =>'tastyfoodsinc2016',
         'service'     =>'apns'
     ),
     'Tasty' => array(
